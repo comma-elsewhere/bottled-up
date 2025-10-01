@@ -1,19 +1,34 @@
-[gd_scene load_steps=15 format=3 uid="uid://burhuv7o64fhi"]
+[gd_scene load_steps=16 format=3 uid="uid://burhuv7o64fhi"]
 
+[ext_resource type="Texture2D" uid="uid://duu6lc6peb0b" path="res://assets/misc/environ_sky.exr" id="1_2vj2h"]
 [ext_resource type="Script" uid="uid://dsucwpdgcyu5l" path="res://scripts/player.gd" id="1_72ix8"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_72ix8"]
-sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_y0acb"]
+panorama = ExtResource("1_2vj2h")
+filter = false
 
-[sub_resource type="Sky" id="Sky_2vj2h"]
-sky_material = SubResource("ProceduralSkyMaterial_72ix8")
+[sub_resource type="Sky" id="Sky_j4d2a"]
+sky_material = SubResource("PanoramaSkyMaterial_y0acb")
+process_mode = 1
+radiance_size = 0
 
 [sub_resource type="Environment" id="Environment_y0acb"]
 background_mode = 2
-sky = SubResource("Sky_2vj2h")
-tonemap_mode = 2
-glow_enabled = true
+background_energy_multiplier = 0.1
+sky = SubResource("Sky_j4d2a")
+ambient_light_color = Color(0.011177218, 0.09143863, 0.1764732, 1)
+ambient_light_sky_contribution = 0.2
+ambient_light_energy = 0.2
+reflected_light_source = 2
+ssr_fade_in = 1.1999991
+ssr_fade_out = 0.34151077
+ssr_depth_tolerance = 0.01
+fog_enabled = true
+fog_light_color = Color(0, 0, 0, 1)
+fog_density = 0.3
+fog_sky_affect = 0.75
+fog_depth_begin = 129.0
+fog_depth_end = 3569.9
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_0ip28"]
 size = Vector2(50, 50)
@@ -43,8 +58,12 @@ data = PackedVector3Array(-2.5, 0.5, 2.5, 2.5, 0.5, 2.5, -2.5, -0.5, 2.5, 2.5, 0
 [node name="Main" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+transform = Transform3D(0.8242447, 0.27093142, -0.4972092, 0.010858141, 0.87037426, 0.4922707, 0.56612986, -0.4111503, 0.7144596, 1.0404911, 13.105618, 0)
+light_color = Color(0.7236726, 1, 0.8983423, 1)
+light_energy = 0.4
 shadow_enabled = true
+shadow_blur = 2.0
+sky_mode = 1
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_y0acb")
@@ -76,6 +95,19 @@ shape = SubResource("ConvexPolygonShape3D_y0acb")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5937712, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Player/Head"]
+
+[node name="TempFlashlight" type="SpotLight3D" parent="Player/Head/Camera3D"]
+light_color = Color(1, 1, 0.93333334, 1)
+light_energy = 0.2
+light_indirect_energy = 0.5
+light_volumetric_fog_energy = 0.0
+light_specular = 0.0
+shadow_enabled = true
+shadow_blur = 1.103
+distance_fade_enabled = true
+spot_range = 20.0
+spot_attenuation = -2.0
+spot_angle = 25.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 5.149106)
