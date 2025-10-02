@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://r0k72ao8xtuf"]
+
+[ext_resource type="Shader" uid="uid://hr8hst1ak2ey" path="res://resources/shaders/ps1_shader.gdshader" id="1_ej2xr"]
+
+[resource]
+shader = ExtResource("1_ej2xr")
+shader_parameter/enabled = true
+shader_parameter/dithering = true
+shader_parameter/colors = 12
+shader_parameter/dither_size = 1

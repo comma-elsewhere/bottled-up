@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://cdp1ni2ovvqrs"]
+
+[ext_resource type="Script" uid="uid://dbv1b27cjmqvi" path="res://scripts/item.gd" id="1_4bsal"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_67hrw"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_67hrw"]
+material = SubResource("StandardMaterial3D_67hrw")
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_4bsal"]
+points = PackedVector3Array(-0.25, -0.25, -0.25, 0.25, 0.25, 0.25, 0.25, -0.25, 0.25, 0.25, 0.25, -0.25, -0.25, 0.25, 0.25, 0.25, -0.25, -0.25, -0.25, -0.25, 0.25, -0.25, 0.25, -0.25)
+
+[node name="Cube" type="RigidBody3D"]
+collision_layer = 3
+collision_mask = 3
+continuous_cd = true
+script = ExtResource("1_4bsal")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_67hrw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_4bsal")
