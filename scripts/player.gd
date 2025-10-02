@@ -38,7 +38,11 @@ func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("interact") and pick_item:
 		pick_item.reparent(get_tree().current_scene)
 		pick_item = null
-
+		
+	#exit game for debug! :D
+	if Input.is_action_just_pressed("exit_game"):
+		get_tree().quit()
+	
 func _unhandled_input(event: InputEvent) -> void:
 	#Handle head rotation
 	if Input.MOUSE_MODE_CAPTURED and event is InputEventMouseMotion:

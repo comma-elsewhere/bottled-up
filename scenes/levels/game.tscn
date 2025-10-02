@@ -44,7 +44,7 @@ data = PackedVector3Array(-250, 0, 250, 250, 0, -250, 250, 0, 250, -250, 0, 250,
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_b6bv0"]
 
-[node name="Main" type="Node3D"]
+[node name="island" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.8242447, 0.27093142, -0.4972092, 0.010858141, 0.87037426, 0.4922707, 0.56612986, -0.4111503, 0.7144596, 1.0404911, 13.105618, 0)
@@ -74,6 +74,9 @@ parameters/looping = true
 
 [node name="island" parent="." instance=ExtResource("2_y0acb")]
 metadata/_edit_lock_ = true
+
+[node name="Landscape_001" parent="island" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.17967987, 0, -0.3915844)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="island/Landscape_001" index="0"]
 input_ray_pickable = false
