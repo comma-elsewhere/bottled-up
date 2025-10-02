@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://burhuv7o64fhi"]
+[gd_scene load_steps=11 format=3 uid="uid://burhuv7o64fhi"]
 
 [ext_resource type="Texture2D" uid="uid://duu6lc6peb0b" path="res://assets/misc/environ_sky.exr" id="1_2vj2h"]
 [ext_resource type="PackedScene" uid="uid://degfds0rnudwf" path="res://assets/models/island.glb" id="2_y0acb"]
 [ext_resource type="PackedScene" uid="uid://bp75xksj0l5to" path="res://scenes/player/player.tscn" id="3_j4d2a"]
+[ext_resource type="AudioStream" uid="uid://c7oe5xk0hjgdk" path="res://assets/sounds/Windy trees.mp3" id="4_u81e1"]
+[ext_resource type="AudioStream" uid="uid://b56rq50nl1k0k" path="res://assets/sounds/Beach waves.mp3" id="5_b6bv0"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_y0acb"]
 panorama = ExtResource("1_2vj2h")
@@ -66,5 +68,20 @@ shape = SubResource("ConcavePolygonShape3D_b6bv0")
 
 [node name="Player" parent="." instance=ExtResource("3_j4d2a")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.085611, 15.262686, -5.399829)
+
+[node name="Audio" type="Node" parent="."]
+
+[node name="Wind" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("4_u81e1")
+volume_db = 10.0
+pitch_scale = 0.75
+autoplay = true
+parameters/looping = true
+
+[node name="Waves" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("5_b6bv0")
+volume_db = -2.0
+autoplay = true
+parameters/looping = true
 
 [editable path="island"]

@@ -1,6 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://bp75xksj0l5to"]
+[gd_scene load_steps=8 format=3 uid="uid://bp75xksj0l5to"]
 
 [ext_resource type="Script" uid="uid://dsucwpdgcyu5l" path="res://scripts/player.gd" id="1_8afob"]
+[ext_resource type="AudioStream" uid="uid://doyef42l717cp" path="res://assets/sounds/Sand step 1.mp3" id="2_p47bc"]
+[ext_resource type="AudioStream" uid="uid://k4gfgkjcwrx7" path="res://assets/sounds/Sand step 2.mp3" id="3_75vfm"]
+[ext_resource type="AudioStream" uid="uid://cqbmrffn8h7sj" path="res://assets/sounds/Sand step 3.mp3" id="4_0owmy"]
+[ext_resource type="AudioStream" uid="uid://d31ootg12xbd6" path="res://assets/sounds/Sand step 4.mp3" id="5_qek5x"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_2vj2h"]
 
@@ -25,5 +29,29 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5937712, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
 
-[node name="SpotLight3D" type="SpotLight3D" parent="Head/Camera3D"]
+[node name="Flashlight" type="SpotLight3D" parent="Head/Camera3D"]
+distance_fade_enabled = true
+distance_fade_begin = 9.0
+spot_range = 10.0
 spot_attenuation = 0.2
+spot_angle = 25.0
+
+[node name="Feet" type="Node3D" parent="."]
+
+[node name="Footsteps1" type="AudioStreamPlayer3D" parent="Feet"]
+stream = ExtResource("2_p47bc")
+
+[node name="Footsteps2" type="AudioStreamPlayer3D" parent="Feet"]
+stream = ExtResource("3_75vfm")
+
+[node name="Footsteps3" type="AudioStreamPlayer3D" parent="Feet"]
+stream = ExtResource("4_0owmy")
+
+[node name="Footsteps4" type="AudioStreamPlayer3D" parent="Feet"]
+stream = ExtResource("5_qek5x")
+
+[node name="Timer" type="Timer" parent="Feet"]
+process_callback = 0
+autostart = true
+
+[connection signal="timeout" from="Feet/Timer" to="." method="_on_timer_timeout"]
