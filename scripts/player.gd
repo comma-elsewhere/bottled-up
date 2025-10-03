@@ -8,6 +8,8 @@ extends CharacterBody3D
 @onready var footsteps_4: AudioStreamPlayer3D = $Feet/Footsteps4
 @onready var feet_timer: Timer = $Feet/Timer
 @onready var item_pickup: RayCast3D = $Head/Camera3D/RayCast3D
+@onready var fade: AnimationPlayer = $Head/Camera3D/CanvasLayer/Fade/AnimationPlayer
+@onready var animation: AnimationPlayer = $AnimationPlayer
 
 
 #interaction variables
@@ -20,8 +22,10 @@ var is_moving: bool = false
 #movement variables
 const WALK: float = 6.0
 const SPRINT: float = 8.5
-const JUMP_VELOCITY: float = 4.5
+const CROUCH: float = 3.0
+const JUMP_VELOCITY: float = 5.0
 var speed: float
+var is_crouching: bool = false
 
 #head bob variables
 const BOB_FREQ: float = 1.8
@@ -32,12 +36,18 @@ var t_bob: float = 0.0
 func _ready() -> void:
 	#Capture mouse
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	
+	fade.play("fade_in")
 		
 	#reset item you're holding (not working rn???)
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("interact") and pick_item:
 		pick_item.reparent(get_tree().current_scene)
 		pick_item = null
+		
+	#Handle toggle crouch
+	if Input.is_action_just_pressed("crouch"):
+		crouch()
 		
 	#exit game for debug! :D
 	if Input.is_action_just_pressed("exit_game"):
@@ -60,11 +70,14 @@ func _physics_process(delta: float) -> void:
 		velocity.y = JUMP_VELOCITY
 		
 	#Handle speed.
-	if Input.is_action_pressed("sprint"):
+	if is_crouching:
+		speed = CROUCH
+		feet_timer.wait_time = 0.9
+	elif Input.is_action_pressed("sprint"):
 		speed = SPRINT
 		feet_timer.wait_time = 0.6
 	else:
-		feet_timer.wait_time = 0.85
+		feet_timer.wait_time = 0.8
 		speed = WALK
 
 	# Get the input direction and handle the movement/deceleration.
@@ -110,9 +123,27 @@ func pickup_item(item):
 	await get_tree().create_timer(0.1).timeout
 	
 	pick_item = item
+	
+# crouch/uncrouch
+func crouch():
+	if is_crouching:
+		animation.play_backwards("crouch")
+	elif !is_crouching:
+		animation.play("crouch")
+
+# fades out screen then restarts game
+func gameover():
+	fade.play("fade_out")
+	await fade.animation_finished
+	get_tree().reload_current_scene()
 
 #plays footsteps
 func _on_timer_timeout() -> void:
 	if is_moving and is_on_floor():
 		var current_step = footsteps.pick_random()
 		current_step.play()
+
+#changes crouch bool onces crouch animation is over
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "crouch":
+		is_crouching = !is_crouching
