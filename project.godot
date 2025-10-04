@@ -21,6 +21,7 @@ GInit="*res://scripts/global/global_init.gd"
 GVar="*res://scripts/global/global_var.gd"
 GFunc="*res://scripts/global/global_func.gd"
 GConst="*res://scripts/global/global_const.gd"
+GSignal="*res://scripts/global/global_signals.gd"
 
 [display]
 

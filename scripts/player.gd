@@ -42,8 +42,7 @@ func _ready() -> void:
 	#reset item you're holding (not working rn???)
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("interact") and pick_item:
-		pick_item.reparent(get_tree().current_scene)
-		pick_item = null
+		pick_item.self_clear(pick_item)
 		
 	#Handle toggle crouch
 	if Input.is_action_just_pressed("crouch"):

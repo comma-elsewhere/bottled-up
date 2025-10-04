@@ -14,11 +14,15 @@ func _input(_event: InputEvent) -> void:
 func _physics_process(_delta: float) -> void:
 	if item_hand == get_parent():
 		freeze = true
-	else:
-		freeze = false
+#	else:
+#		freeze = false
 
 func set_selected(item):
 	if item == self:
 		selected = true
 	else:
 		selected = false
+
+func self_clear(item):
+	if item == self:
+		call_deferred("queue_free")

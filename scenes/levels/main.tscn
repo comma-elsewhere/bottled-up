@@ -7,7 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://c7oe5xk0hjgdk" path="res://assets/sounds/Windy trees.mp3" id="4_u81e1"]
 [ext_resource type="AudioStream" uid="uid://b56rq50nl1k0k" path="res://assets/sounds/Beach waves.mp3" id="5_b6bv0"]
 [ext_resource type="Script" uid="uid://c1apa5psl7sil" path="res://scripts/too_deep.gd" id="7_ubwgw"]
-[ext_resource type="PackedScene" uid="uid://cdp1ni2ovvqrs" path="res://scenes/prefabs/cube.tscn" id="8_vkq25"]
+[ext_resource type="PackedScene" uid="uid://cnhh16gt47kkh" path="res://scenes/prefabs/bottle.tscn" id="8_vkq25"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_y0acb"]
 panorama = ExtResource("1_2vj2h")
@@ -102,8 +102,8 @@ script = ExtResource("7_ubwgw")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TooDeep"]
 shape = SubResource("WorldBoundaryShape3D_b6bv0")
 
-[node name="Cube" parent="." instance=ExtResource("8_vkq25")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.395786, 23.436077, -3.6724079)
+[node name="Bottle" parent="." instance=ExtResource("8_vkq25")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.545621, 16.999374, -8.315489)
 
 [connection signal="body_entered" from="TooDeep" to="TooDeep" method="_on_body_entered"]
 

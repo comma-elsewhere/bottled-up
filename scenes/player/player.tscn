@@ -1,8 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://bp75xksj0l5to"]
+[gd_scene load_steps=19 format=3 uid="uid://bp75xksj0l5to"]
 
 [ext_resource type="Script" uid="uid://dsucwpdgcyu5l" path="res://scripts/player.gd" id="1_8afob"]
 [ext_resource type="Material" uid="uid://b14jibrppbnpl" path="res://resources/shaders/vhs_shader.tres" id="2_75vfm"]
 [ext_resource type="AudioStream" uid="uid://doyef42l717cp" path="res://assets/sounds/Sand step 1.mp3" id="2_p47bc"]
+[ext_resource type="Texture2D" uid="uid://nectcxwpo2ks" path="res://assets/misc/paper.jpg" id="3_0owmy"]
+[ext_resource type="Script" uid="uid://ds07uk1kvljxa" path="res://scripts/message.gd" id="3_5gtgg"]
 [ext_resource type="AudioStream" uid="uid://k4gfgkjcwrx7" path="res://assets/sounds/Sand step 2.mp3" id="3_75vfm"]
 [ext_resource type="AudioStream" uid="uid://cqbmrffn8h7sj" path="res://assets/sounds/Sand step 3.mp3" id="4_0owmy"]
 [ext_resource type="AudioStream" uid="uid://d31ootg12xbd6" path="res://assets/sounds/Sand step 4.mp3" id="5_qek5x"]
@@ -264,6 +266,53 @@ color = Color(0, 0, 0, 1)
 libraries = {
 &"": SubResource("AnimationLibrary_5gtgg")
 }
+
+[node name="MessagePopUp" type="Control" parent="Head/Camera3D/CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_5gtgg")
+
+[node name="MarginContainer" type="MarginContainer" parent="Head/Camera3D/CanvasLayer/MessagePopUp"]
+custom_minimum_size = Vector2(300, 420)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Head/Camera3D/CanvasLayer/MessagePopUp/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("3_0owmy")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="Head/Camera3D/CanvasLayer/MessagePopUp/MarginContainer/TextureRect"]
+custom_minimum_size = Vector2(280, 400)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -11.5
+offset_right = 0.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Message" type="Label" parent="Head/Camera3D/CanvasLayer/MessagePopUp/MarginContainer/TextureRect/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+autowrap_mode = 3
 
 [node name="RayCast3D" type="RayCast3D" parent="Head/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.542002)

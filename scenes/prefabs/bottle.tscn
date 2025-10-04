@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://cnhh16gt47kkh"]
+
+[ext_resource type="Script" uid="uid://ckk6q4x35cu65" path="res://scripts/bottle.gd" id="1_drcua"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7r7va"]
+radius = 0.1
+height = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_drcua"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_qsq66"]
+material = SubResource("StandardMaterial3D_drcua")
+radius = 0.1
+height = 0.5
+
+[node name="Bottle" type="RigidBody3D"]
+collision_layer = 3
+can_sleep = false
+freeze = true
+script = ExtResource("1_drcua")
+metadata/_custom_type_script = "uid://dbv1b27cjmqvi"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.7660893, -0.6427341, 0, 0.6427341, 0.7660893, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_7r7va")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.76604444, -0.6427876, 0, 0.6427876, 0.76604444, 0, 0, 0)
+layers = 3
+mesh = SubResource("CapsuleMesh_qsq66")
