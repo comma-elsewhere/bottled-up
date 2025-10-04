@@ -1,12 +1,9 @@
 extends ItemClass
 
-var message_id: int
+@onready var paper_unroll: AudioStreamPlayer3D = $PaperUnroll
 
-func _input(_event: InputEvent) -> void:
-	super(_event)
-	if Input.is_action_just_pressed("interact") and selected:
-		message_id = GVar.rng_messages.pop_front()
-
-func self_clear(item):
-	super(item)
-	GSignal.message_opened.emit(message_id)
+func _ready() -> void:
+	GSignal.message_opened.connect(play_paper_audio)
+	
+func play_paper_audio(_arg):
+	paper_unroll.play(0.3)

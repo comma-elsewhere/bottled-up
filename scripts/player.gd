@@ -36,13 +36,17 @@ var t_bob: float = 0.0
 func _ready() -> void:
 	#Capture mouse
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	
+	#Fade in the game
 	fade.play("fade_in")
+	#Connect gameover trigger
+	GSignal.end_game.connect(gameover)
 		
 	#reset item you're holding (not working rn???)
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("interact") and pick_item:
 		pick_item.self_clear(pick_item)
+		var message_id = GVar.rng_messages.pop_front()
+		GSignal.message_opened.emit(message_id)
 		
 	#Handle toggle crouch
 	if Input.is_action_just_pressed("crouch"):
@@ -130,11 +134,10 @@ func crouch():
 	elif !is_crouching:
 		animation.play("crouch")
 
-# fades out screen then restarts game
-func gameover():
-	fade.play("fade_out")
-	await fade.animation_finished
-	get_tree().reload_current_scene()
+# fades out screen when called
+func gameover(drowned):
+	if drowned:
+		fade.play("fade_out")
 
 #plays footsteps
 func _on_timer_timeout() -> void:

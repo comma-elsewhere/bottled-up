@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bp75xksj0l5to"]
+[gd_scene load_steps=20 format=3 uid="uid://bp75xksj0l5to"]
 
 [ext_resource type="Script" uid="uid://dsucwpdgcyu5l" path="res://scripts/player.gd" id="1_8afob"]
 [ext_resource type="Material" uid="uid://b14jibrppbnpl" path="res://resources/shaders/vhs_shader.tres" id="2_75vfm"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://ds07uk1kvljxa" path="res://scripts/message.gd" id="3_5gtgg"]
 [ext_resource type="AudioStream" uid="uid://k4gfgkjcwrx7" path="res://assets/sounds/Sand step 2.mp3" id="3_75vfm"]
 [ext_resource type="AudioStream" uid="uid://cqbmrffn8h7sj" path="res://assets/sounds/Sand step 3.mp3" id="4_0owmy"]
+[ext_resource type="PackedScene" uid="uid://cn7nxfy4yw4vt" path="res://assets/models/flashlight.glb" id="5_5gtgg"]
 [ext_resource type="AudioStream" uid="uid://d31ootg12xbd6" path="res://assets/sounds/Sand step 4.mp3" id="5_qek5x"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_2vj2h"]
@@ -226,19 +227,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
 
-[node name="Flashlight" type="SpotLight3D" parent="Head/Camera3D"]
-transform = Transform3D(0.99574083, 0, 0.0921968, 0, 1, 0, -0.0921968, 0, 0.99574083, 0.525, -0.25, 0)
-light_energy = 2.0
-light_volumetric_fog_energy = 2.0
-light_specular = 1.0
-shadow_enabled = true
-distance_fade_enabled = true
-distance_fade_begin = 12.0
-distance_fade_shadow = 20.0
-distance_fade_length = 15.0
-spot_range = 15.0
-spot_angle = 30.0
-
 [node name="CanvasLayer" type="CanvasLayer" parent="Head/Camera3D"]
 
 [node name="VHSOverlay" type="ColorRect" parent="Head/Camera3D/CanvasLayer"]
@@ -323,6 +311,26 @@ collision_mask = 2
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.525, -0.25, -0.9)
 
+[node name="flashlight" parent="Head/Camera3D" instance=ExtResource("5_5gtgg")]
+transform = Transform3D(-0.9969228, 0, -0.07838959, 0, 1, 0, 0.07838959, 0, -0.9969228, 0.5073525, -1.3726375, -1.0705558)
+
+[node name="Circle" parent="Head/Camera3D/flashlight" index="0"]
+layers = 2
+cast_shadow = 0
+
+[node name="Flashlight" type="SpotLight3D" parent="Head/Camera3D/flashlight"]
+transform = Transform3D(-0.999904, 0, -0.013857372, 0, 1, 0, 0.013857372, 0, -0.999904, 0.04281032, 1.1226375, -0.76956797)
+light_energy = 2.0
+light_volumetric_fog_energy = 2.0
+light_specular = 1.0
+shadow_enabled = true
+distance_fade_enabled = true
+distance_fade_begin = 12.0
+distance_fade_shadow = 20.0
+distance_fade_length = 15.0
+spot_range = 15.0
+spot_angle = 30.0
+
 [node name="Feet" type="Node3D" parent="."]
 
 [node name="Footsteps1" type="AudioStreamPlayer3D" parent="Feet"]
@@ -348,3 +356,5 @@ libraries = {
 
 [connection signal="timeout" from="Feet/Timer" to="." method="_on_timer_timeout"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+
+[editable path="Head/Camera3D/flashlight"]

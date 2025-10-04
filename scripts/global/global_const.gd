@@ -1,6 +1,13 @@
 extends Node
 
-var messages: Dictionary = {}
-
-func _ready() -> void:
-	messages = {1: "This is a bottled message."}
+var messages: Dictionary = {
+	1: "First", 
+	2: "Two", 
+	3: "Three", 
+	4: "Four", 
+	5: "Five", 
+	6: "Six", 
+	7: "Seven", 
+	8: "Eight", 
+	9: "Nine", 
+	10: "Ten"}

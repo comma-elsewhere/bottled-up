@@ -6,3 +6,4 @@ func _ready() -> void:
 		if !GVar.rng_messages.has(ri):
 			GVar.rng_messages.push_back(ri)
 	GVar.rng_messages.push_back(10)
+	print(GVar.rng_messages)
