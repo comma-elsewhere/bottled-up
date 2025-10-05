@@ -43,6 +43,10 @@ Player=""
 ItemPickup=""
 Eyes=""
 
+[gui]
+
+theme/custom_font="uid://b2rln1800pofq"
+
 [input]
 
 forward={

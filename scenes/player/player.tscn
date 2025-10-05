@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bp75xksj0l5to"]
+[gd_scene load_steps=27 format=3 uid="uid://bp75xksj0l5to"]
 
 [ext_resource type="Script" uid="uid://dsucwpdgcyu5l" path="res://scripts/player.gd" id="1_8afob"]
 [ext_resource type="Material" uid="uid://b14jibrppbnpl" path="res://resources/shaders/vhs_shader.tres" id="2_75vfm"]
@@ -6,9 +6,13 @@
 [ext_resource type="Texture2D" uid="uid://nectcxwpo2ks" path="res://assets/misc/paper.jpg" id="3_0owmy"]
 [ext_resource type="Script" uid="uid://ds07uk1kvljxa" path="res://scripts/message.gd" id="3_5gtgg"]
 [ext_resource type="AudioStream" uid="uid://k4gfgkjcwrx7" path="res://assets/sounds/sound effects/Sand step 2.mp3" id="3_75vfm"]
+[ext_resource type="Script" uid="uid://d2kmk7ioeo0tn" path="res://scripts/final_choice.gd" id="3_gx1jg"]
 [ext_resource type="AudioStream" uid="uid://cqbmrffn8h7sj" path="res://assets/sounds/sound effects/Sand step 3.mp3" id="4_0owmy"]
+[ext_resource type="FontFile" uid="uid://7oc3lr16ssuw" path="res://assets/misc/font-finalchoice.ttf" id="4_ugbui"]
 [ext_resource type="PackedScene" uid="uid://cn7nxfy4yw4vt" path="res://assets/models/flashlight.glb" id="5_5gtgg"]
+[ext_resource type="FontFile" uid="uid://b2rln1800pofq" path="res://assets/misc/font-handwriting.ttf" id="5_je7p5"]
 [ext_resource type="AudioStream" uid="uid://d31ootg12xbd6" path="res://assets/sounds/sound effects/Sand step 4.mp3" id="5_qek5x"]
+[ext_resource type="FontFile" uid="uid://cb50v5dlkie76" path="res://assets/misc/font-UI.ttf" id="6_fm80t"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_2vj2h"]
 
@@ -20,6 +24,16 @@ script/source = "extends ColorRect
 
 func _process(_delta: float) -> void:
 	self.visible = GVar.vhs_overlay
+"
+
+[sub_resource type="GDScript" id="GDScript_5gtgg"]
+resource_name = "MessagesCollected"
+script/source = "extends Label
+
+const OUT_OF: String = \"/8\"
+
+func _process(_delta: float) -> void:
+	text = str(GVar.messages_collected) + OUT_OF
 "
 
 [sub_resource type="Animation" id="Animation_0owmy"]
@@ -68,22 +82,28 @@ tracks/0/keys = {
 "values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_je7p5"]
+resource_name = "white_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5gtgg"]
 _data = {
 &"RESET": SubResource("Animation_0owmy"),
 &"fade_in": SubResource("Animation_75vfm"),
-&"fade_out": SubResource("Animation_qek5x")
+&"fade_out": SubResource("Animation_qek5x"),
+&"white_out": SubResource("Animation_je7p5")
 }
-
-[sub_resource type="GDScript" id="GDScript_5gtgg"]
-resource_name = "MessagesCollected"
-script/source = "extends Label
-
-const OUT_OF: String = \"/8\"
-
-func _process(_delta: float) -> void:
-	text = str(GVar.messages_collected) + OUT_OF
-"
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_5gtgg"]
 height = 6.8032227
@@ -255,19 +275,42 @@ size_flags_vertical = 3
 mouse_filter = 2
 script = SubResource("GDScript_75vfm")
 
-[node name="Fade" type="ColorRect" parent="Head/Camera3D/CanvasLayer"]
+[node name="FinalChoice" type="Control" parent="Head/Camera3D/CanvasLayer"]
+visible = false
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 1)
+script = ExtResource("3_gx1jg")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Head/Camera3D/CanvasLayer/Fade"]
-libraries = {
-&"": SubResource("AnimationLibrary_5gtgg")
-}
+[node name="ButtonContainer" type="HBoxContainer" parent="Head/Camera3D/CanvasLayer/FinalChoice"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -118.0
+offset_top = -20.5
+offset_right = 118.0
+offset_bottom = 20.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="TrueButton" type="Button" parent="Head/Camera3D/CanvasLayer/FinalChoice/ButtonContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_ugbui")
+theme_override_font_sizes/font_size = 32
+text = "Death?"
+
+[node name="BadButton" type="Button" parent="Head/Camera3D/CanvasLayer/FinalChoice/ButtonContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_ugbui")
+theme_override_font_sizes/font_size = 32
+text = "Persist?"
 
 [node name="MessagePopUp" type="Control" parent="Head/Camera3D/CanvasLayer"]
 visible = false
@@ -314,21 +357,39 @@ grow_vertical = 2
 [node name="Message" type="Label" parent="Head/Camera3D/CanvasLayer/MessagePopUp/MarginContainer/TextureRect/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_je7p5")
 autowrap_mode = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Head/Camera3D/CanvasLayer"]
+[node name="MessagesCollected" type="HBoxContainer" parent="Head/Camera3D/CanvasLayer"]
 anchors_preset = 10
 anchor_right = 1.0
+offset_bottom = 45.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 alignment = 2
 
-[node name="Label" type="Label" parent="Head/Camera3D/CanvasLayer/HBoxContainer"]
+[node name="Label" type="Label" parent="Head/Camera3D/CanvasLayer/MessagesCollected"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("6_fm80t")
 theme_override_font_sizes/font_size = 32
 text = "X/8"
 horizontal_alignment = 2
 script = SubResource("GDScript_5gtgg")
+
+[node name="Fade" type="ColorRect" parent="Head/Camera3D/CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Head/Camera3D/CanvasLayer/Fade"]
+libraries = {
+&"": SubResource("AnimationLibrary_5gtgg")
+}
 
 [node name="RayCast3D" type="RayCast3D" parent="Head/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.542002)
@@ -389,6 +450,8 @@ libraries = {
 &"": SubResource("AnimationLibrary_je7p5")
 }
 
+[connection signal="pressed" from="Head/Camera3D/CanvasLayer/FinalChoice/ButtonContainer/TrueButton" to="Head/Camera3D/CanvasLayer/FinalChoice" method="_on_true_button_pressed"]
+[connection signal="pressed" from="Head/Camera3D/CanvasLayer/FinalChoice/ButtonContainer/BadButton" to="Head/Camera3D/CanvasLayer/FinalChoice" method="_on_bad_button_pressed"]
 [connection signal="timeout" from="Feet/Timer" to="." method="_on_timer_timeout"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 
