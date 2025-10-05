@@ -194,14 +194,12 @@ stream = ExtResource("4_u81e1")
 volume_db = 10.0
 pitch_scale = 0.75
 autoplay = true
-bus = &"Sound Effects"
 parameters/looping = true
 
 [node name="Waves" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("5_b6bv0")
 volume_db = -2.0
 autoplay = true
-bus = &"Sound Effects"
 parameters/looping = true
 
 [node name="Music" type="Node" parent="Audio"]
@@ -831,25 +829,25 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.033836, 18.953188, -63.72
 [node name="Bottles" type="Node" parent="."]
 
 [node name="Bottle7" parent="Bottles" instance=ExtResource("8_vkq25")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.902667, 41.907787, 54.670406)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55.887096, 13.43236, 5.3145866)
 
 [node name="Bottle8" parent="Bottles" instance=ExtResource("8_vkq25")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.044372, 29.66577, 20.801846)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.47635, 15.978432, -30.12582)
 
 [node name="Bottle6" parent="Bottles" instance=ExtResource("8_vkq25")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.392868, 21.215736, 70.45716)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -66.86066, 14.967324, 82.67406)
 
 [node name="Bottle5" parent="Bottles" instance=ExtResource("8_vkq25")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 83, 21.430323, 41)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 84.11063, 14.740789, -74.13505)
 
 [node name="Bottle3" parent="Bottles" instance=ExtResource("8_vkq25")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.593735, 26.737078, -33.43105)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78.50299, 16.366285, 19.87907)
 
 [node name="Bottle4" parent="Bottles" instance=ExtResource("8_vkq25")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55.87647, 17.102335, -73.94072)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.497234, 15.416846, -88.00867)
 
 [node name="Bottle" parent="Bottles" instance=ExtResource("8_vkq25")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.694553, 14.229682, -42.74647)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55.788235, 13.769549, -43.945766)
 
 [node name="Bottle2" parent="Bottles" instance=ExtResource("8_vkq25")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -87.56154, 14.235789, -31.444828)
@@ -860,10 +858,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -87.56154, 14.235789, -31.444
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.22534, 28.906487, 14.358829)
 
 [node name="Wolf7" parent="Wolves" instance=ExtResource("17_7exfm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.760445, 36.588722, 52.647243)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.556587, 41.436054, 44.50265)
 
 [node name="Wolf8" parent="Wolves" instance=ExtResource("17_7exfm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.756197, 30.502178, 37.64564)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.014313, 30.502178, -26.200962)
 
 [node name="Wolf5" parent="Wolves" instance=ExtResource("17_7exfm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.141016, 29.710997, 63.066494)
@@ -872,7 +870,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.141016, 29.710997, 63.066
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 76, 21, 74)
 
 [node name="Wolf4" parent="Wolves" instance=ExtResource("17_7exfm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5722358, 21.141508, 82.64067)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.793639, 29.027742, -28.051872)
 
 [node name="Wolf2" parent="Wolves" instance=ExtResource("17_7exfm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 76.54164, 19.864323, -50.953648)

@@ -10,3 +10,4 @@ var graphics: bool = true #this is to toggle Voxel GI on/off for the low and hig
 var total_messages: int = 7
 var rng_messages: Array[int] = [1]
 var messages_collected: int = 0
+var wolf_counter: int = 0

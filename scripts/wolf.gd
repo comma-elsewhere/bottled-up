@@ -18,6 +18,7 @@ func rotate_self():
 
 func _on_area_entered(area: Area3D) -> void:
 	if area.is_in_group("Eyes"):
+		GVar.wolf_counter += 1
 		await get_tree().create_timer(1.0).timeout
 		animation_player.play("fade_away")
 		await animation_player.animation_finished
