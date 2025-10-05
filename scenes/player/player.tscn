@@ -321,7 +321,7 @@ cast_shadow = 0
 [node name="Flashlight" type="SpotLight3D" parent="Head/Camera3D/flashlight"]
 transform = Transform3D(-0.999904, 0, -0.013857372, 0, 1, 0, 0.013857372, 0, -0.999904, 0.04281032, 1.1226375, -0.76956797)
 light_energy = 2.0
-light_volumetric_fog_energy = 2.0
+light_indirect_energy = 0.0
 light_specular = 1.0
 shadow_enabled = true
 distance_fade_enabled = true

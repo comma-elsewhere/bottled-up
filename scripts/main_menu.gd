@@ -3,8 +3,8 @@ extends Node
 @onready var start_button = $MarginContainer/VBoxContainer/startButton
 @onready var settings_button = $MarginContainer/VBoxContainer/settingButton
 @onready var quit_button = $MarginContainer/VBoxContainer/quitButton
-@onready var close_settings_button = $MarginContainer2/MarginContainer/closeSettingsButton
-@onready var settings_window = $MarginContainer2
+@onready var close_settings_button = $Settings/MarginContainer/closeSettingsButton
+@onready var settings_window = $Settings
 
 func _ready():
 	start_button.pressed.connect(_on_start_pressed)

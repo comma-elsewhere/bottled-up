@@ -53,15 +53,17 @@ func _input(_event: InputEvent) -> void:
 		crouch()
 		
 	#exit game for debug! :D
+	#changing to take you to the main menu to test settings
 	if Input.is_action_just_pressed("exit_game"):
-		get_tree().quit()
+		get_tree().change_scene_to_file("res://scenes/levels/main_menu.tscn")
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
 func _unhandled_input(event: InputEvent) -> void:
 	#Handle head rotation
 	if Input.MOUSE_MODE_CAPTURED and event is InputEventMouseMotion:
 		head.rotate_y(-event.relative.x * GVar.sensitivity)
 		camera.rotate_x(-event.relative.y * GVar.sensitivity)
-		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-60), deg_to_rad(75))
+		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-80), deg_to_rad(80))
 	
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
