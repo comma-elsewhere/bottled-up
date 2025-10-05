@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bp75xksj0l5to"]
+[gd_scene load_steps=22 format=3 uid="uid://bp75xksj0l5to"]
 
 [ext_resource type="Script" uid="uid://dsucwpdgcyu5l" path="res://scripts/player.gd" id="1_8afob"]
 [ext_resource type="Material" uid="uid://b14jibrppbnpl" path="res://resources/shaders/vhs_shader.tres" id="2_75vfm"]
@@ -74,6 +74,20 @@ _data = {
 &"fade_in": SubResource("Animation_75vfm"),
 &"fade_out": SubResource("Animation_qek5x")
 }
+
+[sub_resource type="GDScript" id="GDScript_5gtgg"]
+resource_name = "MessagesCollected"
+script/source = "extends Label
+
+const OUT_OF: String = \"/8\"
+
+func _process(_delta: float) -> void:
+	text = str(GVar.messages_collected) + OUT_OF
+"
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_5gtgg"]
+height = 6.8032227
+radius = 2.0
 
 [sub_resource type="Animation" id="Animation_h17s1"]
 length = 0.001
@@ -302,6 +316,20 @@ layout_mode = 2
 size_flags_vertical = 0
 autowrap_mode = 3
 
+[node name="HBoxContainer" type="HBoxContainer" parent="Head/Camera3D/CanvasLayer"]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="Label" type="Label" parent="Head/Camera3D/CanvasLayer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "X/8"
+horizontal_alignment = 2
+script = SubResource("GDScript_5gtgg")
+
 [node name="RayCast3D" type="RayCast3D" parent="Head/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.542002)
 target_position = Vector3(0, 0, -4)
@@ -331,6 +359,12 @@ distance_fade_shadow = 20.0
 distance_fade_length = 15.0
 spot_range = 15.0
 spot_angle = 30.0
+
+[node name="WolfDetector" type="Area3D" parent="Head/Camera3D" groups=["Eyes"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Head/Camera3D/WolfDetector"]
+transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 0, -1.1920929e-07, -2.598389)
+shape = SubResource("CylinderShape3D_5gtgg")
 
 [node name="Feet" type="Node3D" parent="."]
 

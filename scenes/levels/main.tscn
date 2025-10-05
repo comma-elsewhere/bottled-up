@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://bvyn7ytko346h"]
+[gd_scene load_steps=58 format=3 uid="uid://bvyn7ytko346h"]
 
 [ext_resource type="Texture2D" uid="uid://duu6lc6peb0b" path="res://assets/misc/environ_sky.exr" id="1_2vj2h"]
 [ext_resource type="PackedScene" uid="uid://degfds0rnudwf" path="res://assets/models/island.glb" id="2_y0acb"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://ccronpbqdyulh" path="res://assets/models/plant-style2.glb" id="11_2xkjh"]
 [ext_resource type="VoxelGIData" uid="uid://cen2nemopq821" path="res://resources/main.VoxelGI_data.res" id="11_hwp66"]
 [ext_resource type="PackedScene" uid="uid://ccsqdsciasfq2" path="res://assets/models/plant-style1.glb" id="12_dj21o"]
+[ext_resource type="PackedScene" uid="uid://cpvwwrawlp121" path="res://scenes/prefabs/wolf.tscn" id="17_7exfm"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_y0acb"]
 panorama = ExtResource("1_2vj2h")
@@ -209,7 +210,7 @@ script = ExtResource("4_y56qp")
 [node name="MainMusicLoop" type="AudioStreamPlayer" parent="Audio/Music"]
 stream = ExtResource("4_6ui35")
 bus = &"Music"
-parameters/looping = false
+parameters/looping = true
 
 [node name="MainMusicIntro" type="AudioStreamPlayer" parent="Audio/Music"]
 stream = ExtResource("5_y56qp")
@@ -236,7 +237,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 shape = SubResource("ConcavePolygonShape3D_vkq25")
 
 [node name="Player" parent="." groups=["Player"] instance=ExtResource("3_j4d2a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.9183674, 18.932308, -14.916156)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -90.6659, 13.726579, -44.511208)
 
 [node name="TooDeep" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0)
@@ -827,15 +828,64 @@ transform = Transform3D(0.97435826, -0.2214, -0.040099494, 0.22500207, 0.9587597
 [node name="plant-style40" parent="Plants" instance=ExtResource("12_dj21o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.033836, 18.953188, -63.725914)
 
+[node name="Bottles" type="Node" parent="."]
+
+[node name="Bottle7" parent="Bottles" instance=ExtResource("8_vkq25")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.902667, 41.907787, 54.670406)
+
+[node name="Bottle8" parent="Bottles" instance=ExtResource("8_vkq25")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.044372, 29.66577, 20.801846)
+
+[node name="Bottle6" parent="Bottles" instance=ExtResource("8_vkq25")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.392868, 21.215736, 70.45716)
+
+[node name="Bottle5" parent="Bottles" instance=ExtResource("8_vkq25")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 83, 21.430323, 41)
+
+[node name="Bottle3" parent="Bottles" instance=ExtResource("8_vkq25")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.593735, 26.737078, -33.43105)
+
+[node name="Bottle4" parent="Bottles" instance=ExtResource("8_vkq25")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55.87647, 17.102335, -73.94072)
+
+[node name="Bottle" parent="Bottles" instance=ExtResource("8_vkq25")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.694553, 14.229682, -42.74647)
+
+[node name="Bottle2" parent="Bottles" instance=ExtResource("8_vkq25")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -87.56154, 14.235789, -31.444828)
+
+[node name="Wolves" type="Node" parent="."]
+
+[node name="Wolf6" parent="Wolves" instance=ExtResource("17_7exfm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.22534, 28.906487, 14.358829)
+
+[node name="Wolf7" parent="Wolves" instance=ExtResource("17_7exfm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.760445, 36.588722, 52.647243)
+
+[node name="Wolf8" parent="Wolves" instance=ExtResource("17_7exfm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.756197, 30.502178, 37.64564)
+
+[node name="Wolf5" parent="Wolves" instance=ExtResource("17_7exfm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.141016, 29.710997, 63.066494)
+
+[node name="Wolf3" parent="Wolves" instance=ExtResource("17_7exfm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 76, 21, 74)
+
+[node name="Wolf4" parent="Wolves" instance=ExtResource("17_7exfm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5722358, 21.141508, 82.64067)
+
+[node name="Wolf2" parent="Wolves" instance=ExtResource("17_7exfm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 76.54164, 19.864323, -50.953648)
+
+[node name="Wolf" parent="Wolves" instance=ExtResource("17_7exfm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5537763, 30.18935, -56.54098)
+
 [node name="VoxelGI" type="VoxelGI" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 31, -0.5)
 subdiv = 0
 size = Vector3(232, 44, 225)
 data = ExtResource("11_hwp66")
 script = SubResource("GDScript_2xkjh")
-
-[node name="Bottle" parent="." instance=ExtResource("8_vkq25")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.816837, 16.197397, -4.035816)
 
 [connection signal="finished" from="Audio/Music/MainMusicIntro" to="Audio/Music" method="_on_main_music_intro_finished"]
 [connection signal="body_entered" from="TooDeep" to="TooDeep" method="_on_body_entered"]

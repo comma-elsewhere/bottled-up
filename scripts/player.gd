@@ -47,6 +47,7 @@ func _input(_event: InputEvent) -> void:
 		pick_item.self_clear(pick_item)
 		var message_id = GVar.rng_messages.pop_front()
 		GSignal.message_opened.emit(message_id)
+		GVar.messages_collected += 1
 		
 	#Handle toggle crouch
 	if Input.is_action_just_pressed("crouch"):

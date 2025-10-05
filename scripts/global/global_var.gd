@@ -9,3 +9,4 @@ var graphics: bool = true #this is to toggle Voxel GI on/off for the low and hig
 #For RNG bottled messages
 var total_messages: int = 6
 var rng_messages: Array[int] = [1]
+var messages_collected: int = 0
