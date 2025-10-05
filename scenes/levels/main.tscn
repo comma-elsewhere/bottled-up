@@ -1,13 +1,17 @@
-[gd_scene load_steps=53 format=3 uid="uid://bvyn7ytko346h"]
+[gd_scene load_steps=57 format=3 uid="uid://bvyn7ytko346h"]
 
 [ext_resource type="Texture2D" uid="uid://duu6lc6peb0b" path="res://assets/misc/environ_sky.exr" id="1_2vj2h"]
 [ext_resource type="PackedScene" uid="uid://degfds0rnudwf" path="res://assets/models/island.glb" id="2_y0acb"]
 [ext_resource type="Material" uid="uid://dph8d1rg2eofc" path="res://resources/shaders/water_shader.tres" id="3_b6bv0"]
 [ext_resource type="PackedScene" uid="uid://bp75xksj0l5to" path="res://scenes/player/player.tscn" id="3_j4d2a"]
-[ext_resource type="AudioStream" uid="uid://c7oe5xk0hjgdk" path="res://assets/sounds/Windy trees.mp3" id="4_u81e1"]
-[ext_resource type="AudioStream" uid="uid://b56rq50nl1k0k" path="res://assets/sounds/Beach waves.mp3" id="5_b6bv0"]
+[ext_resource type="AudioStream" uid="uid://040k5wwlnwx6" path="res://assets/sounds/music/main loop.mp3" id="4_6ui35"]
+[ext_resource type="AudioStream" uid="uid://c7oe5xk0hjgdk" path="res://assets/sounds/sound effects/Windy trees.mp3" id="4_u81e1"]
+[ext_resource type="Script" uid="uid://bqks87lftavki" path="res://scripts/main_music.gd" id="4_y56qp"]
+[ext_resource type="AudioStream" uid="uid://b56rq50nl1k0k" path="res://assets/sounds/sound effects/Beach waves.mp3" id="5_b6bv0"]
+[ext_resource type="AudioStream" uid="uid://b2j5b5j458kfq" path="res://assets/sounds/music/main intro.mp3" id="5_y56qp"]
 [ext_resource type="Script" uid="uid://c1apa5psl7sil" path="res://scripts/too_deep.gd" id="7_ubwgw"]
 [ext_resource type="PackedScene" uid="uid://bpe1ya546rkyc" path="res://assets/models/finished-tree3.glb" id="8_7lrji"]
+[ext_resource type="PackedScene" uid="uid://cnhh16gt47kkh" path="res://scenes/prefabs/bottle.tscn" id="8_vkq25"]
 [ext_resource type="PackedScene" uid="uid://g55qxnqk8ceu" path="res://assets/models/rock-style3.glb" id="9_rssyh"]
 [ext_resource type="PackedScene" uid="uid://ccronpbqdyulh" path="res://assets/models/plant-style2.glb" id="11_2xkjh"]
 [ext_resource type="VoxelGIData" uid="uid://cen2nemopq821" path="res://resources/main.VoxelGI_data.res" id="11_hwp66"]
@@ -159,8 +163,11 @@ data = PackedVector3Array(-0.0002, -0.5, -0.0002, -0.1383, -0.2236, 0.4252, 0.36
 [sub_resource type="GDScript" id="GDScript_2xkjh"]
 script/source = "extends VoxelGI
 
-func _ready() -> void:
-	visible = GVar.graphics
+func _process(_delta: float) -> void:
+	if !GVar.graphics:
+		self.hide()
+	else:
+		self.show()
 "
 
 [node name="Main" type="Node3D"]
@@ -171,6 +178,7 @@ light_color = Color(0.7236726, 1, 0.8983423, 1)
 light_energy = 0.4
 light_indirect_energy = 0.5
 light_volumetric_fog_energy = 0.0
+light_bake_mode = 1
 shadow_enabled = true
 shadow_blur = 2.0
 sky_mode = 1
@@ -185,13 +193,28 @@ stream = ExtResource("4_u81e1")
 volume_db = 10.0
 pitch_scale = 0.75
 autoplay = true
+bus = &"Sound Effects"
 parameters/looping = true
 
 [node name="Waves" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("5_b6bv0")
 volume_db = -2.0
 autoplay = true
+bus = &"Sound Effects"
 parameters/looping = true
+
+[node name="Music" type="Node" parent="Audio"]
+script = ExtResource("4_y56qp")
+
+[node name="MainMusicLoop" type="AudioStreamPlayer" parent="Audio/Music"]
+stream = ExtResource("4_6ui35")
+bus = &"Music"
+parameters/looping = false
+
+[node name="MainMusicIntro" type="AudioStreamPlayer" parent="Audio/Music"]
+stream = ExtResource("5_y56qp")
+autoplay = true
+bus = &"Music"
 
 [node name="island" parent="." instance=ExtResource("2_y0acb")]
 metadata/_edit_lock_ = true
@@ -811,6 +834,10 @@ size = Vector3(232, 44, 225)
 data = ExtResource("11_hwp66")
 script = SubResource("GDScript_2xkjh")
 
+[node name="Bottle" parent="." instance=ExtResource("8_vkq25")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.816837, 16.197397, -4.035816)
+
+[connection signal="finished" from="Audio/Music/MainMusicIntro" to="Audio/Music" method="_on_main_music_intro_finished"]
 [connection signal="body_entered" from="TooDeep" to="TooDeep" method="_on_body_entered"]
 
 [editable path="island"]

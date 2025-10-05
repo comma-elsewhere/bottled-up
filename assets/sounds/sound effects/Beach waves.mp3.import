@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b56rq50nl1k0k"
+path="res://.godot/imported/Beach waves.mp3-233b4fbacf9e7c61b6e5886b181ba268.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/sound effects/Beach waves.mp3"
+dest_files=["res://.godot/imported/Beach waves.mp3-233b4fbacf9e7c61b6e5886b181ba268.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

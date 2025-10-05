@@ -1,19 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://cnhh16gt47kkh"]
+[gd_scene load_steps=6 format=3 uid="uid://cnhh16gt47kkh"]
 
 [ext_resource type="Script" uid="uid://ckk6q4x35cu65" path="res://scripts/bottle.gd" id="1_drcua"]
-[ext_resource type="AudioStream" uid="uid://uy21shv8ypqq" path="res://assets/sounds/Paper unrolled.mp3" id="2_7r7va"]
-[ext_resource type="AudioStream" uid="uid://dcm0t3ug2id17" path="res://assets/sounds/Bottle clink 1.mp3" id="3_qsq66"]
+[ext_resource type="AudioStream" uid="uid://uy21shv8ypqq" path="res://assets/sounds/sound effects/Paper unrolled.mp3" id="2_7r7va"]
+[ext_resource type="AudioStream" uid="uid://dcm0t3ug2id17" path="res://assets/sounds/sound effects/Bottle clink 1.mp3" id="3_qsq66"]
+[ext_resource type="PackedScene" uid="uid://dxummmu755ukh" path="res://assets/models/purple-glowing-bottle.glb" id="4_edy1f"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7r7va"]
-radius = 0.1
-height = 0.5
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_drcua"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_qsq66"]
-material = SubResource("StandardMaterial3D_drcua")
-radius = 0.1
-height = 0.5
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_edy1f"]
+radius = 0.14941406
+height = 0.9645996
 
 [node name="Bottle" type="RigidBody3D" node_paths=PackedStringArray("bottle_sound")]
 collision_layer = 2
@@ -24,17 +18,30 @@ script = ExtResource("1_drcua")
 bottle_sound = NodePath("BottleClink")
 metadata/_custom_type_script = "uid://dbv1b27cjmqvi"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.7660893, -0.6427341, 0, 0.6427341, 0.7660893, 0, 0, 0)
-shape = SubResource("CapsuleShape3D_7r7va")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.76604444, -0.6427876, 0, 0.6427876, 0.76604444, 0, 0, 0)
-layers = 3
-mesh = SubResource("CapsuleMesh_qsq66")
-
 [node name="PaperUnroll" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("2_7r7va")
 
 [node name="BottleClink" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("3_qsq66")
+
+[node name="purple-glowing-bottle" parent="." instance=ExtResource("4_edy1f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.0150228, 0, 3.9491954)
+
+[node name="Icosphere" parent="purple-glowing-bottle" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.0766087, -0.12837327, -4.013083)
+visible = false
+
+[node name="Torus Knot 4 x 1" parent="purple-glowing-bottle" index="1"]
+transform = Transform3D(0.5798474, 0, 0, 0, -0.5528771, -0.15430343, 0, 0.17478468, -0.48809108, -7.061815, 0.046889067, -3.9033813)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(0.7100619, 0.39511532, 0.96147186, 1)
+light_indirect_energy = 1.5
+light_volumetric_fog_energy = 5.0
+light_bake_mode = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.9757948, 0.21868826, 0, -0.21868826, 0.9757948, -0.05389133, 0.16521329, -0.037026446)
+shape = SubResource("CapsuleShape3D_edy1f")
+
+[editable path="purple-glowing-bottle"]

@@ -1,7 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://dqw0jykn1k8dm"]
+[gd_scene load_steps=17 format=3 uid="uid://dqw0jykn1k8dm"]
 
 [ext_resource type="Script" uid="uid://0477tt3kgtlo" path="res://scripts/main_menu.gd" id="1_ekxnf"]
 [ext_resource type="Texture2D" uid="uid://cd5ktml4wyja3" path="res://assets/misc/fondo main.png" id="2_leamy"]
+[ext_resource type="AudioStream" uid="uid://bt4brhf0ra4q6" path="res://assets/sounds/music/menu.mp3" id="3_721jg"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7vrkn"]
 
@@ -226,3 +227,9 @@ popup/item_0/id = 0
 popup/item_1/text = "High"
 popup/item_1/id = 1
 script = SubResource("GDScript_fkd6t")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_721jg")
+autoplay = true
+bus = &"Music"
+parameters/looping = true

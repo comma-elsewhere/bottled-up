@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://k4gfgkjcwrx7"
+path="res://.godot/imported/Sand step 2.mp3-15a6814cbf333741aa3aecb57c013e46.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/sound effects/Sand step 2.mp3"
+dest_files=["res://.godot/imported/Sand step 2.mp3-15a6814cbf333741aa3aecb57c013e46.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

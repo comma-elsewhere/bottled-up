@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://degfds0rnudwf" path="res://assets/models/island.glb" id="2_y0acb"]
 [ext_resource type="Material" uid="uid://dph8d1rg2eofc" path="res://resources/shaders/water_shader.tres" id="3_b6bv0"]
 [ext_resource type="PackedScene" uid="uid://bp75xksj0l5to" path="res://scenes/player/player.tscn" id="3_j4d2a"]
-[ext_resource type="AudioStream" uid="uid://c7oe5xk0hjgdk" path="res://assets/sounds/Windy trees.mp3" id="4_u81e1"]
-[ext_resource type="AudioStream" uid="uid://b56rq50nl1k0k" path="res://assets/sounds/Beach waves.mp3" id="5_b6bv0"]
+[ext_resource type="AudioStream" uid="uid://c7oe5xk0hjgdk" path="res://assets/sounds/sound effects/Windy trees.mp3" id="4_u81e1"]
+[ext_resource type="AudioStream" uid="uid://b56rq50nl1k0k" path="res://assets/sounds/sound effects/Beach waves.mp3" id="5_b6bv0"]
 [ext_resource type="Script" uid="uid://c1apa5psl7sil" path="res://scripts/too_deep.gd" id="7_ubwgw"]
 [ext_resource type="PackedScene" uid="uid://cdp1ni2ovvqrs" path="res://scenes/prefabs/cube.tscn" id="8_vkq25"]
 

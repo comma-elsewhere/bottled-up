@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ewcngakre8oi"
+path="res://.godot/imported/sad ending.mp3-b72ab55a6b2df9edb78a91dab5b894c4.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/music/sad ending.mp3"
+dest_files=["res://.godot/imported/sad ending.mp3-b72ab55a6b2df9edb78a91dab5b894c4.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

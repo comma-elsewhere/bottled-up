@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://df0wrnr6t6m66"
+path="res://.godot/imported/Flashlight click.mp3-9b46950127ab4ebdc8b967b6dd27c927.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/sound effects/Flashlight click.mp3"
+dest_files=["res://.godot/imported/Flashlight click.mp3-9b46950127ab4ebdc8b967b6dd27c927.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

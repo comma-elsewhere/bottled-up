@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" uid="uid://dsucwpdgcyu5l" path="res://scripts/player.gd" id="1_8afob"]
 [ext_resource type="Material" uid="uid://b14jibrppbnpl" path="res://resources/shaders/vhs_shader.tres" id="2_75vfm"]
-[ext_resource type="AudioStream" uid="uid://doyef42l717cp" path="res://assets/sounds/Sand step 1.mp3" id="2_p47bc"]
+[ext_resource type="AudioStream" uid="uid://doyef42l717cp" path="res://assets/sounds/sound effects/Sand step 1.mp3" id="2_p47bc"]
 [ext_resource type="Texture2D" uid="uid://nectcxwpo2ks" path="res://assets/misc/paper.jpg" id="3_0owmy"]
 [ext_resource type="Script" uid="uid://ds07uk1kvljxa" path="res://scripts/message.gd" id="3_5gtgg"]
-[ext_resource type="AudioStream" uid="uid://k4gfgkjcwrx7" path="res://assets/sounds/Sand step 2.mp3" id="3_75vfm"]
-[ext_resource type="AudioStream" uid="uid://cqbmrffn8h7sj" path="res://assets/sounds/Sand step 3.mp3" id="4_0owmy"]
+[ext_resource type="AudioStream" uid="uid://k4gfgkjcwrx7" path="res://assets/sounds/sound effects/Sand step 2.mp3" id="3_75vfm"]
+[ext_resource type="AudioStream" uid="uid://cqbmrffn8h7sj" path="res://assets/sounds/sound effects/Sand step 3.mp3" id="4_0owmy"]
 [ext_resource type="PackedScene" uid="uid://cn7nxfy4yw4vt" path="res://assets/models/flashlight.glb" id="5_5gtgg"]
-[ext_resource type="AudioStream" uid="uid://d31ootg12xbd6" path="res://assets/sounds/Sand step 4.mp3" id="5_qek5x"]
+[ext_resource type="AudioStream" uid="uid://d31ootg12xbd6" path="res://assets/sounds/sound effects/Sand step 4.mp3" id="5_qek5x"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_2vj2h"]
 
@@ -21,21 +21,6 @@ script/source = "extends ColorRect
 func _process(_delta: float) -> void:
 	self.visible = GVar.vhs_overlay
 "
-
-[sub_resource type="Animation" id="Animation_75vfm"]
-resource_name = "fade_in"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.23333333, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
-}
 
 [sub_resource type="Animation" id="Animation_0owmy"]
 length = 0.001
@@ -50,6 +35,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_75vfm"]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.23333333, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_qek5x"]
@@ -73,6 +73,69 @@ _data = {
 &"RESET": SubResource("Animation_0owmy"),
 &"fade_in": SubResource("Animation_75vfm"),
 &"fade_out": SubResource("Animation_qek5x")
+}
+
+[sub_resource type="Animation" id="Animation_h17s1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape3D:shape:height")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D:mesh:height")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Head:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.6, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MeshInstance3D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CollisionShape3D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.0000001, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_5gtgg"]
@@ -137,69 +200,6 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0, 1.0000001, 0), Vector3(0, 0.6, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_h17s1"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CollisionShape3D:shape:height")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [2.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("MeshInstance3D:mesh:height")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [2.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Head:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 1.6, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("MeshInstance3D:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 1, 0)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("CollisionShape3D:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 1.0000001, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_je7p5"]
@@ -323,6 +323,7 @@ transform = Transform3D(-0.999904, 0, -0.013857372, 0, 1, 0, 0.013857372, 0, -0.
 light_energy = 2.0
 light_indirect_energy = 0.0
 light_specular = 1.0
+light_bake_mode = 1
 shadow_enabled = true
 distance_fade_enabled = true
 distance_fade_begin = 12.0

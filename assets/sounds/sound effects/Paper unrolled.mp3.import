@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://uy21shv8ypqq"
+path="res://.godot/imported/Paper unrolled.mp3-814be80285270e8530f896ca56127093.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/sound effects/Paper unrolled.mp3"
+dest_files=["res://.godot/imported/Paper unrolled.mp3-814be80285270e8530f896ca56127093.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
