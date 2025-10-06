@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://d4n4sy1e1wy16"
 path.s3tc="res://.godot/imported/rock-style3_-Color.png-9a66584bd03d53aad44b5a04678387d0.s3tc.ctex"
+path.etc2="res://.godot/imported/rock-style3_-Color.png-9a66584bd03d53aad44b5a04678387d0.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/models/rock-style3_-Color.png"
-dest_files=["res://.godot/imported/rock-style3_-Color.png-9a66584bd03d53aad44b5a04678387d0.s3tc.ctex"]
+dest_files=["res://.godot/imported/rock-style3_-Color.png-9a66584bd03d53aad44b5a04678387d0.s3tc.ctex", "res://.godot/imported/rock-style3_-Color.png-9a66584bd03d53aad44b5a04678387d0.etc2.ctex"]
 
 [params]
 

@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://cn7nxfy4yw4vt" path="res://assets/models/flashlight.glb" id="5_5gtgg"]
 [ext_resource type="FontFile" uid="uid://b2rln1800pofq" path="res://assets/misc/font-handwriting.ttf" id="5_je7p5"]
 [ext_resource type="AudioStream" uid="uid://d31ootg12xbd6" path="res://assets/sounds/sound effects/Sand step 4.mp3" id="5_qek5x"]
-[ext_resource type="FontFile" uid="uid://cb50v5dlkie76" path="res://assets/misc/font-UI.ttf" id="6_fm80t"]
+[ext_resource type="FontFile" uid="uid://b8buwjejpyvu8" path="res://assets/misc/font-title.TTF" id="8_gx1jg"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_2vj2h"]
 
@@ -52,7 +52,7 @@ func _process(_delta: float) -> void:
 resource_name = "MessagesCollected"
 script/source = "extends Label
 
-const OUT_OF: String = \"/7\"
+const OUT_OF: String = \"/7 \"
 
 func _process(_delta: float) -> void:
 	text = str(GVar.messages_collected) + OUT_OF
@@ -445,14 +445,13 @@ alignment = 2
 
 [node name="Label" type="Label" parent="Head/Camera3D/CanvasLayer/MessagesCollected"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("6_fm80t")
-theme_override_font_sizes/font_size = 32
+theme_override_fonts/font = ExtResource("8_gx1jg")
+theme_override_font_sizes/font_size = 56
 text = "X/8"
 horizontal_alignment = 2
 script = SubResource("GDScript_5gtgg")
 
 [node name="Fade" type="ColorRect" parent="Head/Camera3D/CanvasLayer"]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
