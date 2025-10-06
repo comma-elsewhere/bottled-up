@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://c58cioiyqeagv"]
+[gd_scene load_steps=6 format=3 uid="uid://c58cioiyqeagv"]
 
 [ext_resource type="FontFile" uid="uid://7oc3lr16ssuw" path="res://assets/misc/font-finalchoice.ttf" id="1_bxper"]
+[ext_resource type="Texture2D" uid="uid://cvlto2hko7dmy" path="res://assets/misc/ending=2=art.png" id="1_omma7"]
 [ext_resource type="FontFile" uid="uid://b2rln1800pofq" path="res://assets/misc/font-handwriting.ttf" id="2_omma7"]
 [ext_resource type="AudioStream" uid="uid://lmj66h3tw2dy" path="res://assets/sounds/music/happy ending.mp3" id="3_bxper"]
 [ext_resource type="Script" uid="uid://262xjhf20jca" path="res://ui/ui-scripts/ending_audio.gd" id="4_lg0u7"]
@@ -20,6 +21,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("1_omma7")
 expand_mode = 5
 stretch_mode = 6
 

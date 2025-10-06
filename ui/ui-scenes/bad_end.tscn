@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bapafvpic281r"]
+[gd_scene load_steps=6 format=3 uid="uid://bapafvpic281r"]
 
 [ext_resource type="AudioStream" uid="uid://ewcngakre8oi" path="res://assets/sounds/music/sad ending.mp3" id="1_05fen"]
+[ext_resource type="Texture2D" uid="uid://2opij8h306gc" path="res://assets/misc/ending=1=art.png" id="1_7hu8f"]
 [ext_resource type="Script" uid="uid://262xjhf20jca" path="res://ui/ui-scripts/ending_audio.gd" id="1_km2kq"]
 [ext_resource type="FontFile" uid="uid://7oc3lr16ssuw" path="res://assets/misc/font-finalchoice.ttf" id="1_nf88s"]
 [ext_resource type="FontFile" uid="uid://b2rln1800pofq" path="res://assets/misc/font-handwriting.ttf" id="2_7hu8f"]
@@ -20,6 +21,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("1_7hu8f")
 expand_mode = 5
 stretch_mode = 6
 
