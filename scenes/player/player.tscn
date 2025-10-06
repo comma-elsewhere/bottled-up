@@ -106,7 +106,7 @@ _data = {
 }
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_gx1jg"]
-radius = 5.0
+radius = 8.0
 
 [sub_resource type="Animation" id="Animation_h17s1"]
 length = 0.001
@@ -241,7 +241,7 @@ _data = {
 &"crouch": SubResource("Animation_5gtgg")
 }
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" groups=["Player"]]
 input_ray_pickable = false
 script = ExtResource("1_8afob")
 

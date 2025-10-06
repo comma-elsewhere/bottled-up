@@ -58,6 +58,7 @@ func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("exit_game"):
 		get_tree().change_scene_to_file("res://scenes/levels/main_menu.tscn")
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		GFunc.reset_vars()
 	
 func _unhandled_input(event: InputEvent) -> void:
 	#Handle head rotation
@@ -141,6 +142,8 @@ func crouch():
 func gameover(drowned):
 	if drowned:
 		fade.play("fade_out")
+		await animation.animation_finished
+		get_tree().reload_current_scene()
 
 #plays footsteps
 func _on_timer_timeout() -> void:

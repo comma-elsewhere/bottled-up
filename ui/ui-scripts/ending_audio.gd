@@ -6,3 +6,4 @@ func _input(event: InputEvent) -> void:
 
 func _on_finished() -> void:
 	get_tree().change_scene_to_file("res://scenes/levels/main_menu.tscn")
+	GFunc.reset_vars()

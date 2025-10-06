@@ -1,15 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://cpvwwrawlp121"]
+[gd_scene load_steps=7 format=3 uid="uid://cpvwwrawlp121"]
 
 [ext_resource type="Script" uid="uid://dhhmxdjo7m57b" path="res://scripts/wolf.gd" id="1_8q40h"]
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_1vgby"]
-radius = 10.0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8q40h"]
-albedo_color = Color(0.5211406, 0.5211406, 0.5211405, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_ksk3f"]
-material = SubResource("StandardMaterial3D_8q40h")
+[ext_resource type="PackedScene" uid="uid://cnc4otkp3fkti" path="res://assets/models/wolf-final.glb" id="2_ksk3f"]
 
 [sub_resource type="Animation" id="Animation_kr0uh"]
 length = 0.001
@@ -47,27 +39,80 @@ _data = {
 &"fade_away": SubResource("Animation_ieugk")
 }
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_ksk3f"]
+radius = 7.0
+
 [node name="Wolf" type="Area3D"]
+transform = Transform3D(0.9999998, 0, 0, 0, 1, 0, 0, 0, 0.9999998, 0, 0, 0)
 script = ExtResource("1_8q40h")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("SphereShape3D_1vgby")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-mesh = SubResource("BoxMesh_ksk3f")
-
-[node name="Eyes" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, -0.507)
-light_color = Color(1, 1, 0.36862746, 1)
-light_indirect_energy = 2.0
-light_volumetric_fog_energy = 2.0
-light_bake_mode = 1
-omni_attenuation = 0.5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_us3rt")
 }
 
+[node name="wolf-final" parent="." instance=ExtResource("2_ksk3f")]
+
+[node name="Cylinder_001" parent="wolf-final" index="0"]
+visible = false
+
+[node name="Skeleton3D" parent="wolf-final/wolf_rig" index="0"]
+bones/1/position = Vector3(4.616548e-09, 0.15140945, -0.100769624)
+bones/1/rotation = Quaternion(0.48120943, 8.900005e-08, 6.940406e-08, 0.8766057)
+bones/2/position = Vector3(-1.0019241e-08, 0.031181125, 0.04076896)
+bones/2/rotation = Quaternion(0.02108869, 7.832759e-07, 2.1704613e-08, 0.9997776)
+bones/3/rotation = Quaternion(0.20977704, 1.327136e-06, 6.6385655e-07, 0.97774935)
+bones/4/rotation = Quaternion(0.28472975, -0.021476416, -0.06772155, 0.9559716)
+bones/5/position = Vector3(0.0233353, 0.004455167, -0.01644557)
+bones/5/rotation = Quaternion(0.63307136, 0.5125874, -0.49255657, -0.30637068)
+bones/6/position = Vector3(-0.023538174, 0.004455201, -0.016445622)
+bones/6/rotation = Quaternion(0.65257305, -0.4889248, 0.5190832, -0.25622973)
+bones/7/rotation = Quaternion(0.7594429, 0.45205313, 0.43273222, 0.17786887)
+bones/8/rotation = Quaternion(-0.050994832, -0.59494025, 0.24888046, 0.76256424)
+bones/9/rotation = Quaternion(-0.29999986, -0.025504448, -0.0016001529, 0.9535969)
+bones/10/rotation = Quaternion(-0.08883901, 0.818636, -0.56739503, 0.0024037191)
+bones/11/position = Vector3(-7.950916e-09, 0.12148358, -1.9938033e-09)
+bones/11/rotation = Quaternion(0.7594428, -0.45205703, -0.43272537, 0.17787577)
+bones/12/rotation = Quaternion(-0.050991546, 0.5949387, -0.2488834, 0.7625647)
+bones/13/rotation = Quaternion(-0.29999995, 0.025504047, 0.0016006138, 0.9535969)
+bones/14/rotation = Quaternion(0.08931843, 0.81857294, -0.5674127, -0.0018771724)
+bones/15/rotation = Quaternion(0.9513797, -2.8943109e-07, 8.305614e-07, 0.3080205)
+bones/16/position = Vector3(-2.9260159e-09, 0.031181097, 0.040768944)
+bones/16/rotation = Quaternion(0.8924454, 0.28398168, 0.16393441, -0.3098728)
+bones/17/rotation = Quaternion(-0.60298765, 0.0068678223, -0.49237192, 0.6276373)
+bones/18/rotation = Quaternion(0.35390994, -0.4865174, 0.46647096, 0.6484239)
+bones/19/rotation = Quaternion(-0.42841366, -0.022303548, -0.03483748, 0.90263546)
+bones/20/rotation = Quaternion(-0.6337177, -0.022022026, 0.03475666, 0.77246934)
+bones/21/position = Vector3(-1.842436e-08, 0.031181097, 0.040768947)
+bones/21/rotation = Quaternion(0.8581663, -0.4025411, -0.13563763, -0.28829452)
+bones/22/rotation = Quaternion(-0.6413667, 0.02975255, 0.38151777, 0.664987)
+bones/23/rotation = Quaternion(0.3539289, 0.48650363, -0.46648586, 0.64841306)
+bones/24/rotation = Quaternion(-0.4284137, 0.022303574, 0.034837652, 0.90263546)
+bones/25/rotation = Quaternion(-0.6337177, 0.022021458, -0.034755457, 0.77246946)
+bones/26/position = Vector3(1.6864617e-09, -0.02240392, -0.0068623656)
+bones/26/rotation = Quaternion(0.9827419, -1.0173128e-09, 2.7622278e-07, 0.18498251)
+bones/27/position = Vector3(2.0648415e-14, 0.050057366, -2.0004027e-08)
+bones/27/rotation = Quaternion(0.010588825, -1.8739537e-07, -1.1715954e-08, 0.999944)
+bones/28/position = Vector3(3.175526e-11, 0.0631505, -8.622094e-09)
+bones/28/rotation = Quaternion(0.46741125, -0.0002134137, -0.0006565582, 0.88403976)
+
+[node name="Eyes" type="OmniLight3D" parent="wolf-final/wolf_rig/Skeleton3D/Cylinder_002" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0051827757, 0.19138476, 0.17187762)
+light_color = Color(1, 1, 0.36862746, 1)
+light_indirect_energy = 2.0
+light_volumetric_fog_energy = 2.0
+light_bake_mode = 1
+omni_attenuation = 0.5
+
+[node name="Icosphere" parent="wolf-final" index="2"]
+visible = false
+
+[node name="AnimationPlayer" parent="wolf-final" index="3"]
+autoplay = "idle"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_ksk3f")
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
+
+[editable path="wolf-final"]

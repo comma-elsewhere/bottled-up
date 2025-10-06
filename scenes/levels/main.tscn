@@ -234,7 +234,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="island/Plane/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_vkq25")
 
-[node name="Player" parent="." groups=["Player"] instance=ExtResource("3_j4d2a")]
+[node name="Player" parent="." instance=ExtResource("3_j4d2a")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -90.6659, 13.726579, -44.511208)
 
 [node name="TooDeep" type="Area3D" parent="."]
@@ -844,7 +844,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 84.11063, 14.740789, -74.1350
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78.50299, 16.366285, 19.87907)
 
 [node name="Bottle4" parent="Bottles" instance=ExtResource("8_vkq25")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.497234, 15.416846, -88.00867)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.146507, 13.823837, -86.34542)
 
 [node name="Bottle" parent="Bottles" instance=ExtResource("8_vkq25")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55.788235, 13.769549, -43.945766)
@@ -861,16 +861,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.22534, 28.906487, 14.35882
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.556587, 41.436054, 44.50265)
 
 [node name="Wolf8" parent="Wolves" instance=ExtResource("17_7exfm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.014313, 30.502178, -26.200962)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.014313, 29.90867, -26.200962)
 
 [node name="Wolf5" parent="Wolves" instance=ExtResource("17_7exfm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.141016, 29.710997, 63.066494)
 
 [node name="Wolf3" parent="Wolves" instance=ExtResource("17_7exfm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 76, 21, 74)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 76, 20.968374, 74)
 
 [node name="Wolf4" parent="Wolves" instance=ExtResource("17_7exfm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.793639, 29.027742, -28.051872)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.793639, 28.693636, -28.051872)
 
 [node name="Wolf2" parent="Wolves" instance=ExtResource("17_7exfm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 76.54164, 19.864323, -50.953648)

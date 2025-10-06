@@ -1,0 +1,235 @@
+[gd_scene load_steps=17 format=3 uid="uid://dqw0jykn1k8dm"]
+
+[ext_resource type="Script" uid="uid://0477tt3kgtlo" path="res://scripts/main_menu.gd" id="1_ekxnf"]
+[ext_resource type="Texture2D" uid="uid://cd5ktml4wyja3" path="res://assets/misc/fondo main.png" id="2_leamy"]
+[ext_resource type="AudioStream" uid="uid://bt4brhf0ra4q6" path="res://assets/sounds/music/menu.mp3" id="3_721jg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7vrkn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_glbon"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_06t4h"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jix8l"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fu7sn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ekxnf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bqqt6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wu84c"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8ln24"]
+
+[sub_resource type="GDScript" id="GDScript_leamy"]
+resource_name = "Sensitivity"
+script/source = "extends HSlider
+
+func _ready() -> void:
+	value = GVar.sensitivity
+
+func _process(_delta: float) -> void:
+	GVar.sensitivity = value
+"
+
+[sub_resource type="GDScript" id="GDScript_721jg"]
+resource_name = "Headbob"
+script/source = "extends CheckButton
+
+func _ready() -> void:
+	button_pressed = GVar.headbob
+
+func _process(_delta: float) -> void:
+	GVar.headbob = button_pressed
+"
+
+[sub_resource type="GDScript" id="GDScript_geflf"]
+resource_name = "VHSOverlay"
+script/source = "extends CheckButton
+
+func _ready() -> void:
+	button_pressed = GVar.vhs_overlay
+
+func _process(_delta: float) -> void:
+	GVar.vhs_overlay = button_pressed
+"
+
+[sub_resource type="GDScript" id="GDScript_fkd6t"]
+resource_name = "Graphics"
+script/source = "extends OptionButton
+
+func _ready() -> void:
+	if !GVar.graphics:
+		selected = 0
+
+func _process(_delta: float) -> void:
+	if selected == 1:
+		GVar.graphics = true
+	else:
+		GVar.graphics = false
+"
+
+[node name="mainMenu" type="Node2D"]
+position = Vector2(19, 19)
+script = ExtResource("1_ekxnf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(416.25003, 220.25)
+scale = Vector2(2.8983333, 2.3775)
+texture = ExtResource("2_leamy")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 722.0
+offset_top = 27.0
+offset_right = 822.0
+offset_bottom = 185.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="startButton" type="Button" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_7vrkn")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_glbon")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_06t4h")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_jix8l")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_fu7sn")
+action_mode = 0
+text = "Start"
+
+[node name="settingButton" type="Button" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_7vrkn")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_glbon")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_06t4h")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_jix8l")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_fu7sn")
+action_mode = 0
+text = "Settings"
+
+[node name="quitButton" type="Button" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_7vrkn")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_glbon")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_06t4h")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_jix8l")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_fu7sn")
+action_mode = 0
+text = "Quit"
+
+[node name="Settings" type="MarginContainer" parent="."]
+visible = false
+offset_left = 94.0
+offset_top = 86.0
+offset_right = 476.0
+offset_bottom = 364.0
+
+[node name="ColorRect" type="ColorRect" parent="Settings"]
+layout_mode = 2
+color = Color(0.22839099, 0.191502, 0.4402763, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="Settings"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="closeSettingsButton" type="Button" parent="Settings/MarginContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ekxnf")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_bqqt6")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_wu84c")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_8ln24")
+text = "X"
+
+[node name="SettingsMargin" type="MarginContainer" parent="Settings"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 60
+
+[node name="SettingsContainer" type="VBoxContainer" parent="Settings/SettingsMargin"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="SettingBox" type="HBoxContainer" parent="Settings/SettingsMargin/SettingsContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Settings/SettingsMargin/SettingsContainer/SettingBox"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+text = "Sensitivity"
+
+[node name="Sensitivity" type="HSlider" parent="Settings/SettingsMargin/SettingsContainer/SettingBox"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+min_value = 0.001
+max_value = 0.03
+step = 0.001
+value = 0.009999999999999998
+script = SubResource("GDScript_leamy")
+
+[node name="SettingBox2" type="HBoxContainer" parent="Settings/SettingsMargin/SettingsContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Settings/SettingsMargin/SettingsContainer/SettingBox2"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+text = "Headbob"
+
+[node name="Headbob" type="CheckButton" parent="Settings/SettingsMargin/SettingsContainer/SettingBox2"]
+layout_mode = 2
+button_pressed = true
+script = SubResource("GDScript_721jg")
+
+[node name="SettingBox3" type="HBoxContainer" parent="Settings/SettingsMargin/SettingsContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Settings/SettingsMargin/SettingsContainer/SettingBox3"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+text = "VHS Overlay"
+
+[node name="VHSOverlay" type="CheckButton" parent="Settings/SettingsMargin/SettingsContainer/SettingBox3"]
+layout_mode = 2
+button_pressed = true
+script = SubResource("GDScript_geflf")
+
+[node name="SettingBox4" type="HBoxContainer" parent="Settings/SettingsMargin/SettingsContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Settings/SettingsMargin/SettingsContainer/SettingBox4"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+text = "Graphics"
+
+[node name="Graphics" type="OptionButton" parent="Settings/SettingsMargin/SettingsContainer/SettingBox4"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+alignment = 1
+selected = 1
+allow_reselect = true
+item_count = 2
+popup/item_0/text = "Low"
+popup/item_0/id = 0
+popup/item_1/text = "High"
+popup/item_1/id = 1
+script = SubResource("GDScript_fkd6t")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_721jg")
+autoplay = true
+bus = &"Music"
+parameters/looping = true

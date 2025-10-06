@@ -1,26 +1,15 @@
-extends Node
+extends Control
 
-@onready var start_button = $MarginContainer/VBoxContainer/startButton
-@onready var settings_button = $MarginContainer/VBoxContainer/settingButton
-@onready var quit_button = $MarginContainer/VBoxContainer/quitButton
-@onready var close_settings_button = $Settings/MarginContainer/closeSettingsButton
 @onready var settings_window = $Settings
 
-func _ready():
-	start_button.pressed.connect(_on_start_pressed)
-	settings_button.pressed.connect(_on_settings_pressed)
-	quit_button.pressed.connect(_on_quit_pressed)
-	close_settings_button.pressed.connect(_on_settings_closed)
-	
-
-func _on_start_pressed():
+func _on_start_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/levels/main.tscn")
 
-func _on_settings_pressed():
+func _on_setting_button_pressed() -> void:
 	settings_window.visible = true
 
-func _on_quit_pressed():
+func _on_quit_button_pressed() -> void:
 	get_tree().quit()
-	
-func _on_settings_closed():
+
+func _on_close_settings_button_pressed() -> void:
 	settings_window.visible = false
