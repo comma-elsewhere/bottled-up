@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bp75xksj0l5to"]
+[gd_scene load_steps=29 format=3 uid="uid://bp75xksj0l5to"]
 
 [ext_resource type="Script" uid="uid://dsucwpdgcyu5l" path="res://scripts/player.gd" id="1_8afob"]
 [ext_resource type="Material" uid="uid://b14jibrppbnpl" path="res://resources/shaders/vhs_shader.tres" id="2_75vfm"]
@@ -26,11 +26,33 @@ func _process(_delta: float) -> void:
 	self.visible = GVar.vhs_overlay
 "
 
+[sub_resource type="GDScript" id="GDScript_gx1jg"]
+resource_name = "Tutorial"
+script/source = "extends Control
+
+func _process(_delta: float) -> void:
+	if GVar.messages_collected == 0:
+		visible = true
+	else:
+		visible = false
+"
+
+[sub_resource type="GDScript" id="GDScript_ugbui"]
+resource_name = "Tutorial2"
+script/source = "extends Label
+
+func _process(_delta: float) -> void:
+	if GVar.messages_collected == 1:
+		visible = true
+	else:
+		visible = false
+"
+
 [sub_resource type="GDScript" id="GDScript_5gtgg"]
 resource_name = "MessagesCollected"
 script/source = "extends Label
 
-const OUT_OF: String = \"/8\"
+const OUT_OF: String = \"/7\"
 
 func _process(_delta: float) -> void:
 	text = str(GVar.messages_collected) + OUT_OF
@@ -84,6 +106,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_je7p5"]
 resource_name = "white_out"
+length = 1.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -311,6 +334,42 @@ theme_override_fonts/font = ExtResource("4_ugbui")
 theme_override_font_sizes/font_size = 32
 text = "Persist?"
 
+[node name="Tutorial" type="Control" parent="Head/Camera3D/CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = SubResource("GDScript_gx1jg")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Head/Camera3D/CanvasLayer/Tutorial"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -27.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_constants/separation = 50
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Head/Camera3D/CanvasLayer/Tutorial/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="Head/Camera3D/CanvasLayer/Tutorial/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_font_sizes/font_size = 24
+text = "E to interact with items"
+
+[node name="Control" type="Control" parent="Head/Camera3D/CanvasLayer/Tutorial/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
 [node name="MessagePopUp" type="Control" parent="Head/Camera3D/CanvasLayer"]
 visible = false
 layout_mode = 3
@@ -352,6 +411,9 @@ offset_right = 0.5
 offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 10
 
 [node name="Message" type="Label" parent="Head/Camera3D/CanvasLayer/MessagePopUp/MarginContainer/TextureRect/MarginContainer"]
 layout_mode = 2
@@ -359,6 +421,19 @@ size_flags_vertical = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_je7p5")
 autowrap_mode = 3
+
+[node name="MarginContainer2" type="MarginContainer" parent="Head/Camera3D/CanvasLayer/MessagePopUp/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_right = -120
+
+[node name="Tutorial" type="Label" parent="Head/Camera3D/CanvasLayer/MessagePopUp/MarginContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 18
+text = "E to close
+messages"
+script = SubResource("GDScript_ugbui")
 
 [node name="MessagesCollected" type="HBoxContainer" parent="Head/Camera3D/CanvasLayer"]
 anchors_preset = 10
@@ -377,6 +452,7 @@ horizontal_alignment = 2
 script = SubResource("GDScript_5gtgg")
 
 [node name="Fade" type="ColorRect" parent="Head/Camera3D/CanvasLayer"]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

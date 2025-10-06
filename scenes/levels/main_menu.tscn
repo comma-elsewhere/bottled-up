@@ -1,7 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://bqnf110v61j1q"]
+[gd_scene load_steps=18 format=3 uid="uid://bqnf110v61j1q"]
 
 [ext_resource type="Script" uid="uid://0477tt3kgtlo" path="res://scripts/main_menu.gd" id="1_ekxnf"]
 [ext_resource type="FontFile" uid="uid://b8buwjejpyvu8" path="res://assets/misc/font-title.TTF" id="1_leamy"]
+[ext_resource type="Texture2D" uid="uid://dkqms4syjn33e" path="res://assets/misc/title-screen.png" id="2_geflf"]
 [ext_resource type="AudioStream" uid="uid://bt4brhf0ra4q6" path="res://assets/sounds/music/menu.mp3" id="3_721jg"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rdpro"]
@@ -88,8 +89,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-expand_mode = 1
-stretch_mode = 5
+texture = ExtResource("2_geflf")
+expand_mode = 5
+stretch_mode = 6
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -107,7 +109,7 @@ theme_override_constants/margin_bottom = 30
 [node name="ButtonContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
-size_flags_vertical = 0
+size_flags_vertical = 4
 mouse_filter = 2
 
 [node name="startButton" type="Button" parent="MarginContainer/ButtonContainer"]
@@ -145,7 +147,7 @@ text = "Quit"
 
 [node name="TitleLabel" type="Label" parent="MarginContainer"]
 layout_mode = 2
-size_flags_vertical = 8
+size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("1_leamy")
 theme_override_font_sizes/font_size = 72
 text = "Howling Isle"
