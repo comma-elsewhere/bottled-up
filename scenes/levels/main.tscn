@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://bvyn7ytko346h"]
+[gd_scene load_steps=57 format=3 uid="uid://bvyn7ytko346h"]
 
 [ext_resource type="Texture2D" uid="uid://duu6lc6peb0b" path="res://assets/misc/environ_sky.exr" id="1_2vj2h"]
 [ext_resource type="PackedScene" uid="uid://degfds0rnudwf" path="res://assets/models/island.glb" id="2_y0acb"]
@@ -9,7 +9,6 @@
 [ext_resource type="Script" uid="uid://bqks87lftavki" path="res://scripts/main_music.gd" id="4_y56qp"]
 [ext_resource type="AudioStream" uid="uid://b56rq50nl1k0k" path="res://assets/sounds/sound effects/Beach waves.mp3" id="5_b6bv0"]
 [ext_resource type="AudioStream" uid="uid://b2j5b5j458kfq" path="res://assets/sounds/music/main intro.mp3" id="5_y56qp"]
-[ext_resource type="Script" uid="uid://c1apa5psl7sil" path="res://scripts/too_deep.gd" id="7_ubwgw"]
 [ext_resource type="PackedScene" uid="uid://bpe1ya546rkyc" path="res://assets/models/finished-tree3.glb" id="8_7lrji"]
 [ext_resource type="PackedScene" uid="uid://cnhh16gt47kkh" path="res://scenes/prefabs/bottle.tscn" id="8_vkq25"]
 [ext_resource type="PackedScene" uid="uid://g55qxnqk8ceu" path="res://assets/models/rock-style3.glb" id="9_rssyh"]
@@ -17,6 +16,7 @@
 [ext_resource type="VoxelGIData" uid="uid://cen2nemopq821" path="res://resources/main.VoxelGI_data.res" id="11_hwp66"]
 [ext_resource type="PackedScene" uid="uid://ccsqdsciasfq2" path="res://assets/models/plant-style1.glb" id="12_dj21o"]
 [ext_resource type="PackedScene" uid="uid://cpvwwrawlp121" path="res://scenes/prefabs/wolf.tscn" id="17_7exfm"]
+[ext_resource type="PackedScene" uid="uid://pmy6njqqgsfm" path="res://scenes/prefabs/drowning_zone.tscn" id="17_qgoyv"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_y0acb"]
 panorama = ExtResource("1_2vj2h")
@@ -69,8 +69,6 @@ data = PackedVector3Array(-92.3313, 11.3059, 38.8486, -99.479294, 10.9725, 40.16
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_vkq25"]
 data = PackedVector3Array(-250, 0, 250, 250, 0, -250, 250, 0, 250, -250, 0, 250, -250, 0, -250, 250, 0, -250)
-
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_b6bv0"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_7lrji"]
 points = PackedVector3Array(1.0752339, 8.600428, 0.560261, -2.5517716, -3.239923, -0.23429735, -2.316557, -2.9320426, -0.5944096, 1.36971, -3.1280625, 1.4569012, 0.9392337, 2.7087998, -2.3685217, -1.1595421, -3.1828284, 2.5923095, -1.9655328, 4.3570614, -1.3306943, -0.8923167, -3.3391688, -2.5058239, -0.75307274, 8.600428, 0.7634659, 1.6846695, -2.7755437, -1.4702363, 2.4282753, 1.2448417, 0.31675902, 0.5941433, 4.3446474, 2.133207, 0.4192097, 7.880558, -0.97217876, -2.329518, -0.03597248, 0.68289506, 0.7958466, 4.011262, -2.4706755, -2.1721332, 3.6347878, -1.5299968, 2.474474, 0.099839404, 0.6965026, 1.5279222, 6.4026885, -0.4178854, -1.1595421, -3.58884, 2.5923095, -0.69886774, 8.151212, -0.61149246, 0.26229522, 8.802797, 1.1698756, 1.1506975, -3.1646726, -1.700607, -2.099875, 1.9935888, 0.6666199, 1.0752339, 9.005167, 0.35705617, -2.599102, -3.3521135, 0.13964008, 0.7540686, 5.3623905, 1.8977282, 0.050487023, 1.5968888, 2.3621922, 0.04601287, 3.7659047, 2.0692089, 0.93686765, 3.774891, -2.362929, 0.22901712, 3.4320648, -2.4012897, 1.2782001, 8.396786, 0.15333426, 0.8717308, 8.600428, 0.96667075)
@@ -198,15 +196,18 @@ script = SubResource("GDScript_2xkjh")
 
 [node name="Wind" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("4_u81e1")
-volume_db = 10.0
+volume_db = 12.0
 pitch_scale = 0.75
 autoplay = true
+bus = &"Ambience"
 parameters/looping = true
 
 [node name="Waves" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("5_b6bv0")
-volume_db = -2.0
+volume_db = -10.0
+pitch_scale = 0.9
 autoplay = true
+bus = &"Ambience"
 parameters/looping = true
 
 [node name="Music" type="Node" parent="Audio"]
@@ -243,14 +244,6 @@ shape = SubResource("ConcavePolygonShape3D_vkq25")
 
 [node name="Player" parent="." instance=ExtResource("3_j4d2a")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -90.6659, 13.726579, -44.511208)
-
-[node name="TooDeep" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0)
-input_ray_pickable = false
-script = ExtResource("7_ubwgw")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TooDeep"]
-shape = SubResource("WorldBoundaryShape3D_b6bv0")
 
 [node name="Rocks" parent="." instance=ExtResource("9_rssyh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.305527, 18.40358, -35.90896)
@@ -882,8 +875,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 76.54164, 19.864323, -50.9536
 [node name="Wolf" parent="Wolves" instance=ExtResource("17_7exfm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5537763, 30.18935, -56.54098)
 
+[node name="DrowningZone" parent="." instance=ExtResource("17_qgoyv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -140, 15.771, 0)
+
+[node name="DrowningZone2" parent="." instance=ExtResource("17_qgoyv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 150, 15.771, 0)
+
+[node name="DrowningZone3" parent="." instance=ExtResource("17_qgoyv")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 15.771, 130)
+
+[node name="DrowningZone4" parent="." instance=ExtResource("17_qgoyv")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 15.771, -140)
+
 [connection signal="finished" from="Audio/Music/MainMusicIntro" to="Audio/Music" method="_on_main_music_intro_finished"]
-[connection signal="body_entered" from="TooDeep" to="TooDeep" method="_on_body_entered"]
 
 [editable path="island"]
 [editable path="Rocks"]

@@ -1,5 +1,6 @@
 extends CharacterBody3D
 
+@onready var collision: CollisionShape3D = $CollisionShape3D
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera3D
 @onready var footsteps_1: AudioStreamPlayer3D = $Feet/Footsteps1
@@ -26,6 +27,7 @@ const CROUCH: float = 3.0
 const JUMP_VELOCITY: float = 5.0
 var speed: float
 var is_crouching: bool = false
+var drowning: bool = false
 
 #head bob variables
 const BOB_FREQ: float = 1.8
@@ -50,15 +52,8 @@ func _input(_event: InputEvent) -> void:
 		GVar.messages_collected += 1
 		
 	#Handle toggle crouch
-	if Input.is_action_just_pressed("crouch"):
+	if Input.is_action_just_pressed("crouch") and !drowning:
 		crouch()
-		
-	#exit game for debug! :D
-	#changing to take you to the main menu to test settings
-	if Input.is_action_just_pressed("exit_game"):
-		get_tree().change_scene_to_file("res://scenes/levels/main_menu.tscn")
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		GFunc.reset_vars()
 	
 func _unhandled_input(event: InputEvent) -> void:
 	#Handle head rotation
@@ -69,11 +64,13 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
-	if !is_on_floor():
+	if drowning:
+		velocity += get_gravity() * delta / 3
+	elif !is_on_floor():
 		velocity += get_gravity() * delta
 
 	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and is_on_floor() and !drowning:
 		velocity.y = JUMP_VELOCITY
 		
 	#Handle speed.
@@ -90,7 +87,7 @@ func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
 	var input_dir := Input.get_vector("left", "right", "forward", "backward")
 	var direction = (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if is_on_floor():
+	if is_on_floor() or drowning:
 		if direction:
 			velocity.x = direction.x * speed
 			velocity.z = direction.z * speed
@@ -141,9 +138,10 @@ func crouch():
 # fades out screen when called
 func gameover(drowned):
 	if drowned:
-		fade.play("fade_out")
-		await animation.animation_finished
-		get_tree().reload_current_scene()
+		drowning = true
+		collision.disabled = true
+		speed = WALK / 3
+		fade.play("drown")
 
 #plays footsteps
 func _on_timer_timeout() -> void:
@@ -155,3 +153,5 @@ func _on_timer_timeout() -> void:
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "crouch":
 		is_crouching = !is_crouching
+	if anim_name == "drown":
+		get_tree().change_scene_to_file("res://ui/ui-scenes/vague_end.tscn")

@@ -1,15 +1,69 @@
-[gd_resource type="AudioBusLayout" format=3 uid="uid://cdyeh4valwyar"]
+[gd_resource type="AudioBusLayout" load_steps=7 format=3 uid="uid://cdyeh4valwyar"]
+
+[sub_resource type="AudioEffectCompressor" id="AudioEffectCompressor_fxi2g"]
+resource_name = "Compressor"
+sidechain = &"Ambience"
+
+[sub_resource type="AudioEffectDistortion" id="AudioEffectDistortion_fxi2g"]
+resource_name = "Distortion"
+pre_gain = 1.0
+drive = 0.1
+post_gain = -2.0
+
+[sub_resource type="AudioEffectCompressor" id="AudioEffectCompressor_gcjdw"]
+resource_name = "Compressor"
+gain = 5.0
+sidechain = &"Music"
+
+[sub_resource type="AudioEffectAmplify" id="AudioEffectAmplify_gcjdw"]
+resource_name = "Amplify"
+volume_db = 3.0
+
+[sub_resource type="AudioEffectDistortion" id="AudioEffectDistortion_gcjdw"]
+resource_name = "Distortion"
+pre_gain = 2.0
+drive = 0.4
+post_gain = 1.0
+
+[sub_resource type="AudioEffectCompressor" id="AudioEffectCompressor_l8cm0"]
+resource_name = "Compressor"
+gain = -2.0
 
 [resource]
+bus/0/volume_db = -10.986328
 bus/1/name = &"Sound Effects"
 bus/1/solo = false
 bus/1/mute = false
 bus/1/bypass_fx = false
-bus/1/volume_db = -8.009033
+bus/1/volume_db = -10.0691595
 bus/1/send = &"Master"
+bus/1/effect/0/effect = SubResource("AudioEffectCompressor_fxi2g")
+bus/1/effect/0/enabled = true
 bus/2/name = &"Music"
 bus/2/solo = false
 bus/2/mute = false
 bus/2/bypass_fx = false
-bus/2/volume_db = 0.0
+bus/2/volume_db = -1.1215086
 bus/2/send = &"Master"
+bus/3/name = &"Ambience"
+bus/3/solo = false
+bus/3/mute = false
+bus/3/bypass_fx = false
+bus/3/volume_db = -2.1147432
+bus/3/send = &"Master"
+bus/3/effect/0/effect = SubResource("AudioEffectDistortion_fxi2g")
+bus/3/effect/0/enabled = true
+bus/3/effect/1/effect = SubResource("AudioEffectCompressor_gcjdw")
+bus/3/effect/1/enabled = true
+bus/3/effect/2/effect = SubResource("AudioEffectAmplify_gcjdw")
+bus/3/effect/2/enabled = false
+bus/4/name = &"Drowning"
+bus/4/solo = false
+bus/4/mute = false
+bus/4/bypass_fx = false
+bus/4/volume_db = -5.625
+bus/4/send = &"Master"
+bus/4/effect/0/effect = SubResource("AudioEffectDistortion_gcjdw")
+bus/4/effect/0/enabled = true
+bus/4/effect/1/effect = SubResource("AudioEffectCompressor_l8cm0")
+bus/4/effect/1/enabled = true

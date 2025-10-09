@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bp75xksj0l5to"]
+[gd_scene load_steps=35 format=3 uid="uid://bp75xksj0l5to"]
 
 [ext_resource type="Script" uid="uid://dsucwpdgcyu5l" path="res://scripts/player.gd" id="1_8afob"]
 [ext_resource type="Material" uid="uid://b14jibrppbnpl" path="res://resources/shaders/vhs_shader.tres" id="2_75vfm"]
@@ -8,11 +8,14 @@
 [ext_resource type="AudioStream" uid="uid://k4gfgkjcwrx7" path="res://assets/sounds/sound effects/Sand step 2.mp3" id="3_75vfm"]
 [ext_resource type="Script" uid="uid://d2kmk7ioeo0tn" path="res://scripts/final_choice.gd" id="3_gx1jg"]
 [ext_resource type="AudioStream" uid="uid://cqbmrffn8h7sj" path="res://assets/sounds/sound effects/Sand step 3.mp3" id="4_0owmy"]
-[ext_resource type="FontFile" uid="uid://7oc3lr16ssuw" path="res://assets/misc/font-finalchoice.ttf" id="4_ugbui"]
+[ext_resource type="FontFile" uid="uid://7oc3lr16ssuw" path="res://ui/ui-assets/font-finalchoice.ttf" id="4_ugbui"]
 [ext_resource type="PackedScene" uid="uid://cn7nxfy4yw4vt" path="res://assets/models/flashlight.glb" id="5_5gtgg"]
-[ext_resource type="FontFile" uid="uid://b2rln1800pofq" path="res://assets/misc/font-handwriting.ttf" id="5_je7p5"]
+[ext_resource type="FontFile" uid="uid://b2rln1800pofq" path="res://ui/ui-assets/font-handwriting.ttf" id="5_je7p5"]
 [ext_resource type="AudioStream" uid="uid://d31ootg12xbd6" path="res://assets/sounds/sound effects/Sand step 4.mp3" id="5_qek5x"]
-[ext_resource type="FontFile" uid="uid://b8buwjejpyvu8" path="res://assets/misc/font-title.TTF" id="8_gx1jg"]
+[ext_resource type="FontFile" uid="uid://b8buwjejpyvu8" path="res://ui/ui-assets/font-title.TTF" id="8_gx1jg"]
+[ext_resource type="Script" uid="uid://clsse68m60pn0" path="res://ui/ui-scripts/pause_menu.gd" id="9_myrg7"]
+[ext_resource type="AudioStream" uid="uid://bdxtrllj67f4r" path="res://assets/sounds/sound effects/Drowning Sound.mp3" id="9_ugbui"]
+[ext_resource type="AudioStream" uid="uid://df0wrnr6t6m66" path="res://assets/sounds/sound effects/Flashlight click.mp3" id="10_fcs02"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_2vj2h"]
 
@@ -26,15 +29,39 @@ func _process(_delta: float) -> void:
 	self.visible = GVar.vhs_overlay
 "
 
+[sub_resource type="GDScript" id="GDScript_fcs02"]
+script/source = "extends Button
+
+func _process(_delta: float) -> void:
+	visible = GVar.wolf_counter >= 5
+
+func _on_pressed() -> void:
+	get_tree().change_scene_to_file(\"res://ui/ui-scenes/true_end.tscn\")
+"
+
 [sub_resource type="GDScript" id="GDScript_gx1jg"]
 resource_name = "Tutorial"
 script/source = "extends Control
 
+@onready var label: Label = $VBoxContainer/HBoxContainer/Label
+
+const TUT1: String = \"[E] to interact with items\"
+const TUT2: String = \"[F] to toggle flashlight\"
+
+var flashlight_used: bool = false
+
 func _process(_delta: float) -> void:
 	if GVar.messages_collected == 0:
 		visible = true
+		label.text = TUT1
+	elif !flashlight_used:
+		label.text = TUT2
+		visible = true
 	else:
 		visible = false
+		
+	if GVar.messages_collected > 0 and Input.is_action_just_pressed(\"flashlight\"):
+		flashlight_used = true
 "
 
 [sub_resource type="GDScript" id="GDScript_ugbui"]
@@ -71,6 +98,46 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(0, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../../DrowningSound:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_fcs02"]
+resource_name = "drown"
+length = 2.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.1333334),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../../DrowningSound:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_75vfm"]
@@ -123,10 +190,23 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5gtgg"]
 _data = {
 &"RESET": SubResource("Animation_0owmy"),
+&"drown": SubResource("Animation_fcs02"),
 &"fade_in": SubResource("Animation_75vfm"),
 &"fade_out": SubResource("Animation_qek5x"),
 &"white_out": SubResource("Animation_je7p5")
 }
+
+[sub_resource type="GDScript" id="GDScript_myrg7"]
+resource_name = "Flashlight"
+script/source = "extends SpotLight3D
+
+@onready var flashlight_sound: AudioStreamPlayer3D = $FlashlightSound
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed(\"flashlight\"):
+		visible = !visible
+		flashlight_sound.play(0.9)
+"
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_gx1jg"]
 radius = 8.0
@@ -307,32 +387,49 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_gx1jg")
 
-[node name="ButtonContainer" type="HBoxContainer" parent="Head/Camera3D/CanvasLayer/FinalChoice"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Head/Camera3D/CanvasLayer/FinalChoice"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -118.0
+offset_left = -133.5
 offset_top = -20.5
-offset_right = 118.0
+offset_right = 133.5
 offset_bottom = 20.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 30
+theme_override_constants/separation = 20
+alignment = 1
 
-[node name="TrueButton" type="Button" parent="Head/Camera3D/CanvasLayer/FinalChoice/ButtonContainer"]
+[node name="ButtonContainer" type="HBoxContainer" parent="Head/Camera3D/CanvasLayer/FinalChoice/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="BadButton" type="Button" parent="Head/Camera3D/CanvasLayer/FinalChoice/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_ugbui")
+theme_override_font_sizes/font_size = 32
+text = "Persist?"
+
+[node name="TrueButton" type="Button" parent="Head/Camera3D/CanvasLayer/FinalChoice/VBoxContainer/ButtonContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_ugbui")
 theme_override_font_sizes/font_size = 32
 text = "Death?"
 
-[node name="BadButton" type="Button" parent="Head/Camera3D/CanvasLayer/FinalChoice/ButtonContainer"]
+[node name="FinalButton" type="Button" parent="Head/Camera3D/CanvasLayer/FinalChoice/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.8745098, 0, 0.8745098, 1)
+theme_override_colors/font_hover_color = Color(0.9490196, 0.9490196, 0, 1)
 theme_override_fonts/font = ExtResource("4_ugbui")
 theme_override_font_sizes/font_size = 32
-text = "Persist?"
+text = "Thrive"
+script = SubResource("GDScript_fcs02")
 
 [node name="Tutorial" type="Control" parent="Head/Camera3D/CanvasLayer"]
 layout_mode = 3
@@ -451,7 +548,70 @@ text = "X/8"
 horizontal_alignment = 2
 script = SubResource("GDScript_5gtgg")
 
+[node name="PauseMenu" type="Control" parent="Head/Camera3D/CanvasLayer"]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("9_myrg7")
+
+[node name="MarginContainer" type="MarginContainer" parent="Head/Camera3D/CanvasLayer/PauseMenu"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="Head/Camera3D/CanvasLayer/PauseMenu/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.22839099, 0.191502, 0.4402763, 1)
+
+[node name="EscapeBox" type="VBoxContainer" parent="Head/Camera3D/CanvasLayer/PauseMenu/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 7
+
+[node name="Spacer" type="Control" parent="Head/Camera3D/CanvasLayer/PauseMenu/MarginContainer/EscapeBox"]
+layout_mode = 2
+
+[node name="NoEscapeLabel" type="Label" parent="Head/Camera3D/CanvasLayer/PauseMenu/MarginContainer/EscapeBox"]
+layout_mode = 2
+text = "There is no escape..."
+horizontal_alignment = 1
+
+[node name="MenuButton" type="Button" parent="Head/Camera3D/CanvasLayer/PauseMenu/MarginContainer/EscapeBox"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Return to Menu"
+
+[node name="ResumeButton" type="Button" parent="Head/Camera3D/CanvasLayer/PauseMenu/MarginContainer/EscapeBox"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Resume Search"
+
+[node name="Spacer2" type="Control" parent="Head/Camera3D/CanvasLayer/PauseMenu/MarginContainer/EscapeBox"]
+layout_mode = 2
+
 [node name="Fade" type="ColorRect" parent="Head/Camera3D/CanvasLayer"]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -483,8 +643,10 @@ cast_shadow = 0
 
 [node name="Flashlight" type="SpotLight3D" parent="Head/Camera3D/flashlight"]
 transform = Transform3D(-0.999904, 0, -0.013857372, 0, 1, 0, 0.013857372, 0, -0.999904, 0.04281032, 1.1226375, -0.76956797)
+visible = false
 light_energy = 2.0
 light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.75
 light_specular = 1.0
 light_bake_mode = 1
 shadow_enabled = true
@@ -494,12 +656,29 @@ distance_fade_shadow = 20.0
 distance_fade_length = 15.0
 spot_range = 15.0
 spot_angle = 30.0
+script = SubResource("GDScript_myrg7")
+
+[node name="FlashlightSound" type="AudioStreamPlayer3D" parent="Head/Camera3D/flashlight/Flashlight"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03129083, 0, -0.33794641)
+stream = ExtResource("10_fcs02")
+attenuation_model = 3
+volume_db = 15.0
+max_polyphony = 3
+bus = &"Sound Effects"
 
 [node name="WolfDetector" type="Area3D" parent="Head/Camera3D" groups=["Eyes"]]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Head/Camera3D/WolfDetector"]
 transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 0, 0, 0)
 shape = SubResource("SphereShape3D_gx1jg")
+
+[node name="DrowningSound" type="AudioStreamPlayer3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0.3)
+stream = ExtResource("9_ugbui")
+attenuation_model = 3
+volume_db = 2.0
+pitch_scale = 0.85
+bus = &"Drowning"
 
 [node name="Feet" type="Node3D" parent="."]
 
@@ -528,8 +707,12 @@ libraries = {
 &"": SubResource("AnimationLibrary_je7p5")
 }
 
-[connection signal="pressed" from="Head/Camera3D/CanvasLayer/FinalChoice/ButtonContainer/TrueButton" to="Head/Camera3D/CanvasLayer/FinalChoice" method="_on_true_button_pressed"]
-[connection signal="pressed" from="Head/Camera3D/CanvasLayer/FinalChoice/ButtonContainer/BadButton" to="Head/Camera3D/CanvasLayer/FinalChoice" method="_on_bad_button_pressed"]
+[connection signal="pressed" from="Head/Camera3D/CanvasLayer/FinalChoice/VBoxContainer/ButtonContainer/BadButton" to="Head/Camera3D/CanvasLayer/FinalChoice" method="_on_bad_button_pressed"]
+[connection signal="pressed" from="Head/Camera3D/CanvasLayer/FinalChoice/VBoxContainer/ButtonContainer/TrueButton" to="Head/Camera3D/CanvasLayer/FinalChoice" method="_on_true_button_pressed"]
+[connection signal="pressed" from="Head/Camera3D/CanvasLayer/FinalChoice/VBoxContainer/FinalButton" to="Head/Camera3D/CanvasLayer/FinalChoice/VBoxContainer/FinalButton" method="_on_pressed"]
+[connection signal="pressed" from="Head/Camera3D/CanvasLayer/PauseMenu/MarginContainer/EscapeBox/MenuButton" to="Head/Camera3D/CanvasLayer/PauseMenu" method="_on_menu_button_pressed"]
+[connection signal="pressed" from="Head/Camera3D/CanvasLayer/PauseMenu/MarginContainer/EscapeBox/ResumeButton" to="Head/Camera3D/CanvasLayer/PauseMenu" method="_on_resume_button_pressed"]
+[connection signal="animation_finished" from="Head/Camera3D/CanvasLayer/Fade/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="Feet/Timer" to="." method="_on_timer_timeout"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 

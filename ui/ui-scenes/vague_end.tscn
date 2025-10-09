@@ -1,12 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://bapafvpic281r"]
+[gd_scene load_steps=7 format=3 uid="uid://d0ur75crxulfk"]
 
-[ext_resource type="AudioStream" uid="uid://ewcngakre8oi" path="res://assets/sounds/music/sad ending.mp3" id="1_05fen"]
-[ext_resource type="Texture2D" uid="uid://2opij8h306gc" path="res://assets/misc/ending=1=art.png" id="1_7hu8f"]
-[ext_resource type="Script" uid="uid://262xjhf20jca" path="res://ui/ui-scripts/ending_audio.gd" id="1_km2kq"]
-[ext_resource type="FontFile" uid="uid://7oc3lr16ssuw" path="res://ui/ui-assets/font-finalchoice.ttf" id="1_nf88s"]
-[ext_resource type="FontFile" uid="uid://b2rln1800pofq" path="res://ui/ui-assets/font-handwriting.ttf" id="2_7hu8f"]
+[ext_resource type="FontFile" uid="uid://7oc3lr16ssuw" path="res://ui/ui-assets/font-finalchoice.ttf" id="2_vm48q"]
+[ext_resource type="AudioStream" uid="uid://c7oe5xk0hjgdk" path="res://assets/sounds/sound effects/Windy trees.mp3" id="3_qmmnm"]
+[ext_resource type="FontFile" uid="uid://b2rln1800pofq" path="res://ui/ui-assets/font-handwriting.ttf" id="3_wxqju"]
+[ext_resource type="Script" uid="uid://262xjhf20jca" path="res://ui/ui-scripts/ending_audio.gd" id="5_23q7f"]
 
-[node name="BadEnd" type="Control"]
+[sub_resource type="Gradient" id="Gradient_qmmnm"]
+offsets = PackedFloat32Array(0, 0.97333336, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_l3apv"]
+gradient = SubResource("Gradient_qmmnm")
+
+[node name="VagueEnd" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,7 +27,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_7hu8f")
+texture = SubResource("GradientTexture1D_l3apv")
 expand_mode = 5
 stretch_mode = 6
 
@@ -32,40 +38,43 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 100
-theme_override_constants/margin_top = 80
+theme_override_constants/margin_left = 120
+theme_override_constants/margin_top = 120
 theme_override_constants/margin_right = 75
 theme_override_constants/margin_bottom = 100
 
 [node name="Ending" type="Label" parent="MarginContainer"]
 layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-theme_override_fonts/font = ExtResource("1_nf88s")
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("2_vm48q")
 theme_override_font_sizes/font_size = 72
-text = "Bad End"
+text = "End...?"
 
 [node name="Credits" type="VBoxContainer" parent="."]
 custom_minimum_size = Vector2(200, 400)
 layout_mode = 1
-anchors_preset = 4
+anchors_preset = 6
+anchor_left = 1.0
 anchor_top = 0.5
+anchor_right = 1.0
 anchor_bottom = 0.5
+offset_left = -200.0
 offset_top = -217.5
-offset_right = 200.0
 offset_bottom = 217.5
+grow_horizontal = 0
 grow_vertical = 2
 
 [node name="CreditsTitle" type="Label" parent="Credits"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_7hu8f")
+theme_override_fonts/font = ExtResource("3_wxqju")
 theme_override_font_sizes/font_size = 32
 text = "Credits"
 horizontal_alignment = 1
 
 [node name="CreditsContent" type="Label" parent="Credits"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_7hu8f")
+theme_override_fonts/font = ExtResource("3_wxqju")
 text = "Music:
 Jupiter
 
@@ -84,9 +93,10 @@ Drifter"
 horizontal_alignment = 1
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("1_05fen")
+stream = ExtResource("3_qmmnm")
+volume_db = 5.0
 autoplay = true
 bus = &"Music"
-script = ExtResource("1_km2kq")
+script = ExtResource("5_23q7f")
 
 [connection signal="finished" from="AudioStreamPlayer" to="AudioStreamPlayer" method="_on_finished"]

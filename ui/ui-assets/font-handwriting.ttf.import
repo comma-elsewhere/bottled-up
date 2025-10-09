@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://b2rln1800pofq"
-path="res://.godot/imported/font-handwriting.ttf-44a498b8aa05083abd0fe0703d14c951.fontdata"
+path="res://.godot/imported/font-handwriting.ttf-109bd467055d5bf83ffed28687433859.fontdata"
 
 [deps]
 
-source_file="res://assets/misc/font-handwriting.ttf"
-dest_files=["res://.godot/imported/font-handwriting.ttf-44a498b8aa05083abd0fe0703d14c951.fontdata"]
+source_file="res://ui/ui-assets/font-handwriting.ttf"
+dest_files=["res://.godot/imported/font-handwriting.ttf-109bd467055d5bf83ffed28687433859.fontdata"]
 
 [params]
 

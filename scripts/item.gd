@@ -10,7 +10,7 @@ var selected: bool = false
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("interact") and selected:
 		player.pickup_item(self)
-		bottle_sound.play(0.5)
+		bottle_sound.play(0.8)
 
 func _physics_process(_delta: float) -> void:
 	if item_hand == get_parent():

@@ -5,9 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://dcm0t3ug2id17" path="res://assets/sounds/sound effects/Bottle clink 1.mp3" id="3_qsq66"]
 [ext_resource type="PackedScene" uid="uid://dxummmu755ukh" path="res://assets/models/purple-glowing-bottle.glb" id="4_edy1f"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_edy1f"]
-radius = 0.14941406
-height = 0.9645996
+[sub_resource type="SphereShape3D" id="SphereShape3D_edy1f"]
 
 [node name="Bottle" type="RigidBody3D" node_paths=PackedStringArray("bottle_sound")]
 collision_layer = 2
@@ -20,9 +18,15 @@ metadata/_custom_type_script = "uid://dbv1b27cjmqvi"
 
 [node name="PaperUnroll" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("2_7r7va")
+attenuation_model = 3
+volume_db = 3.0
+bus = &"Sound Effects"
 
 [node name="BottleClink" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("3_qsq66")
+attenuation_model = 3
+volume_db = 3.0
+bus = &"Sound Effects"
 
 [node name="purple-glowing-bottle" parent="." instance=ExtResource("4_edy1f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.0150228, 0, 3.9491954)
@@ -42,6 +46,6 @@ light_bake_mode = 1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.9757948, 0.21868826, 0, -0.21868826, 0.9757948, -0.05389133, 0.16521329, -0.037026446)
-shape = SubResource("CapsuleShape3D_edy1f")
+shape = SubResource("SphereShape3D_edy1f")
 
 [editable path="purple-glowing-bottle"]

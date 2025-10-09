@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://pmy6njqqgsfm"]
+
+[ext_resource type="Script" uid="uid://ccxohpvldjhk7" path="res://scripts/drowning_zone.gd" id="1_5t1i7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_px1c8"]
+size = Vector3(50, 40, 300)
+
+[node name="DrowningZone" type="Area3D"]
+script = ExtResource("1_5t1i7")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.579834, -13.81362, 1.576355)
+shape = SubResource("BoxShape3D_px1c8")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
