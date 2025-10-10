@@ -1,14 +1,13 @@
-[gd_scene load_steps=57 format=3 uid="uid://bvyn7ytko346h"]
+[gd_scene load_steps=56 format=3 uid="uid://bvyn7ytko346h"]
 
 [ext_resource type="Texture2D" uid="uid://duu6lc6peb0b" path="res://assets/misc/environ_sky.exr" id="1_2vj2h"]
 [ext_resource type="PackedScene" uid="uid://degfds0rnudwf" path="res://assets/models/island.glb" id="2_y0acb"]
 [ext_resource type="Material" uid="uid://dph8d1rg2eofc" path="res://resources/shaders/water_shader.tres" id="3_b6bv0"]
 [ext_resource type="PackedScene" uid="uid://bp75xksj0l5to" path="res://scenes/player/player.tscn" id="3_j4d2a"]
-[ext_resource type="AudioStream" uid="uid://040k5wwlnwx6" path="res://assets/sounds/music/main loop.mp3" id="4_6ui35"]
 [ext_resource type="AudioStream" uid="uid://c7oe5xk0hjgdk" path="res://assets/sounds/sound effects/Windy trees.mp3" id="4_u81e1"]
 [ext_resource type="Script" uid="uid://bqks87lftavki" path="res://scripts/main_music.gd" id="4_y56qp"]
 [ext_resource type="AudioStream" uid="uid://b56rq50nl1k0k" path="res://assets/sounds/sound effects/Beach waves.mp3" id="5_b6bv0"]
-[ext_resource type="AudioStream" uid="uid://b2j5b5j458kfq" path="res://assets/sounds/music/main intro.mp3" id="5_y56qp"]
+[ext_resource type="AudioStream" uid="uid://dw1dbkda6cxgf" path="res://assets/sounds/music/main.mp3" id="6_sv52t"]
 [ext_resource type="PackedScene" uid="uid://bpe1ya546rkyc" path="res://assets/models/finished-tree3.glb" id="8_7lrji"]
 [ext_resource type="PackedScene" uid="uid://cnhh16gt47kkh" path="res://scenes/prefabs/bottle.tscn" id="8_vkq25"]
 [ext_resource type="PackedScene" uid="uid://g55qxnqk8ceu" path="res://assets/models/rock-style3.glb" id="9_rssyh"]
@@ -214,12 +213,7 @@ parameters/looping = true
 script = ExtResource("4_y56qp")
 
 [node name="MainMusicLoop" type="AudioStreamPlayer" parent="Audio/Music"]
-stream = ExtResource("4_6ui35")
-bus = &"Music"
-parameters/looping = true
-
-[node name="MainMusicIntro" type="AudioStreamPlayer" parent="Audio/Music"]
-stream = ExtResource("5_y56qp")
+stream = ExtResource("6_sv52t")
 autoplay = true
 bus = &"Music"
 
@@ -886,8 +880,6 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 1
 
 [node name="DrowningZone4" parent="." instance=ExtResource("17_qgoyv")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 15.771, -140)
-
-[connection signal="finished" from="Audio/Music/MainMusicIntro" to="Audio/Music" method="_on_main_music_intro_finished"]
 
 [editable path="island"]
 [editable path="Rocks"]

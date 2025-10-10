@@ -109,7 +109,8 @@ func _physics_process(delta: float) -> void:
 	#Pickup items (player side pt 1) this selects items
 	if item_pickup.is_colliding():
 		var selected_item = item_pickup.get_collider()
-		selected_item.set_selected(selected_item)
+		if selected_item:
+			selected_item.set_selected(selected_item)
 
 	move_and_slide()
 

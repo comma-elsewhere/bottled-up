@@ -123,7 +123,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_85l36")
 action_mode = 0
 text = "Start"
 
-[node name="settingButton" type="Button" parent="MarginContainer/ButtonContainer"]
+[node name="ToggleSettings" type="Button" parent="MarginContainer/ButtonContainer"]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rdpro")
@@ -133,6 +133,17 @@ theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_uw2q6")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_85l36")
 action_mode = 0
 text = "Settings"
+
+[node name="ToggleControlBox" type="Button" parent="MarginContainer/ButtonContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_rdpro")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_qe4io")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_hdedm")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_uw2q6")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_85l36")
+action_mode = 0
+text = "Controls"
 
 [node name="quitButton" type="Button" parent="MarginContainer/ButtonContainer"]
 custom_minimum_size = Vector2(100, 50)
@@ -154,16 +165,17 @@ text = "Howling Isle"
 
 [node name="Settings" type="MarginContainer" parent="."]
 visible = false
+custom_minimum_size = Vector2(380, 280)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -191.0
-offset_top = -139.0
-offset_right = 191.0
-offset_bottom = 139.0
+offset_left = -190.0
+offset_top = -140.0
+offset_right = 190.0
+offset_bottom = 140.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -178,8 +190,8 @@ size_flags_vertical = 0
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 
-[node name="closeSettingsButton" type="Button" parent="Settings/MarginContainer"]
-custom_minimum_size = Vector2(50, 50)
+[node name="ToggleSettings" type="Button" parent="Settings/MarginContainer"]
+custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_mnidl")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_xl0d3")
@@ -261,6 +273,133 @@ popup/item_1/text = "High"
 popup/item_1/id = 1
 script = SubResource("GDScript_fl7gh")
 
+[node name="Controls" type="MarginContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(380, 280)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -190.0
+offset_top = -140.0
+offset_right = 190.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="Controls"]
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.22839099, 0.191502, 0.4402763, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="Controls"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="ToggleControlBox" type="Button" parent="Controls/MarginContainer"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_mnidl")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_xl0d3")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_td3yc")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_tvn13")
+text = "X"
+
+[node name="ControlsMargin" type="MarginContainer" parent="Controls"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Controls/ControlsMargin"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 20
+
+[node name="ControlLabelBox" type="HBoxContainer" parent="Controls/ControlsMargin/VBoxContainer"]
+layout_mode = 2
+
+[node name="Input" type="Label" parent="Controls/ControlsMargin/VBoxContainer/ControlLabelBox"]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+text = "[WASD]"
+
+[node name="Action" type="Label" parent="Controls/ControlsMargin/VBoxContainer/ControlLabelBox"]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+text = "Move"
+
+[node name="ControlLabelBox2" type="HBoxContainer" parent="Controls/ControlsMargin/VBoxContainer"]
+layout_mode = 2
+
+[node name="Input" type="Label" parent="Controls/ControlsMargin/VBoxContainer/ControlLabelBox2"]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+text = "[Space]"
+
+[node name="Action" type="Label" parent="Controls/ControlsMargin/VBoxContainer/ControlLabelBox2"]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+text = "Jump"
+
+[node name="ControlLabelBox3" type="HBoxContainer" parent="Controls/ControlsMargin/VBoxContainer"]
+layout_mode = 2
+
+[node name="Input" type="Label" parent="Controls/ControlsMargin/VBoxContainer/ControlLabelBox3"]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+text = "[Shift]"
+
+[node name="Action" type="Label" parent="Controls/ControlsMargin/VBoxContainer/ControlLabelBox3"]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+text = "Sprint"
+
+[node name="ControlLabelBox4" type="HBoxContainer" parent="Controls/ControlsMargin/VBoxContainer"]
+layout_mode = 2
+
+[node name="Input" type="Label" parent="Controls/ControlsMargin/VBoxContainer/ControlLabelBox4"]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+text = "[Ctrl]"
+
+[node name="Action" type="Label" parent="Controls/ControlsMargin/VBoxContainer/ControlLabelBox4"]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+text = "Crouch"
+
+[node name="ControlLabelBox5" type="HBoxContainer" parent="Controls/ControlsMargin/VBoxContainer"]
+layout_mode = 2
+
+[node name="Input" type="Label" parent="Controls/ControlsMargin/VBoxContainer/ControlLabelBox5"]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+text = "[E]"
+
+[node name="Action" type="Label" parent="Controls/ControlsMargin/VBoxContainer/ControlLabelBox5"]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+text = "Interact"
+
+[node name="ControlLabelBox6" type="HBoxContainer" parent="Controls/ControlsMargin/VBoxContainer"]
+layout_mode = 2
+
+[node name="Input" type="Label" parent="Controls/ControlsMargin/VBoxContainer/ControlLabelBox6"]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+text = "[F]"
+
+[node name="Action" type="Label" parent="Controls/ControlsMargin/VBoxContainer/ControlLabelBox6"]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+text = "Flashlight"
+
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_721jg")
 volume_db = -2.0
@@ -269,6 +408,8 @@ bus = &"Music"
 parameters/looping = true
 
 [connection signal="pressed" from="MarginContainer/ButtonContainer/startButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="MarginContainer/ButtonContainer/settingButton" to="." method="_on_setting_button_pressed"]
+[connection signal="pressed" from="MarginContainer/ButtonContainer/ToggleSettings" to="." method="_on_toggle_settings_pressed"]
+[connection signal="pressed" from="MarginContainer/ButtonContainer/ToggleControlBox" to="." method="_on_toggle_control_box_pressed"]
 [connection signal="pressed" from="MarginContainer/ButtonContainer/quitButton" to="." method="_on_quit_button_pressed"]
-[connection signal="pressed" from="Settings/MarginContainer/closeSettingsButton" to="." method="_on_close_settings_button_pressed"]
+[connection signal="pressed" from="Settings/MarginContainer/ToggleSettings" to="." method="_on_toggle_settings_pressed"]
+[connection signal="pressed" from="Controls/MarginContainer/ToggleControlBox" to="." method="_on_toggle_control_box_pressed"]

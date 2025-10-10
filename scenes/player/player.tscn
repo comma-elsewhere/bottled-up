@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://bp75xksj0l5to"]
+[gd_scene load_steps=36 format=3 uid="uid://bp75xksj0l5to"]
 
 [ext_resource type="Script" uid="uid://dsucwpdgcyu5l" path="res://scripts/player.gd" id="1_8afob"]
 [ext_resource type="Material" uid="uid://b14jibrppbnpl" path="res://resources/shaders/vhs_shader.tres" id="2_75vfm"]
@@ -84,6 +84,18 @@ const OUT_OF: String = \"/7 \"
 func _process(_delta: float) -> void:
 	text = str(GVar.messages_collected) + OUT_OF
 "
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_myrg7"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
 
 [sub_resource type="Animation" id="Animation_0owmy"]
 length = 0.001
@@ -412,23 +424,23 @@ alignment = 1
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_ugbui")
 theme_override_font_sizes/font_size = 32
-text = "Persist?"
+text = "Escape?"
 
 [node name="TrueButton" type="Button" parent="Head/Camera3D/CanvasLayer/FinalChoice/VBoxContainer/ButtonContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_ugbui")
 theme_override_font_sizes/font_size = 32
-text = "Death?"
+text = "Give up?"
 
 [node name="FinalButton" type="Button" parent="Head/Camera3D/CanvasLayer/FinalChoice/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_colors/font_color = Color(0.8745098, 0, 0.8745098, 1)
+theme_override_colors/font_color = Color(0.8745098, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0.9490196, 0.9490196, 0, 1)
 theme_override_fonts/font = ExtResource("4_ugbui")
 theme_override_font_sizes/font_size = 32
-text = "Thrive"
+text = "Death"
 script = SubResource("GDScript_fcs02")
 
 [node name="Tutorial" type="Control" parent="Head/Camera3D/CanvasLayer"]
@@ -598,6 +610,7 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_styles/hover = SubResource("StyleBoxFlat_myrg7")
 text = "Return to Menu"
 
 [node name="ResumeButton" type="Button" parent="Head/Camera3D/CanvasLayer/PauseMenu/MarginContainer/EscapeBox"]
@@ -605,13 +618,13 @@ custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_styles/hover = SubResource("StyleBoxFlat_myrg7")
 text = "Resume Search"
 
 [node name="Spacer2" type="Control" parent="Head/Camera3D/CanvasLayer/PauseMenu/MarginContainer/EscapeBox"]
 layout_mode = 2
 
 [node name="Fade" type="ColorRect" parent="Head/Camera3D/CanvasLayer"]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -642,11 +655,12 @@ layers = 2
 cast_shadow = 0
 
 [node name="Flashlight" type="SpotLight3D" parent="Head/Camera3D/flashlight"]
-transform = Transform3D(-0.999904, 0, -0.013857372, 0, 1, 0, 0.013857372, 0, -0.999904, 0.04281032, 1.1226375, -0.76956797)
+transform = Transform3D(-0.99990404, 0, -0.013857402, 0, 1, 0, 0.013857402, 0, -0.99990404, -0.022553802, 1.1513382, -0.29985976)
 visible = false
 light_energy = 2.0
 light_indirect_energy = 0.0
 light_volumetric_fog_energy = 0.75
+light_size = 0.1
 light_specular = 1.0
 light_bake_mode = 1
 shadow_enabled = true
@@ -659,7 +673,7 @@ spot_angle = 30.0
 script = SubResource("GDScript_myrg7")
 
 [node name="FlashlightSound" type="AudioStreamPlayer3D" parent="Head/Camera3D/flashlight/Flashlight"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03129083, 0, -0.33794641)
+transform = Transform3D(1, -8.7311484e-11, -1.4901161e-08, 8.731149e-11, 1, 2.146624e-11, 1.4901161e-08, -2.1466242e-11, 1, -0.040575862, -0.02870059, 0.13081092)
 stream = ExtResource("10_fcs02")
 attenuation_model = 3
 volume_db = 15.0

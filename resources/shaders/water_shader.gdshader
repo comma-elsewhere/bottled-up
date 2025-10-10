@@ -50,6 +50,6 @@ void fragment() {
     ALBEDO = blended_water_color.rgb * albedo;
     ALPHA = finalOpacity;
     EMISSION = vec3(foamEffectRounded) * FoamGlowIntensity;
-    METALLIC = 0.0;
-    ROUGHNESS = 1.0;
+    METALLIC = 0.5;
+    ROUGHNESS = 0.5;
 }
