@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://c58cioiyqeagv"]
+[gd_scene load_steps=7 format=3 uid="uid://c58cioiyqeagv"]
 
 [ext_resource type="FontFile" uid="uid://7oc3lr16ssuw" path="res://ui/ui-assets/font-finalchoice.ttf" id="1_bxper"]
 [ext_resource type="Texture2D" uid="uid://cvlto2hko7dmy" path="res://assets/misc/ending=2=art.png" id="1_omma7"]
 [ext_resource type="FontFile" uid="uid://b2rln1800pofq" path="res://ui/ui-assets/font-handwriting.ttf" id="2_omma7"]
 [ext_resource type="AudioStream" uid="uid://lmj66h3tw2dy" path="res://assets/sounds/music/happy ending.mp3" id="3_bxper"]
 [ext_resource type="Script" uid="uid://262xjhf20jca" path="res://ui/ui-scripts/ending_audio.gd" id="4_lg0u7"]
+[ext_resource type="AnimationLibrary" uid="uid://cp3crqm6qr2vi" path="res://resources/true_end.res" id="6_2jmrs"]
 
 [node name="TrueEnd" type="Control"]
 layout_mode = 3
@@ -85,8 +86,66 @@ horizontal_alignment = 1
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_bxper")
-autoplay = true
 bus = &"Music"
 script = ExtResource("4_lg0u7")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Cutscene" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Cutscene"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="EndText1" type="Label" parent="Cutscene/VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+text = "You shed your doubts and fears,
+and jump into the unknown..."
+horizontal_alignment = 1
+
+[node name="EndText2" type="Label" parent="Cutscene/VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+text = "But Death Is an Opportunity."
+horizontal_alignment = 1
+
+[node name="EndText3" type="Label" parent="Cutscene/VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+text = "And you become something more..."
+horizontal_alignment = 1
+
+[node name="EndText4" type="Label" parent="Cutscene/VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0.30980393, 1)
+text = "You Thrive."
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"true_end": ExtResource("6_2jmrs")
+}
+autoplay = "true_end/open_scene"
 
 [connection signal="finished" from="AudioStreamPlayer" to="AudioStreamPlayer" method="_on_finished"]

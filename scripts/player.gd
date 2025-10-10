@@ -155,4 +155,4 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "crouch":
 		is_crouching = !is_crouching
 	if anim_name == "drown":
-		get_tree().change_scene_to_file("res://ui/ui-scenes/vague_end.tscn")
+		get_tree().change_scene_to_file("res://ui/ui-scenes/drown_end.tscn")
