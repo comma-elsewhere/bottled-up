@@ -117,26 +117,23 @@ layout_mode = 2
 theme_override_constants/separation = 20
 
 [node name="EndText1" type="Label" parent="Cutscene/VBoxContainer"]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 text = "You shed your doubts and fears,
 and jump into the unknown..."
 horizontal_alignment = 1
 
 [node name="EndText2" type="Label" parent="Cutscene/VBoxContainer"]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 2
-text = "But Death Is an Opportunity."
+text = "But Death was your opportunity 
+to become something new..."
 horizontal_alignment = 1
 
 [node name="EndText3" type="Label" parent="Cutscene/VBoxContainer"]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 2
-text = "And you become something more..."
+text = "Something more..."
 horizontal_alignment = 1
 
 [node name="EndText4" type="Label" parent="Cutscene/VBoxContainer"]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 0.30980393, 1)
 text = "You Thrive."

@@ -3,6 +3,8 @@ extends Control
 @onready var settings: MarginContainer = $Settings
 @onready var controls: MarginContainer = $Controls
 
+func _ready() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func _on_start_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/levels/main.tscn")
