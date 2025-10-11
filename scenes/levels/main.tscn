@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://bvyn7ytko346h"]
+[gd_scene load_steps=57 format=3 uid="uid://bvyn7ytko346h"]
 
 [ext_resource type="Texture2D" uid="uid://duu6lc6peb0b" path="res://assets/misc/environ_sky.exr" id="1_2vj2h"]
 [ext_resource type="PackedScene" uid="uid://degfds0rnudwf" path="res://assets/models/island.glb" id="2_y0acb"]
@@ -15,6 +15,7 @@
 [ext_resource type="VoxelGIData" uid="uid://cen2nemopq821" path="res://resources/main.VoxelGI_data.res" id="11_hwp66"]
 [ext_resource type="PackedScene" uid="uid://ccsqdsciasfq2" path="res://assets/models/plant-style1.glb" id="12_dj21o"]
 [ext_resource type="PackedScene" uid="uid://cpvwwrawlp121" path="res://scenes/prefabs/wolf.tscn" id="17_7exfm"]
+[ext_resource type="PackedScene" uid="uid://bw5pxb5tuqpa0" path="res://scenes/prefabs/particles.tscn" id="17_px1c8"]
 [ext_resource type="PackedScene" uid="uid://pmy6njqqgsfm" path="res://scenes/prefabs/drowning_zone.tscn" id="17_qgoyv"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_y0acb"]
@@ -868,6 +869,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 76.54164, 19.864323, -50.9536
 
 [node name="Wolf" parent="Wolves" instance=ExtResource("17_7exfm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5537763, 30.18935, -56.54098)
+
+[node name="GlowyThings" type="Node" parent="."]
+
+[node name="Particles" parent="GlowyThings" instance=ExtResource("17_px1c8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48.64445, 18.552067, -62.10766)
+
+[node name="Particles2" parent="GlowyThings" instance=ExtResource("17_px1c8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66.362206, 19.485378, -68.62278)
+
+[node name="Particles3" parent="GlowyThings" instance=ExtResource("17_px1c8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.506025, 30.787437, 52.005966)
 
 [node name="DrowningZone" parent="." instance=ExtResource("17_qgoyv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -140, 15.771, 0)

@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://cpvwwrawlp121"]
+[gd_scene load_steps=10 format=3 uid="uid://cpvwwrawlp121"]
 
 [ext_resource type="Script" uid="uid://dhhmxdjo7m57b" path="res://scripts/wolf.gd" id="1_8q40h"]
 [ext_resource type="PackedScene" uid="uid://cnc4otkp3fkti" path="res://assets/models/wolf-final.glb" id="2_ksk3f"]
+[ext_resource type="AudioStream" uid="uid://bsnks0xwljbnf" path="res://assets/sounds/sound effects/wolf-glitch.mp3" id="3_ieugk"]
 
 [sub_resource type="Animation" id="Animation_kr0uh"]
 length = 0.001
@@ -41,6 +42,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [0.5]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AudioStreamPlayer3D:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_ieugk"]
 resource_name = "fade_away"
@@ -79,6 +92,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [0.5, 4.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AudioStreamPlayer3D:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_us3rt"]
@@ -202,6 +227,12 @@ initial_velocity_max = 1.0
 hue_variation_min = -0.2
 hue_variation_max = -0.2
 anim_offset_max = 0.2
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 0, 1.2328849, -1.4110442)
+stream = ExtResource("3_ieugk")
+attenuation_model = 3
+bus = &"Sound Effects"
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 
