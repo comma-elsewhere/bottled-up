@@ -13,3 +13,16 @@ var messages: Dictionary = {
 	9: "Monotnous rise and fall of the sun is all I wait for. Day, Night, Day, Night. Wake, Sleep, Wake, Sleep. That’s all I live for...", 
 	
 	10: "I don't like thinking of what's on the other side of life. The other face of this coin.. maybe there's new opportunities for me? More than this endless path?"}
+
+var player_words: Dictionary = {
+	"awake" = {0: "Where am I?", 1: "I must've fallen overboard...", 2: "An island? But how...", 3: "My head is pounding- I need to find a way back.", 4: "It's dark, I should signal for help."},
+	"bottles" = {1: "These bottles seem to be washing up on shore...", 2: "Maybe one of them can help me?", 3: "Maybe I'll find some answers.", 4: "Maybe I'll find what I need..."},
+	"wolf" = {1: "Was that a person...?", 2: "My eyes must be playing tricks on me.", 3: "Couldn't be.", 4: "Maybe I'm not alone here..."},
+	"crisis" = {1: "Has anyone even noticed I'm missing...?", 2: "They must be looking for me right now.", 3: "I need to find a way out myself.", 4: "Maybe I'm here for a reason..."}
+}
+var player_choices: Dictionary = {
+	"awake" = {1: "Reason", 2: "Observe", 3: "Survival", 4: "Rational"},
+	"bottles" = {2: "Hope", 3: "Reason"},
+	"wolf" = {2: "Logic", 3: "Bravery"},
+	"crisis" = {2: "Hope", 3: "Bravery"}
+}

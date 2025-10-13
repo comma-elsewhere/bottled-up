@@ -2,7 +2,7 @@
 
 [ext_resource type="FontFile" uid="uid://7oc3lr16ssuw" path="res://ui/ui-assets/font-finalchoice.ttf" id="1_xdv25"]
 [ext_resource type="FontFile" uid="uid://b2rln1800pofq" path="res://ui/ui-assets/font-handwriting.ttf" id="2_e5byl"]
-[ext_resource type="AudioStream" uid="uid://c7oe5xk0hjgdk" path="res://assets/sounds/sound effects/Windy trees.mp3" id="3_quq08"]
+[ext_resource type="AudioStream" uid="uid://ewcngakre8oi" path="res://assets/sounds/music/sad ending.mp3" id="3_e5byl"]
 [ext_resource type="Script" uid="uid://262xjhf20jca" path="res://ui/ui-scripts/ending_audio.gd" id="4_c6v4r"]
 [ext_resource type="AnimationLibrary" uid="uid://c6hq67j12foa2" path="res://resources/bad_end.res" id="5_e5byl"]
 
@@ -186,9 +186,7 @@ Drifter"
 horizontal_alignment = 1
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_quq08")
-volume_db = 5.0
-autoplay = true
+stream = ExtResource("3_e5byl")
 bus = &"Music"
 script = ExtResource("4_c6v4r")
 

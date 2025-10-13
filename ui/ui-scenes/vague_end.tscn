@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://d0ur75crxulfk"]
 
 [ext_resource type="FontFile" uid="uid://7oc3lr16ssuw" path="res://ui/ui-assets/font-finalchoice.ttf" id="2_vm48q"]
-[ext_resource type="AudioStream" uid="uid://c7oe5xk0hjgdk" path="res://assets/sounds/sound effects/Windy trees.mp3" id="3_qmmnm"]
+[ext_resource type="AudioStream" uid="uid://ewcngakre8oi" path="res://assets/sounds/music/sad ending.mp3" id="3_l3apv"]
 [ext_resource type="FontFile" uid="uid://b2rln1800pofq" path="res://ui/ui-assets/font-handwriting.ttf" id="3_wxqju"]
 [ext_resource type="Script" uid="uid://262xjhf20jca" path="res://ui/ui-scripts/ending_audio.gd" id="5_23q7f"]
 [ext_resource type="AnimationLibrary" uid="uid://c6hq67j12foa2" path="res://resources/bad_end.res" id="5_vm48q"]
@@ -186,9 +186,7 @@ Drifter"
 horizontal_alignment = 1
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_qmmnm")
-volume_db = 8.0
-autoplay = true
+stream = ExtResource("3_l3apv")
 bus = &"Music"
 script = ExtResource("5_23q7f")
 
