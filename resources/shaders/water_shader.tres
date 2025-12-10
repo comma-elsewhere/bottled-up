@@ -1,19 +1,32 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dph8d1rg2eofc"]
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://dph8d1rg2eofc"]
 
 [ext_resource type="Shader" uid="uid://bfyrjdrjjuchl" path="res://resources/shaders/water_shader.gdshader" id="1_cls32"]
+[ext_resource type="Texture2D" uid="uid://cxjv27xm6xg75" path="res://assets/misc/water.png" id="2_l1spg"]
+
+[sub_resource type="Gradient" id="Gradient_ebslx"]
+colors = PackedColorArray(0, 0, 0.56078434, 1, 0.74509805, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_tgbs0"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mu1qr"]
+noise = SubResource("FastNoiseLite_tgbs0")
+color_ramp = SubResource("Gradient_ebslx")
 
 [resource]
 render_priority = 0
 shader = ExtResource("1_cls32")
-shader_parameter/albedo = Color(1.5883148e-06, 0, 0.61778224, 1)
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/water_texture1 = ExtResource("2_l1spg")
+shader_parameter/water_texture2 = ExtResource("2_l1spg")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_mu1qr")
 shader_parameter/scroll_speed1 = Vector2(0.05, 0)
 shader_parameter/scroll_speed2 = Vector2(-0.03, 0)
 shader_parameter/blend_factor = 0.5
-shader_parameter/scale1 = Vector2(1, 1)
-shader_parameter/scale2 = Vector2(1, 1)
-shader_parameter/wave_strength = 0.4
-shader_parameter/wave_scale = 0.02
-shader_parameter/pixelation_level = 32
+shader_parameter/scale1 = Vector2(50, 50)
+shader_parameter/scale2 = Vector2(50, 50)
+shader_parameter/wave_strength = 0.3
+shader_parameter/wave_scale = 0.03
+shader_parameter/pixelation_level = 128
 shader_parameter/FoamSize = 0.5
-shader_parameter/WaterOpacity = 0.9
-shader_parameter/FoamGlowIntensity = 0.5
+shader_parameter/WaterOpacity = 0.8
+shader_parameter/FoamGlowIntensity = 0.0

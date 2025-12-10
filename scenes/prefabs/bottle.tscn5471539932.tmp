@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=3 uid="uid://cnhh16gt47kkh"]
+
+[ext_resource type="Script" uid="uid://ckk6q4x35cu65" path="res://scripts/bottle.gd" id="1_drcua"]
+[ext_resource type="AudioStream" uid="uid://uy21shv8ypqq" path="res://assets/sounds/sound effects/Paper unrolled.mp3" id="2_7r7va"]
+[ext_resource type="AudioStream" uid="uid://dcm0t3ug2id17" path="res://assets/sounds/sound effects/Bottle clink 1.mp3" id="3_qsq66"]
+[ext_resource type="PackedScene" uid="uid://dxummmu755ukh" path="res://assets/models/purple-glowing-bottle.glb" id="4_edy1f"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_edy1f"]
+
+[node name="Bottle" type="RigidBody3D" node_paths=PackedStringArray("bottle_sound")]
+collision_layer = 2
+collision_mask = 2
+can_sleep = false
+freeze = true
+script = ExtResource("1_drcua")
+bottle_sound = NodePath("BottleClink")
+metadata/_custom_type_script = "uid://dbv1b27cjmqvi"
+
+[node name="PaperUnroll" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_7r7va")
+attenuation_model = 3
+volume_db = 3.0
+bus = &"Sound Effects"
+
+[node name="BottleClink" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_qsq66")
+attenuation_model = 3
+volume_db = 3.0
+bus = &"Sound Effects"
+
+[node name="purple-glowing-bottle" parent="." instance=ExtResource("4_edy1f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.0150228, 0, 3.9491954)
+
+[node name="Icosphere" parent="purple-glowing-bottle" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.0766087, -0.12837327, -4.013083)
+visible = false
+
+[node name="Torus Knot 4 x 1" parent="purple-glowing-bottle" index="1"]
+transform = Transform3D(0.5798474, 0, 0, 0, -0.5528771, -0.15430343, 0, 0.17478468, -0.48809108, -7.061815, 0.046889067, -3.9033813)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(0.7100619, 0.39511532, 0.96147186, 1)
+light_indirect_energy = 1.5
+light_volumetric_fog_energy = 5.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.9757948, 0.21868826, 0, -0.21868826, 0.9757948, -0.05389133, 0.16521329, -0.037026446)
+shape = SubResource("SphereShape3D_edy1f")
+
+[editable path="purple-glowing-bottle"]

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Howling Isle"
-run/main_scene="uid://bqnf110v61j1q"
+run/main_scene="uid://b8dcqquuf7srh"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -25,17 +25,12 @@ GInit="*res://scripts/global/global_init.gd"
 GVar="*res://scripts/global/global_var.gd"
 GFunc="*res://scripts/global/global_func.gd"
 GConst="*res://scripts/global/global_const.gd"
-GSignal="*res://scripts/global/global_signals.gd"
 
 [display]
 
-window/size/viewport_width=640
-window/size/viewport_height=480
-window/size/mode=2
-window/size/extend_to_title=true
-window/stretch/mode="viewport"
-window/stretch/aspect="expand"
-window/stretch/scale_mode="integer"
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/stretch/mode="canvas_items"
 
 [global_group]
 
@@ -107,5 +102,7 @@ exit_game={
 
 [rendering]
 
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true
 global_illumination/gi/use_half_resolution=true

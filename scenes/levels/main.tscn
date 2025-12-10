@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://bvyn7ytko346h"]
+[gd_scene load_steps=57 format=3 uid="uid://bvyn7ytko346h"]
 
 [ext_resource type="Texture2D" uid="uid://duu6lc6peb0b" path="res://assets/misc/environ_sky.exr" id="1_2vj2h"]
 [ext_resource type="PackedScene" uid="uid://degfds0rnudwf" path="res://assets/models/island.glb" id="2_y0acb"]
@@ -9,13 +9,15 @@
 [ext_resource type="AudioStream" uid="uid://b56rq50nl1k0k" path="res://assets/sounds/sound effects/Beach waves.mp3" id="5_b6bv0"]
 [ext_resource type="AudioStream" uid="uid://dw1dbkda6cxgf" path="res://assets/sounds/music/main.mp3" id="6_sv52t"]
 [ext_resource type="PackedScene" uid="uid://bpe1ya546rkyc" path="res://assets/models/finished-tree3.glb" id="8_7lrji"]
-[ext_resource type="PackedScene" uid="uid://cnhh16gt47kkh" path="res://scenes/prefabs/bottle.tscn" id="8_vkq25"]
 [ext_resource type="PackedScene" uid="uid://g55qxnqk8ceu" path="res://assets/models/rock-style3.glb" id="9_rssyh"]
 [ext_resource type="PackedScene" uid="uid://ccronpbqdyulh" path="res://assets/models/plant-style2.glb" id="11_2xkjh"]
 [ext_resource type="PackedScene" uid="uid://ccsqdsciasfq2" path="res://assets/models/plant-style1.glb" id="12_dj21o"]
+[ext_resource type="Script" uid="uid://bggc0k0ljscq8" path="res://scripts/bottle_spawner.gd" id="13_sv52t"]
+[ext_resource type="PackedScene" uid="uid://cnhh16gt47kkh" path="res://scenes/prefabs/bottle.tscn" id="14_7exfm"]
 [ext_resource type="PackedScene" uid="uid://cpvwwrawlp121" path="res://scenes/prefabs/wolf.tscn" id="17_7exfm"]
 [ext_resource type="PackedScene" uid="uid://bw5pxb5tuqpa0" path="res://scenes/prefabs/particles.tscn" id="17_px1c8"]
 [ext_resource type="PackedScene" uid="uid://pmy6njqqgsfm" path="res://scenes/prefabs/drowning_zone.tscn" id="17_qgoyv"]
+[ext_resource type="LightmapGIData" uid="uid://cwmum0q0yxatc" path="res://scenes/levels/main.lmbake" id="18_qgoyv"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_y0acb"]
 panorama = ExtResource("1_2vj2h")
@@ -38,13 +40,13 @@ ssr_fade_in = 1.1999991
 ssr_fade_out = 0.34151077
 ssr_depth_tolerance = 0.01
 fog_enabled = true
+fog_mode = 1
 fog_light_color = Color(0, 0, 0, 1)
 fog_light_energy = 0.0
-fog_density = 0.5
-fog_sky_affect = 0.8
-fog_depth_begin = 129.0
-fog_depth_end = 3569.9
-volumetric_fog_enabled = true
+fog_density = 1.0
+fog_depth_curve = 0.21763806
+fog_depth_begin = 0.0
+fog_depth_end = 20.0
 volumetric_fog_density = 0.1
 volumetric_fog_emission_energy = 0.0
 volumetric_fog_gi_inject = 0.0
@@ -161,9 +163,8 @@ data = PackedVector3Array(-0.0002, -0.5, -0.0002, -0.1383, -0.2236, 0.4252, 0.36
 [node name="Main" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.8242447, 0.27093142, -0.4972092, 0.010858141, 0.87037426, 0.4922707, 0.56612986, -0.4111503, 0.7144596, 1.0404911, 13.105618, 0)
+transform = Transform3D(0.82424456, 0.27093148, -0.49720925, 0.01085814, 0.8703744, 0.49227083, 0.5661298, -0.41115034, 0.71445954, 1.0404911, 54.294704, 0)
 light_color = Color(0.7236726, 1, 0.8983423, 1)
-light_energy = 0.4
 light_indirect_energy = 0.5
 light_volumetric_fog_energy = 0.0
 light_bake_mode = 1
@@ -202,7 +203,10 @@ bus = &"Music"
 
 [node name="island" parent="." instance=ExtResource("2_y0acb")]
 metadata/_edit_lock_ = true
-metadata/_edit_group_ = true
+
+[node name="Landscape_001" parent="island" index="0"]
+layers = 2
+metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="island/Landscape_001" index="0"]
 input_ray_pickable = false
@@ -211,7 +215,10 @@ input_ray_pickable = false
 shape = SubResource("ConcavePolygonShape3D_u81e1")
 
 [node name="Plane" parent="island" index="1"]
+layers = 2
+gi_mode = 2
 surface_material_override/0 = ExtResource("3_b6bv0")
+metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="island/Plane" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
@@ -225,12 +232,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -92.45741, 14.011016, -41.788
 [node name="Rocks" parent="." instance=ExtResource("9_rssyh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.305527, 18.40358, -35.90896)
 metadata/_edit_lock_ = true
-metadata/_edit_group_ = true
 
 [node name="Icosphere" parent="Rocks" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82.51184, 12.168102, 15.458611)
-metadata/_edit_lock_ = true
-metadata/_edit_group_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Rocks/Icosphere" index="0"]
 
@@ -239,8 +243,6 @@ shape = SubResource("ConvexPolygonShape3D_7lrji")
 
 [node name="Sphere" parent="Rocks" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.644745, 8.907944, 13.728943)
-metadata/_edit_lock_ = true
-metadata/_edit_group_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Rocks/Sphere" index="0"]
 
@@ -249,8 +251,6 @@ shape = SubResource("ConvexPolygonShape3D_rssyh")
 
 [node name="Icosphere_001" parent="Rocks" index="2"]
 transform = Transform3D(0.15869522, 0, -0.98732764, 0, 1, 0, 0.98732764, 0, 0.15869522, 19.245245, 1.8060951, 56.711178)
-metadata/_edit_lock_ = true
-metadata/_edit_group_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Rocks/Icosphere_001" index="0"]
 
@@ -259,8 +259,6 @@ shape = SubResource("ConvexPolygonShape3D_hwp66")
 
 [node name="Icosphere_002" parent="Rocks" index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64.58795, 15.158882, 48)
-metadata/_edit_lock_ = true
-metadata/_edit_group_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Rocks/Icosphere_002" index="0"]
 
@@ -269,8 +267,6 @@ shape = SubResource("ConvexPolygonShape3D_2xkjh")
 
 [node name="Cube" parent="Rocks" index="4"]
 transform = Transform3D(0.7852108, 0, 0, 0, 0.657261, 0, 0, 0, 1, -19.441757, 1.9240875, 61.404846)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Rocks/Cube" index="0"]
 
@@ -279,8 +275,6 @@ shape = SubResource("ConvexPolygonShape3D_dj21o")
 
 [node name="Cube_001" parent="Rocks" index="5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.589478, -2.565157, -14.267845)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Rocks/Cube_001" index="0"]
 
@@ -289,8 +283,6 @@ shape = SubResource("ConvexPolygonShape3D_6ui35")
 
 [node name="Icosphere_003" parent="Rocks" index="6"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.070496, 16.073643, 88.32911)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Rocks/Icosphere_003" index="0"]
 
@@ -299,8 +291,6 @@ shape = SubResource("ConvexPolygonShape3D_y56qp")
 
 [node name="Icosphere_004" parent="Rocks" index="7"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.795021, 6.651573, 103.42678)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Rocks/Icosphere_004" index="0"]
 
@@ -309,8 +299,6 @@ shape = SubResource("ConvexPolygonShape3D_sv52t")
 
 [node name="Icosphere_005" parent="Rocks" index="8"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100.57904, 15.7980385, 74.0313)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Rocks/Icosphere_005" index="0"]
 
@@ -319,22 +307,14 @@ shape = SubResource("ConvexPolygonShape3D_7exfm")
 
 [node name="Icosphere_006" parent="Rocks" index="9"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.786476, -5.4826164, 36.03539)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Rocks/Icosphere_006" index="0"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Rocks/Icosphere_006/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_qgoyv")
 
-[node name="rock4 (1)" parent="Rocks" index="10"]
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
-
 [node name="Cube_004" parent="Rocks" index="11"]
 transform = Transform3D(0.29338774, 0, 0, 0, 0.2455803, 0, 0, 0, 0.373642, 90.25524, -1.8534946, -45.149033)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Rocks/Cube_004" index="0"]
 
@@ -344,8 +324,6 @@ metadata/_edit_group_ = true
 
 [node name="Cube_002" parent="Rocks" index="12"]
 transform = Transform3D(-1.5339522, 0, 0, 0, 1, 0, 0, 0, 1, 84.15849, 11.144922, 60.76657)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Rocks/Cube_002" index="0"]
 
@@ -354,8 +332,6 @@ shape = SubResource("ConvexPolygonShape3D_xgklb")
 
 [node name="Cube_003" parent="Rocks" index="13"]
 transform = Transform3D(-0.31782395, 0, -0.7129935, 0, 0.5388709, 0, 0.5598502, 0, -0.40476257, -28.921623, -0.15209961, 46.279816)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Rocks/Cube_003" index="0"]
 
@@ -364,8 +340,6 @@ shape = SubResource("ConvexPolygonShape3D_5wre2")
 
 [node name="Cube_005" parent="Rocks" index="14"]
 transform = Transform3D(-0.09601368, 0, -0.21539325, 0, 0.16279131, 0, 0.16912912, 0, -0.12227758, 69.12334, 12.553547, 48.126072)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Rocks/Cube_005" index="0"]
 
@@ -374,8 +348,6 @@ shape = SubResource("ConvexPolygonShape3D_qy6q0")
 
 [node name="Cube_006" parent="Rocks" index="15"]
 transform = Transform3D(-1.1240659, 0, 0, 0, 0.73279065, 0, 0, 0, 0.73279065, 65.8918, 11.495579, 54.72793)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Rocks/Cube_006" index="0"]
 
@@ -384,8 +356,6 @@ shape = SubResource("ConvexPolygonShape3D_ykry0")
 
 [node name="Cube_007" parent="Rocks" index="16"]
 transform = Transform3D(-0.2217411, 0, -0.19302316, 0, 0.24115181, 0, -0.29608828, 0, 0.1445554, 76.04861, 9.611328, 3.0511932)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Rocks/Cube_007" index="0"]
 
@@ -394,8 +364,6 @@ shape = SubResource("ConvexPolygonShape3D_im81g")
 
 [node name="Cube_008" parent="Rocks" index="17"]
 transform = Transform3D(-0.16228995, 0, -0.3640748, 0, 0.27516273, 0, 0.28587544, 0, -0.20668328, 8.216476, 3.306713, 62.81454)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Rocks/Cube_008" index="0"]
 
@@ -404,8 +372,6 @@ shape = SubResource("ConvexPolygonShape3D_ysjpo")
 
 [node name="Cube_009" parent="Rocks" index="18"]
 transform = Transform3D(-0.18350446, 0, 0.0820363, 0, 0.16279131, 0, -0.06441579, 0, -0.2337009, 95.05112, 9.140305, 53.554817)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Rocks/Cube_009" index="0"]
 
@@ -414,8 +380,6 @@ shape = SubResource("ConvexPolygonShape3D_gexqn")
 
 [node name="Icosphere_007" parent="Rocks" index="19"]
 transform = Transform3D(1.2393671, 0, 0, 0, 1.3868339, 0, 0, 0, 1.2393671, -65.97197, -3.2162113, 14.646378)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Rocks/Icosphere_007" index="0"]
 
@@ -424,8 +388,6 @@ shape = SubResource("ConvexPolygonShape3D_kc8j3")
 
 [node name="Icosphere_008" parent="Rocks" index="20"]
 transform = Transform3D(0.15869522, 0, -0.98732764, 0, 1, 0, 0.98732764, 0, 0.15869522, -61.81611, -5.5081825, 6.4093857)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Rocks/Icosphere_008" index="0"]
 
@@ -434,8 +396,6 @@ shape = SubResource("ConvexPolygonShape3D_e5eww")
 
 [node name="Icosphere_009" parent="Rocks" index="21"]
 transform = Transform3D(-0.5882425, 0, 1.2613142, 0, 1.3917409, 0, -1.2613142, 0, -0.5882425, -71.248146, -4.576029, 5.5076485)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Rocks/Icosphere_009" index="0"]
 
@@ -444,8 +404,6 @@ shape = SubResource("ConvexPolygonShape3D_ygu70")
 
 [node name="Icosphere_010" parent="Rocks" index="22"]
 transform = Transform3D(0.18414618, 0, 0.32121146, 0, 0.37025207, 0, -0.32121146, 0, 0.18414618, -47.786118, -3.6312523, -3.6576424)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Rocks/Icosphere_010" index="0"]
 
@@ -454,8 +412,6 @@ shape = SubResource("ConvexPolygonShape3D_x5gqu")
 
 [node name="Icosphere_011" parent="Rocks" index="23"]
 transform = Transform3D(-0.7083816, 0, 0.58123785, 0, 1.3917408, 0, -0.32574007, 0, -1.2640084, -77.00661, -4.882601, 19.495726)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Rocks/Icosphere_011" index="0"]
 
@@ -464,8 +420,6 @@ shape = SubResource("ConvexPolygonShape3D_8qayg")
 
 [node name="Icosphere_012" parent="Rocks" index="24"]
 transform = Transform3D(0.9790952, -0.19906189, 0.04179654, 0.20340255, 0.9582013, -0.2011912, 0, 0.20548686, 0.97866, 25.661076, -2.0987377, 0)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Rocks/Icosphere_012" index="0"]
 
@@ -474,8 +428,6 @@ shape = SubResource("ConvexPolygonShape3D_gvp5n")
 
 [node name="Icosphere_013" parent="Rocks" index="25"]
 transform = Transform3D(0.053643167, 0, 1.21096, 0, 0.7466983, 0, -0.9985602, 0, 0.0650534, 19.930021, -0.25626183, -6.1574745)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Rocks/Icosphere_013" index="0"]
 
@@ -484,8 +436,6 @@ shape = SubResource("ConvexPolygonShape3D_oix75")
 
 [node name="Icosphere_014" parent="Rocks" index="26"]
 transform = Transform3D(-0.9799283, 0.17991827, 0.08584851, 0.1792318, 0.98368156, -0.015701948, -0.08727267, 0, -0.99618447, 25.402279, 0.9682617, -6.4618607)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Rocks/Icosphere_014" index="0"]
 
@@ -494,8 +444,6 @@ shape = SubResource("ConvexPolygonShape3D_masl8")
 
 [node name="Icosphere_015" parent="Rocks" index="27"]
 transform = Transform3D(0.9989981, 0.044752743, 0, -0.042658605, 0.9522515, -0.30232, -0.013529649, 0.30201712, 0.9532065, 33.754097, 2.056736, -2.925747)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Rocks/Icosphere_015" index="0"]
 
@@ -504,8 +452,6 @@ shape = SubResource("ConvexPolygonShape3D_2qtp0")
 
 [node name="Icosphere_016" parent="Rocks" index="28"]
 transform = Transform3D(0.49927258, 0, -0.6690966, 0, 0.83484334, 0, 0.6690966, 0, 0.49927258, 17.69827, -3.448389, -0.72367096)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Rocks/Icosphere_016" index="0"]
 
@@ -514,8 +460,6 @@ shape = SubResource("ConvexPolygonShape3D_x2df8")
 
 [node name="Icosphere_017" parent="Rocks" index="29"]
 transform = Transform3D(0.15869522, 0, -0.98732764, 0, 1, 0, 0.98732764, 0, 0.15869522, 15.151825, -4.586626, -2.9101257)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Rocks/Icosphere_017" index="0"]
 
@@ -524,8 +468,6 @@ shape = SubResource("ConvexPolygonShape3D_tts5y")
 
 [node name="Icosphere_018" parent="Rocks" index="30"]
 transform = Transform3D(0.24254967, 0, -0.32505125, 0, 0.26862884, 0, 0.32505125, 0, 0.24254967, 21.678932, -2.4468517, -9.775051)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Rocks/Icosphere_018" index="0"]
 
@@ -534,8 +476,6 @@ shape = SubResource("ConvexPolygonShape3D_yb600")
 
 [node name="Icosphere_019" parent="Rocks" index="31"]
 transform = Transform3D(-1.3930794, 0, -0.07388344, 0, 0.55864686, 0, 0.10293912, 0, -0.9998677, 29.69032, -0.71827126, -3.6904678)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Rocks/Icosphere_019" index="0"]
 
@@ -544,8 +484,6 @@ shape = SubResource("ConvexPolygonShape3D_sy51j")
 
 [node name="Sphere_001" parent="Rocks" index="32"]
 transform = Transform3D(-1.415586, 0, -0.5350048, 0, 1, 0, 0.8964267, 0, -0.8448491, 21.062008, -5.253742, 6.656208)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Rocks/Sphere_001" index="0"]
 
@@ -556,8 +494,6 @@ shape = SubResource("ConvexPolygonShape3D_w31o2")
 
 [node name="Tree" parent="Trees" instance=ExtResource("8_7lrji")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5272865, 20.216423, -6.85128)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Trees/Tree/Icosphere_001" index="0"]
 
@@ -566,8 +502,6 @@ shape = SubResource("ConcavePolygonShape3D_7lrji")
 
 [node name="Tree2" parent="Trees" instance=ExtResource("8_7lrji")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.38865, 31.007809, 44.034718)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Trees/Tree2/Icosphere_001" index="0"]
 
@@ -576,8 +510,6 @@ shape = SubResource("ConcavePolygonShape3D_7lrji")
 
 [node name="Tree3" parent="Trees" instance=ExtResource("8_7lrji")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.481577, 19.130346, 10.494361)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Trees/Tree3/Icosphere_001" index="0"]
 
@@ -586,8 +518,6 @@ shape = SubResource("ConcavePolygonShape3D_7lrji")
 
 [node name="Tree4" parent="Trees" instance=ExtResource("8_7lrji")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.12949, 14.571371, -49.48697)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Trees/Tree4/Icosphere_001" index="0"]
 
@@ -596,8 +526,6 @@ shape = SubResource("ConcavePolygonShape3D_7lrji")
 
 [node name="Tree5" parent="Trees" instance=ExtResource("8_7lrji")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -61.91983, 17.02282, -55.92528)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Trees/Tree5/Icosphere_001" index="0"]
 
@@ -606,8 +534,6 @@ shape = SubResource("ConcavePolygonShape3D_7lrji")
 
 [node name="Tree6" parent="Trees" instance=ExtResource("8_7lrji")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.436493, 17.156036, -57.039833)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Trees/Tree6/Icosphere_001" index="0"]
 
@@ -616,8 +542,6 @@ shape = SubResource("ConcavePolygonShape3D_7lrji")
 
 [node name="Tree7" parent="Trees" instance=ExtResource("8_7lrji")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.545967, 26.967058, -25.72916)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Trees/Tree7/Icosphere_001" index="0"]
 
@@ -626,8 +550,6 @@ shape = SubResource("ConcavePolygonShape3D_7lrji")
 
 [node name="Tree8" parent="Trees" instance=ExtResource("8_7lrji")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.671928, 28.960693, 1.8758297)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Trees/Tree8/Icosphere_001" index="0"]
 
@@ -636,8 +558,6 @@ shape = SubResource("ConcavePolygonShape3D_7lrji")
 
 [node name="Tree9" parent="Trees" instance=ExtResource("8_7lrji")]
 transform = Transform3D(0.82827556, 0, -0.560321, 0, 1, 0, 0.560321, 0, 0.82827556, -68.328514, 15.138115, -52.265816)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Trees/Tree9/Icosphere_001" index="0"]
 
@@ -646,8 +566,6 @@ shape = SubResource("ConcavePolygonShape3D_7lrji")
 
 [node name="Tree10" parent="Trees" instance=ExtResource("8_7lrji")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.482544, 17.561848, -72.7853)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Trees/Tree10/Icosphere_001" index="0"]
 
@@ -656,8 +574,6 @@ shape = SubResource("ConcavePolygonShape3D_7lrji")
 
 [node name="Tree11" parent="Trees" instance=ExtResource("8_7lrji")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.38069, 25.163223, 34.001198)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Trees/Tree11/Icosphere_001" index="0"]
 
@@ -666,8 +582,6 @@ shape = SubResource("ConcavePolygonShape3D_7lrji")
 
 [node name="Tree12" parent="Trees" instance=ExtResource("8_7lrji")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.40472, 30.324223, 45.805294)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Trees/Tree12/Icosphere_001" index="0"]
 
@@ -676,8 +590,6 @@ shape = SubResource("ConcavePolygonShape3D_7lrji")
 
 [node name="Tree13" parent="Trees" instance=ExtResource("8_7lrji")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.075542, 24.193241, 18.18856)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Trees/Tree13/Icosphere_001" index="0"]
 
@@ -686,8 +598,6 @@ shape = SubResource("ConcavePolygonShape3D_7lrji")
 
 [node name="Tree14" parent="Trees" instance=ExtResource("8_7lrji")]
 transform = Transform3D(-0.13061273, 0, -0.99143344, 0, 1, 0, 0.99143344, 0, -0.13061273, -24.43113, 22.312038, 27.090782)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Trees/Tree14/Icosphere_001" index="0"]
 
@@ -696,8 +606,6 @@ shape = SubResource("ConcavePolygonShape3D_7lrji")
 
 [node name="Tree15" parent="Trees" instance=ExtResource("8_7lrji")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62.10716, 17.489088, -71.46882)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="Icosphere_001" parent="Trees/Tree15" index="0"]
 transform = Transform3D(0.6499712, 0, 0, 0, 0.8080973, 0, 0, 0, 0.6499712, -0.3265604, 7.5289063, 2.0263686)
@@ -709,8 +617,6 @@ shape = SubResource("ConcavePolygonShape3D_7lrji")
 
 [node name="Tree16" parent="Trees" instance=ExtResource("8_7lrji")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 75.40631, 15.998779, -74.221306)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="Icosphere_001" parent="Trees/Tree16" index="0"]
 transform = Transform3D(0.6499712, 0, 0, 0, 0.8080973, 0, 0, 0, 0.6499712, -0.3265604, 7.5289063, 2.0263686)
@@ -722,8 +628,6 @@ shape = SubResource("ConcavePolygonShape3D_7lrji")
 
 [node name="Tree17" parent="Trees" instance=ExtResource("8_7lrji")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.593758, 17.205482, -85.876785)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="Icosphere_001" parent="Trees/Tree17" index="0"]
 transform = Transform3D(0.6499712, 0, 0, 0, 0.8080973, 0, 0, 0, 0.6499712, -0.3265604, 7.5289063, 2.0263686)
@@ -735,8 +639,6 @@ shape = SubResource("ConcavePolygonShape3D_7lrji")
 
 [node name="Tree18" parent="Trees" instance=ExtResource("8_7lrji")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69.45438, 16.353369, -82.16401)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="Icosphere_001" parent="Trees/Tree18" index="0"]
 transform = Transform3D(0.6499712, 0, 0, 0, 0.8080973, 0, 0, 0, 0.6499712, -0.3265604, 7.5289063, 2.0263686)
@@ -748,8 +650,6 @@ shape = SubResource("ConcavePolygonShape3D_7lrji")
 
 [node name="Tree19" parent="Trees" instance=ExtResource("8_7lrji")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 85.84446, 14.724687, -68.4669)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="Icosphere_001" parent="Trees/Tree19" index="0"]
 transform = Transform3D(0.6499712, 0, 0, 0, 0.8080973, 0, 0, 0, 0.6499712, -0.3265604, 7.5289063, 2.0263686)
@@ -761,8 +661,6 @@ shape = SubResource("ConcavePolygonShape3D_7lrji")
 
 [node name="Tree20" parent="Trees" instance=ExtResource("8_7lrji")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.75711, 15.172792, -90.598976)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="Icosphere_001" parent="Trees/Tree20" index="0"]
 transform = Transform3D(0.6499712, 0, 0, 0, 0.8080973, 0, 0, 0, 0.6499712, -0.3265604, 7.5289063, 2.0263686)
@@ -776,200 +674,191 @@ shape = SubResource("ConcavePolygonShape3D_7lrji")
 
 [node name="plant-style2" parent="Plants" instance=ExtResource("11_2xkjh")]
 transform = Transform3D(1, 0, 0, 0, 0.96769595, -0.25212002, 0, 0.25212002, 0.96769595, -22.042826, 29.186272, 59.591038)
-metadata/_edit_lock_ = true
 
 [node name="plant-style8" parent="Plants" instance=ExtResource("11_2xkjh")]
 transform = Transform3D(1, 0, 0, 0, 0.96790683, -0.25130925, 0, 0.25130925, 0.96790683, -36.64114, 30.262165, 53.324364)
-metadata/_edit_lock_ = true
 
 [node name="plant-style7" parent="Plants" instance=ExtResource("11_2xkjh")]
 transform = Transform3D(0.45558113, -0.034039576, -0.88954324, 0.35512227, 0.9232619, 0.14654684, 0.8162928, -0.3826606, 0.4327088, -42.855316, 29.608387, 40.91266)
-metadata/_edit_lock_ = true
 
 [node name="plant-style1" parent="Plants" instance=ExtResource("12_dj21o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.130447, 30.646883, 51.261623)
-metadata/_edit_lock_ = true
 
 [node name="plant-style6" parent="Plants" instance=ExtResource("12_dj21o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.693983, 30.241955, 59.753834)
-metadata/_edit_lock_ = true
 
 [node name="plant-style3" parent="Plants" instance=ExtResource("12_dj21o")]
 transform = Transform3D(1, 0, 0, 0, 0.9975237, -0.070331015, 0, 0.070331015, 0.9975237, -37.71251, 30.785902, 46.523296)
-metadata/_edit_lock_ = true
 
 [node name="plant-style4" parent="Plants" instance=ExtResource("12_dj21o")]
 transform = Transform3D(0.7137526, -0.13428442, -0.68740445, 0.101973675, 0.99091434, -0.087692775, 0.6929348, -0.0075061917, 0.7209612, -42.520573, 30.8249, 49.031666)
-metadata/_edit_lock_ = true
 
 [node name="plant-style5" parent="Plants" instance=ExtResource("12_dj21o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.592451, 30.997301, 43.032764)
-metadata/_edit_lock_ = true
 
 [node name="plant-style9" parent="Plants" instance=ExtResource("11_2xkjh")]
 transform = Transform3D(0.89538294, 0.0067554703, -0.4452459, -0.12810335, 0.961524, -0.24302527, 0.4264729, 0.27463815, 0.86179763, -56.539593, 20.435658, 71.87682)
-metadata/_edit_lock_ = true
 
 [node name="plant-style10" parent="Plants" instance=ExtResource("11_2xkjh")]
 transform = Transform3D(0.6983678, -0.1894739, -0.69020444, -0.13225248, 0.913558, -0.3846053, 0.7034144, 0.3598772, 0.6129411, -37.725365, 19.532972, 78.308685)
-metadata/_edit_lock_ = true
 
 [node name="plant-style11" parent="Plants" instance=ExtResource("12_dj21o")]
 transform = Transform3D(1, 0, 0, 0, 0.99307257, -0.11750273, 0, 0.11750273, 0.99307257, -46.264545, 20.954708, 70.758675)
-metadata/_edit_lock_ = true
 
 [node name="plant-style12" parent="Plants" instance=ExtResource("12_dj21o")]
 transform = Transform3D(1, 0, 0, 0, 0.9178932, -0.39682752, 0, 0.39682752, 0.9178932, -50.316666, 18.720177, 77.68437)
-metadata/_edit_lock_ = true
 
 [node name="plant-style13" parent="Plants" instance=ExtResource("12_dj21o")]
 transform = Transform3D(1, 0, 0, 0, 0.9925695, -0.121678784, 0, 0.121678784, 0.9925695, -39.355, 21.0043, 71.69845)
-metadata/_edit_lock_ = true
 
 [node name="plant-style14" parent="Plants" instance=ExtResource("12_dj21o")]
 transform = Transform3D(0.99912137, -0.04191053, 0, 0.041148726, 0.9809605, -0.18979807, 0.007954538, 0.18963131, 0.98182315, -63.349594, 21.079111, 69.1343)
-metadata/_edit_lock_ = true
 
 [node name="plant-style15" parent="Plants" instance=ExtResource("12_dj21o")]
 transform = Transform3D(1, 0, 0, 0, 0.9660161, -0.25848186, 0, 0.25848186, 0.9660161, -46.11199, 19.634634, 76.0456)
-metadata/_edit_lock_ = true
 
 [node name="plant-style16" parent="Plants" instance=ExtResource("11_2xkjh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.79858, 31.053188, 1.383175)
-metadata/_edit_lock_ = true
 
 [node name="plant-style17" parent="Plants" instance=ExtResource("11_2xkjh")]
 transform = Transform3D(1, 0, 0, 0, 0.96162647, 0.27436203, 0, -0.27436203, 0.96162647, 30.43876, 28.650612, -13.79385)
-metadata/_edit_lock_ = true
 
 [node name="plant-style18" parent="Plants" instance=ExtResource("11_2xkjh")]
 transform = Transform3D(0.99905056, 0.042238574, -0.010670136, -0.04308251, 0.9942526, -0.098010704, 0.006468971, 0.09837742, 0.9951282, 20.75025, 30.414642, -31.439611)
-metadata/_edit_lock_ = true
 
 [node name="plant-style19" parent="Plants" instance=ExtResource("11_2xkjh")]
 transform = Transform3D(0.9893436, -0.14316519, -0.026513422, 0.14559956, 0.9728021, 0.1801577, 0, -0.18209822, 0.98328036, 23.340763, 30.621387, -3.2210162)
-metadata/_edit_lock_ = true
 
 [node name="plant-style20" parent="Plants" instance=ExtResource("11_2xkjh")]
 transform = Transform3D(0.9848774, 0.17325284, 0, -0.17325284, 0.9848774, 0, 0, 0, 1, 23.835773, 30.695427, -43.62057)
-metadata/_edit_lock_ = true
 
 [node name="plant-style21" parent="Plants" instance=ExtResource("11_2xkjh")]
 transform = Transform3D(1, 0, 0, 0, 0.99423176, -0.10725323, 0, 0.10725323, 0.99423176, 31.151846, 30.758587, 10.683916)
-metadata/_edit_lock_ = true
 
 [node name="plant-style22" parent="Plants" instance=ExtResource("12_dj21o")]
 transform = Transform3D(1, 0, 0, 0, 0.9389382, 0.34408578, 0, -0.34408578, 0.9389382, 43.372456, 30.942225, -9.035595)
-metadata/_edit_lock_ = true
 
 [node name="plant-style23" parent="Plants" instance=ExtResource("12_dj21o")]
 transform = Transform3D(1, 0, 0, 0, 0.96253574, 0.27115485, 0, -0.27115485, 0.96253574, 33.840416, 27.49473, -24.90511)
-metadata/_edit_lock_ = true
 
 [node name="plant-style24" parent="Plants" instance=ExtResource("12_dj21o")]
 transform = Transform3D(1, 0, 0, 0, 0.9927048, 0.12057, 0, -0.12057, 0.9927048, 33.143047, 31.293215, -2.6166635)
-metadata/_edit_lock_ = true
 
 [node name="plant-style25" parent="Plants" instance=ExtResource("12_dj21o")]
 transform = Transform3D(1, 0, 0, 0, 0.94985753, -0.31268308, 0, 0.31268308, 0.94985753, 17.950356, 28.290709, -22.058104)
-metadata/_edit_lock_ = true
 
 [node name="plant-style26" parent="Plants" instance=ExtResource("12_dj21o")]
 transform = Transform3D(1, 0, 0, 0, 0.9610739, -0.2762916, 0, 0.2762916, 0.9610739, 38.657753, 30.352999, 11.15649)
-metadata/_edit_lock_ = true
 
 [node name="plant-style27" parent="Plants" instance=ExtResource("12_dj21o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.979918, 30.800797, 7.1589847)
-metadata/_edit_lock_ = true
 
 [node name="plant-style28" parent="Plants" instance=ExtResource("12_dj21o")]
 transform = Transform3D(1, 0, 0, 0, 0.9969976, -0.07743248, 0, 0.07743248, 0.9969976, 28.807953, 29.56258, -38.285076)
-metadata/_edit_lock_ = true
 
 [node name="plant-style29" parent="Plants" instance=ExtResource("12_dj21o")]
 transform = Transform3D(0.9922172, -0.111883886, -0.05465405, 0.12451937, 0.89153314, 0.43550414, 0, -0.43892017, 0.8985262, 17.868706, 26.84542, -15.056537)
-metadata/_edit_lock_ = true
 
 [node name="plant-style30" parent="Plants" instance=ExtResource("11_2xkjh")]
 transform = Transform3D(0.8733863, 0.012454757, 0.48686907, -0.014258859, 0.99989843, 0, -0.4868195, -0.0069421954, 0.873475, -40.856644, 17.840498, -66.686386)
-metadata/_edit_lock_ = true
 
 [node name="plant-style31" parent="Plants" instance=ExtResource("11_2xkjh")]
 transform = Transform3D(0.82176715, 0.013057582, 0.56967384, 0.18217899, 0.94124603, -0.2843716, -0.5399164, 0.3374698, 0.77110595, -52.246784, 18.001638, -58.764523)
-metadata/_edit_lock_ = true
 
 [node name="plant-style32" parent="Plants" instance=ExtResource("11_2xkjh")]
 transform = Transform3D(0.9409626, -0.24527219, 0.2333046, 0.28436813, 0.9466341, -0.15171915, -0.18364157, 0.20910648, 0.9604948, -26.81662, 19.264198, -56.43922)
-metadata/_edit_lock_ = true
 
 [node name="plant-style33" parent="Plants" instance=ExtResource("11_2xkjh")]
 transform = Transform3D(1, 0, 0, 0, 0.8450006, 0.53476536, 0, -0.53476536, 0.8450006, -51.94974, 18.28363, -78.92776)
-metadata/_edit_lock_ = true
 
 [node name="plant-style34" parent="Plants" instance=ExtResource("12_dj21o")]
 transform = Transform3D(0.996717, 0.07530942, 0.029727438, -0.07825475, 0.8018801, 0.59233814, 0.020770796, -0.59271973, 0.80514085, -39.571045, 17.04414, -73.983696)
-metadata/_edit_lock_ = true
 
 [node name="plant-style35" parent="Plants" instance=ExtResource("12_dj21o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.054306, 20.045189, -67.80035)
-metadata/_edit_lock_ = true
 
 [node name="plant-style36" parent="Plants" instance=ExtResource("12_dj21o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.842266, 17.663074, -56.541176)
-metadata/_edit_lock_ = true
 
 [node name="plant-style37" parent="Plants" instance=ExtResource("12_dj21o")]
 transform = Transform3D(1, 0, 0, 0, 0.97054434, -0.24092261, 0, 0.24092261, 0.97054434, -57.9905, 15.235083, -51.394844)
-metadata/_edit_lock_ = true
 
 [node name="plant-style38" parent="Plants" instance=ExtResource("12_dj21o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.855095, 16.663515, -51.85385)
-metadata/_edit_lock_ = true
 
 [node name="plant-style39" parent="Plants" instance=ExtResource("12_dj21o")]
 transform = Transform3D(0.8708367, -0.48370305, -0.087607265, 0.4902519, 0.8415375, 0.2268649, -0.036010455, -0.24051192, 0.9699782, -33.7139, 17.0592, -75.23489)
-metadata/_edit_lock_ = true
 
 [node name="plant-style40" parent="Plants" instance=ExtResource("12_dj21o")]
 transform = Transform3D(0.98913944, -0.14698082, 0, 0.14627533, 0.9843917, 0.097860835, -0.0143836625, -0.09679799, 0.9952001, -33.033836, 18.755127, -63.725914)
-metadata/_edit_lock_ = true
 
-[node name="Bottles" type="Node" parent="."]
+[node name="BottleSpawner" type="Node" parent="."]
+script = ExtResource("13_sv52t")
+load_bottle = ExtResource("14_7exfm")
 
-[node name="Bottle7" parent="Bottles" instance=ExtResource("8_vkq25")]
-transform = Transform3D(0.91721314, 0, -0.3983969, 0, 1, 0, 0.3983969, 0, 0.91721314, -52.581135, 13.9256935, 7.924448)
-metadata/_edit_lock_ = true
+[node name="BottlePos1" type="Marker3D" parent="BottleSpawner"]
+transform = Transform3D(-0.29557392, -0.4681766, -0.83273447, -0.15660404, 0.8836349, -0.441208, 0.9423965, 0, -0.33449778, -14.904248, 14.676547, -11.945483)
+metadata/_edit_group_ = true
 
-[node name="Bottle8" parent="Bottles" instance=ExtResource("8_vkq25")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.177055, 14.069002, -36.451443)
-metadata/_edit_lock_ = true
+[node name="BottlePos2" type="Marker3D" parent="BottleSpawner"]
+transform = Transform3D(0.63017696, 0.6922194, 0.3517236, -0.4091671, 0.6810465, -0.6072547, -0.65989345, 0.23876424, 0.7124131, -26.095884, 13.84234, -36.179676)
+metadata/_edit_group_ = true
 
-[node name="Bottle6" parent="Bottles" instance=ExtResource("8_vkq25")]
-transform = Transform3D(-0.89517564, 0, -0.44571355, 0, 1, 0, 0.44571355, 0, -0.89517564, -48.935173, 14.750343, 85.18908)
-metadata/_edit_lock_ = true
+[node name="BottlePos3" type="Marker3D" parent="BottleSpawner"]
+transform = Transform3D(-0.8632364, -0.07329019, 0.49945095, -0.28702462, 0.8851659, -0.36619425, -0.41525847, -0.45946693, -0.7851436, -57.073555, 13.454987, -43.16839)
+metadata/_edit_group_ = true
 
-[node name="Bottle5" parent="Bottles" instance=ExtResource("8_vkq25")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 84.82891, 13.724375, -76.28974)
-metadata/_edit_lock_ = true
+[node name="BottlePos4" type="Marker3D" parent="BottleSpawner"]
+transform = Transform3D(-0.8632364, -0.07329019, 0.49945095, -0.28702462, 0.8851659, -0.36619425, -0.41525847, -0.45946693, -0.7851436, -81.33858, 14.262641, -32.12088)
+metadata/_edit_group_ = true
 
-[node name="Bottle3" parent="Bottles" instance=ExtResource("8_vkq25")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80.93627, 14.476109, 19.93896)
-metadata/_edit_lock_ = true
+[node name="BottlePos5" type="Marker3D" parent="BottleSpawner"]
+transform = Transform3D(0.9447659, 0.32472283, 0.044409662, -0.28702462, 0.8851659, -0.36619428, -0.15822154, 0.33322132, 0.92947817, -82.15726, 13.873537, -54.557796)
+metadata/_edit_group_ = true
 
-[node name="Bottle" parent="Bottles" instance=ExtResource("8_vkq25")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55.788235, 13.769549, -43.945766)
-metadata/_edit_lock_ = true
+[node name="BottlePos6" type="Marker3D" parent="BottleSpawner"]
+transform = Transform3D(0.9447659, 0.32472283, 0.044409662, -0.28702462, 0.8851659, -0.36619428, -0.15822154, 0.33322132, 0.92947817, -71.081505, 13.873537, -85.403984)
+metadata/_edit_group_ = true
 
-[node name="Bottle4" parent="Bottles" instance=ExtResource("8_vkq25")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60.304604, 14.642015, -91.98756)
-metadata/_edit_lock_ = true
+[node name="BottlePos7" type="Marker3D" parent="BottleSpawner"]
+transform = Transform3D(0.9447659, 0.32472283, 0.044409662, -0.28702462, 0.8851659, -0.36619428, -0.15822154, 0.33322132, 0.92947817, -40.68592, 14.98731, -83.140366)
+metadata/_edit_group_ = true
 
-[node name="Bottle2" parent="Bottles" instance=ExtResource("8_vkq25")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -87.56154, 14.235789, -31.444828)
-metadata/_edit_lock_ = true
+[node name="BottlePos8" type="Marker3D" parent="BottleSpawner"]
+transform = Transform3D(-0.32714498, 0.26871735, 0.905962, -0.2870246, 0.8851658, -0.36619422, -0.90032923, -0.3798319, -0.21244915, 40.394695, 14.301471, -92.35824)
+metadata/_edit_group_ = true
 
-[node name="Bottle9" parent="Bottles" instance=ExtResource("8_vkq25")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.9524, 14.619707, -83.922676)
+[node name="BottlePos9" type="Marker3D" parent="BottleSpawner"]
+transform = Transform3D(-0.32714498, 0.26871735, 0.905962, -0.2870246, 0.8851658, -0.36619422, -0.90032923, -0.3798319, -0.21244915, 90.857086, 14.136196, -66.26215)
+metadata/_edit_group_ = true
+
+[node name="BottlePos10" type="Marker3D" parent="BottleSpawner"]
+transform = Transform3D(-0.56864876, -0.46507978, -0.678483, -0.2870246, 0.8851658, -0.36619425, 0.7708794, -0.01349479, -0.6368379, 90.857086, 14.891653, -42.067062)
+metadata/_edit_group_ = true
+
+[node name="BottlePos11" type="Marker3D" parent="BottleSpawner"]
+transform = Transform3D(-0.56864876, -0.46507978, -0.678483, -0.2870246, 0.8851658, -0.36619425, 0.7708794, -0.01349479, -0.6368379, -43.95151, 14.891653, 14.675525)
+metadata/_edit_group_ = true
+
+[node name="BottlePos12" type="Marker3D" parent="BottleSpawner"]
+transform = Transform3D(-0.56864876, -0.46507978, -0.678483, -0.2870246, 0.8851658, -0.36619425, 0.7708794, -0.01349479, -0.6368379, -72.76398, 14.2919445, -2.4570398)
+metadata/_edit_group_ = true
+
+[node name="BottlePos13" type="Marker3D" parent="BottleSpawner"]
+transform = Transform3D(0.57352644, -0.1473956, -0.80581737, -0.55175006, 0.65758836, -0.51298094, 0.60550696, 0.738818, 0.29581895, -81.30479, 14.161517, 19.728443)
+metadata/_edit_group_ = true
+
+[node name="BottlePos14" type="Marker3D" parent="BottleSpawner"]
+transform = Transform3D(-0.023523629, 0.6025629, 0.7977246, -0.55175006, 0.65758836, -0.51298094, -0.83367735, -0.45221177, 0.31699526, -87.17903, 14.161517, 39.76998)
+metadata/_edit_group_ = true
+
+[node name="BottlePos15" type="Marker3D" parent="BottleSpawner"]
+transform = Transform3D(-0.02352367, 0.6025629, 0.7977246, -0.062018335, 0.795529, -0.60273325, -0.9977975, -0.06365186, 0.018656135, -82.35069, 15.151225, 70.51166)
+metadata/_edit_group_ = true
+
+[node name="BottlePos16" type="Marker3D" parent="BottleSpawner"]
+transform = Transform3D(-0.41491747, 0.5286894, 0.74049366, -0.06201833, 0.79552895, -0.6027332, -0.90774256, -0.2960086, -0.29729053, -63.64268, 17.022396, 80.53243)
+metadata/_edit_group_ = true
 
 [node name="Wolves" type="Node" parent="."]
 
@@ -1024,6 +913,10 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 1
 
 [node name="DrowningZone4" parent="Zones" instance=ExtResource("17_qgoyv")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 15.771, -140)
+
+[node name="LightmapGI" type="LightmapGI" parent="."]
+quality = 2
+light_data = ExtResource("18_qgoyv")
 
 [editable path="island"]
 [editable path="Rocks"]

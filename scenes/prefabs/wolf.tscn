@@ -193,7 +193,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0051827757, 0.19138476, 0.1
 light_color = Color(1, 1, 0.36862746, 1)
 light_indirect_energy = 2.0
 light_volumetric_fog_energy = 2.0
-light_bake_mode = 1
 omni_attenuation = 0.5
 
 [node name="Icosphere" parent="wolf-final" index="2"]

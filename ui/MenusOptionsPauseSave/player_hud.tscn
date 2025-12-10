@@ -1,0 +1,457 @@
+[gd_scene load_steps=25 format=3 uid="uid://we6hxlxksh06"]
+
+[ext_resource type="Script" uid="uid://cvfe5b1s7wylx" path="res://ui/MenusOptionsPauseSave/player_hud.gd" id="1_kipy2"]
+[ext_resource type="PackedScene" uid="uid://dolgr51ei36y2" path="res://ui/MenusOptionsPauseSave/pause_menu.tscn" id="1_vq1rh"]
+[ext_resource type="Shader" uid="uid://btqc0ymb3v8je" path="res://resources/shaders/computer.gdshader" id="1_x8rgx"]
+[ext_resource type="PackedScene" uid="uid://fkx6b0acvw7s" path="res://ui/ui-scenes/drown_end.tscn" id="2_25usk"]
+[ext_resource type="PackedScene" uid="uid://b8dcqquuf7srh" path="res://scenes/levels/main_menu.tscn" id="2_448qu"]
+[ext_resource type="Script" uid="uid://d2kmk7ioeo0tn" path="res://scripts/final_choice.gd" id="3_tm2o8"]
+[ext_resource type="PackedScene" uid="uid://bapafvpic281r" path="res://ui/ui-scenes/escape.tscn" id="4_xjqtn"]
+[ext_resource type="FontFile" uid="uid://7oc3lr16ssuw" path="res://ui/ui-assets/font-finalchoice.ttf" id="4_ysgdi"]
+[ext_resource type="PackedScene" uid="uid://d0ur75crxulfk" path="res://ui/ui-scenes/give_up.tscn" id="5_v26nb"]
+[ext_resource type="PackedScene" uid="uid://c58cioiyqeagv" path="res://ui/ui-scenes/true_end.tscn" id="6_unnte"]
+[ext_resource type="Script" uid="uid://ds07uk1kvljxa" path="res://scripts/message.gd" id="8_hmvmh"]
+[ext_resource type="Texture2D" uid="uid://nectcxwpo2ks" path="res://assets/misc/paper.jpg" id="9_kipy2"]
+[ext_resource type="FontFile" uid="uid://b2rln1800pofq" path="res://ui/ui-assets/font-handwriting.ttf" id="10_30icy"]
+[ext_resource type="FontFile" uid="uid://b8buwjejpyvu8" path="res://ui/ui-assets/font-title.TTF" id="12_30icy"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_lemjk"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tm2o8"]
+resource_local_to_scene = true
+shader = ExtResource("1_x8rgx")
+shader_parameter/tex = SubResource("ViewportTexture_lemjk")
+shader_parameter/mask_type = 4
+shader_parameter/curve = 0.0
+shader_parameter/sharpness = 1.0
+shader_parameter/color_offset = -0.5
+shader_parameter/mask_brightness = 1.0
+shader_parameter/scanline_brightness = 1.0
+shader_parameter/min_scanline_thickness = 0.25
+shader_parameter/aspect = 0.75
+shader_parameter/wobble_strength = 0.0
+
+[sub_resource type="GDScript" id="GDScript_xjqtn"]
+resource_name = "Tutorial"
+script/source = "extends Control
+
+@onready var label: Label = $VBoxContainer/Label
+@onready var timer: Timer = $Timer
+
+const TUT0 := \"Where am I? How did I get here? Last thing I remember was a storm blowing in...\"
+const TUT1 := \"[F] to toggle flashlight\"
+const TUT2 := \"[E] to interact with items\"
+const TUT3 := \"These bottles seem to be washing up on shore... \\n I should try to find more.\"
+
+var tutorial_progress: Array[int] = [0,0,0,0]
+var tutorial_complete: bool = false
+
+var flashlight_used: bool = false
+
+func _process(_delta: float) -> void:
+	if !tutorial_complete:
+		label.text = _get_tutorial_text()
+		
+		if Input.is_action_just_pressed(\"flashlight\"):
+			tutorial_progress[1] += 1
+			
+		if tutorial_progress[2] == 0 and GVar.messages_collected > 0:
+			tutorial_progress[2] += 1
+			
+	elif tutorial_complete and timer.is_stopped():
+		call_deferred(\"queue_free\")
+	
+func _get_tutorial_text() -> String:
+	if tutorial_progress[0] < 1:
+		_progress(0)
+		return TUT0
+	elif tutorial_progress[1] < 1:
+		_progress(1)
+		return TUT1
+	elif tutorial_progress[2] < 1:
+		_progress(2)
+		return TUT2
+	elif tutorial_progress[3] < 1 and GVar.messages_collected >= 1:
+		_progress(3)
+		return TUT3
+	else:
+		return \"\"
+		
+func _progress(index: int) -> void:
+	if timer.is_stopped() and !tutorial_complete:
+		tutorial_progress[index] += 1
+		
+		if !tutorial_progress.has(0):
+			tutorial_complete = true
+		else:
+			timer.start()
+"
+
+[sub_resource type="GDScript" id="GDScript_25usk"]
+resource_name = "Tutorial2"
+script/source = "extends Label
+
+func _process(_delta: float) -> void:
+	if GVar.messages_collected == 1:
+		visible = true
+	else:
+		visible = false
+"
+
+[sub_resource type="GDScript" id="GDScript_448qu"]
+resource_name = "MessagesCollected"
+script/source = "extends Label
+
+const OUT_OF: String = \"/7 \"
+
+func _process(_delta: float) -> void:
+	text = str(GVar.messages_collected) + OUT_OF
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_25usk"]
+
+[sub_resource type="Animation" id="Animation_25usk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_448qu"]
+resource_name = "death"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.76666665),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_player_drowned"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ColorRect:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_30icy"]
+resource_name = "fadeout"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_448qu"]
+_data = {
+&"RESET": SubResource("Animation_25usk"),
+&"death": SubResource("Animation_448qu"),
+&"fadeout": SubResource("Animation_30icy")
+}
+
+[node name="PlayerHUD" type="SubViewportContainer"]
+process_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+stretch = true
+script = ExtResource("1_kipy2")
+main_menu = ExtResource("2_448qu")
+drowned_end = ExtResource("2_25usk")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_tm2o8")
+layout_mode = 2
+mouse_filter = 2
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="HUD" type="Control" parent="SubViewport"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="FinalChoiceBox" type="VBoxContainer" parent="SubViewport/HUD" node_paths=PackedStringArray("true_end_button")]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -133.5
+offset_top = -20.5
+offset_right = 133.5
+offset_bottom = 20.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+script = ExtResource("3_tm2o8")
+true_end_button = NodePath("TrueEndButton")
+escape_end = ExtResource("4_xjqtn")
+give_up_end = ExtResource("5_v26nb")
+true_end = ExtResource("6_unnte")
+
+[node name="ButtonContainer" type="HBoxContainer" parent="SubViewport/HUD/FinalChoiceBox"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="EscapeButton" type="Button" parent="SubViewport/HUD/FinalChoiceBox/ButtonContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_ysgdi")
+theme_override_font_sizes/font_size = 32
+text = "Escape?"
+
+[node name="GiveUpButton" type="Button" parent="SubViewport/HUD/FinalChoiceBox/ButtonContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_ysgdi")
+theme_override_font_sizes/font_size = 32
+text = "Give up?"
+
+[node name="TrueEndButton" type="Button" parent="SubViewport/HUD/FinalChoiceBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.8745098, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.9490196, 0.9490196, 0, 1)
+theme_override_fonts/font = ExtResource("4_ysgdi")
+theme_override_font_sizes/font_size = 32
+text = "Death"
+
+[node name="Tutorial" type="Control" parent="SubViewport/HUD"]
+process_mode = 1
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+script = SubResource("GDScript_xjqtn")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SubViewport/HUD/Tutorial"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -161.0
+offset_top = -40.0
+offset_right = 161.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="SubViewport/HUD/Tutorial/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_font_sizes/font_size = 24
+text = "E to interact with items"
+
+[node name="Spacer" type="Control" parent="SubViewport/HUD/Tutorial/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="Timer" type="Timer" parent="SubViewport/HUD/Tutorial"]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[node name="MessagePopUp" type="Control" parent="SubViewport/HUD"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("8_hmvmh")
+
+[node name="MarginContainer" type="MarginContainer" parent="SubViewport/HUD/MessagePopUp"]
+custom_minimum_size = Vector2(750, 1000)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="SubViewport/HUD/MessagePopUp/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("9_kipy2")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="SubViewport/HUD/MessagePopUp/MarginContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 100
+
+[node name="Message" type="Label" parent="SubViewport/HUD/MessagePopUp/MarginContainer/TextureRect/MarginContainer"]
+custom_minimum_size = Vector2(550, 950)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("10_30icy")
+theme_override_font_sizes/font_size = 50
+autowrap_mode = 3
+
+[node name="MarginContainer2" type="MarginContainer" parent="SubViewport/HUD/MessagePopUp"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -59.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 8
+mouse_filter = 2
+theme_override_constants/margin_right = 100
+
+[node name="Tutorial" type="Label" parent="SubViewport/HUD/MessagePopUp/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 32
+text = "E to close
+messages"
+horizontal_alignment = 2
+script = SubResource("GDScript_25usk")
+
+[node name="MessagesCollected" type="HBoxContainer" parent="SubViewport/HUD"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 45.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="Label" type="Label" parent="SubViewport/HUD/MessagesCollected"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("12_30icy")
+theme_override_font_sizes/font_size = 56
+text = "X/8"
+horizontal_alignment = 2
+script = SubResource("GDScript_448qu")
+
+[node name="Spacer" type="Control" parent="SubViewport/HUD/MessagesCollected"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="PauseMenu" parent="SubViewport/HUD" instance=ExtResource("1_vq1rh")]
+visible = false
+layout_mode = 1
+offset_left = -142.0
+offset_top = -48.0
+offset_right = 142.0
+offset_bottom = 48.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_25usk")
+
+[node name="ColorRect" type="ColorRect" parent="SubViewport/HUD"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SubViewport/HUD"]
+libraries = {
+&"": SubResource("AnimationLibrary_448qu")
+}
+
+[connection signal="button_up" from="SubViewport/HUD/FinalChoiceBox/ButtonContainer/EscapeButton" to="SubViewport/HUD/FinalChoiceBox" method="_on_escape_button_button_up"]
+[connection signal="button_up" from="SubViewport/HUD/FinalChoiceBox/ButtonContainer/GiveUpButton" to="SubViewport/HUD/FinalChoiceBox" method="_on_give_up_button_button_up"]
+[connection signal="button_up" from="SubViewport/HUD/FinalChoiceBox/TrueEndButton" to="SubViewport/HUD/FinalChoiceBox" method="_on_true_end_button_button_up"]
+[connection signal="quit_game" from="SubViewport/HUD/PauseMenu" to="." method="_on_pause_menu_quit_game"]

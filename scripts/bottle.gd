@@ -1,9 +1,10 @@
 extends ItemClass
 
+@onready var bottle_clink: AudioStreamPlayer3D = $BottleClink
 @onready var paper_unroll: AudioStreamPlayer3D = $PaperUnroll
-
-func _ready() -> void:
-	GSignal.message_opened.connect(play_paper_audio)
 	
-func play_paper_audio(_arg):
-	paper_unroll.play(0.6)
+func play_paper_audio():
+	paper_unroll.play(0.64)
+
+func play_bottle_clink():
+	bottle_clink.play(0.76)

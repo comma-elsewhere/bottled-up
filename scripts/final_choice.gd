@@ -1,16 +1,35 @@
-extends Control
+extends VBoxContainer
 
-@onready var true_button: Button = $VBoxContainer/ButtonContainer/TrueButton
+signal player_choice
+
+@export var true_end_button: Button
+@export_group("Endings")
+@export var escape_end: PackedScene
+@export var give_up_end: PackedScene
+@export var true_end: PackedScene
+
+func _ready() -> void:
+	true_end_button.hide()
+
+func enable_true_end() -> void:
+	true_end_button.show()
+
+func _on_escape_button_button_up() -> void:
+	#await _wait_for_it()
+	get_tree().change_scene_to_packed(escape_end)
 
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("interact") and GVar.messages_collected >= 7:
-		
-		visible = true
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+func _on_give_up_button_button_up() -> void:
+	#await _wait_for_it()
+	get_tree().change_scene_to_packed(give_up_end)
 
-func _on_true_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://ui/ui-scenes/vague_end.tscn")
 
-func _on_bad_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://ui/ui-scenes/bad_end.tscn")
+func _on_true_end_button_button_up() -> void:
+	#await _wait_for_it()
+	get_tree().change_scene_to_packed(true_end)
+
+
+func _wait_for_it() -> bool:
+	player_choice.emit()
+	await get_tree().create_timer(1.1).timeout
+	return true

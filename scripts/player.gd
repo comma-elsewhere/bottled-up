@@ -9,7 +9,7 @@ extends CharacterBody3D
 @onready var footsteps_4: AudioStreamPlayer3D = $Feet/Footsteps4
 @onready var feet_timer: Timer = $Feet/Timer
 @onready var item_pickup: RayCast3D = $Head/Camera3D/RayCast3D
-@onready var fade: AnimationPlayer = $Head/Camera3D/CanvasLayer/Fade/AnimationPlayer
+@onready var player_hud: SubViewportContainer = $Head/Camera3D/CanvasLayer/PlayerHUD
 @onready var animation: AnimationPlayer = $AnimationPlayer
 
 
@@ -38,18 +38,17 @@ var t_bob: float = 0.0
 func _ready() -> void:
 	#Capture mouse
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	#Fade in the game
-	fade.play("fade_in")
-	#Connect gameover trigger
-	GSignal.end_game.connect(gameover)
 		
 	#reset item you're holding (not working rn???)
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("interact") and pick_item:
+		pick_item.play_paper_audio()
 		pick_item.self_clear(pick_item)
 		var message_id = GVar.rng_messages.pop_front()
-		GSignal.message_opened.emit(message_id)
+		player_hud.toggle_text(message_id)
 		GVar.messages_collected += 1
+	elif Input.is_action_just_pressed("interact"):
+		player_hud.toggle_text(0)
 		
 	#Handle toggle crouch
 	if Input.is_action_just_pressed("crouch") and !drowning:
@@ -122,6 +121,7 @@ func headbob(time) -> Vector3:
 	
 # pickup items (player side pt 2) this actually picks them up
 func pickup_item(item):
+	item.play_bottle_clink()
 	item.reparent(%Hand)
 	item.global_transform.origin = %Hand.global_transform.origin
 	
@@ -137,12 +137,11 @@ func crouch():
 		animation.play("crouch")
 
 # fades out screen when called
-func gameover(drowned):
-	if drowned:
-		drowning = true
-		collision.disabled = true
-		speed = WALK / 3
-		fade.play("drown")
+func gameover():
+	drowning = true
+	collision.set_deferred("disabled", true)
+	speed = WALK / 3
+	player_hud.drown_ending()
 
 #plays footsteps
 func _on_timer_timeout() -> void:
@@ -154,5 +153,3 @@ func _on_timer_timeout() -> void:
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "crouch":
 		is_crouching = !is_crouching
-	if anim_name == "drown":
-		get_tree().change_scene_to_file("res://ui/ui-scenes/drown_end.tscn")
