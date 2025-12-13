@@ -1,6 +1,7 @@
 extends SubViewportContainer
 
-@export var main_menu: PackedScene
+const MAIN := "res://scenes/levels/main_menu.tscn"
+
 @export var drowned_end: PackedScene
 @export var drown_sound: AudioStreamPlayer3D
 
@@ -44,4 +45,4 @@ func _on_player_choice() -> void:
 
 func _on_pause_menu_quit_game() -> void:
 	GFunc.reset_vars()
-	get_tree().change_scene_to_packed(main_menu)
+	get_tree().change_scene_to_file(MAIN)

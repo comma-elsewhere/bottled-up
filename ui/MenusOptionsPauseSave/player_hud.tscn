@@ -1,10 +1,9 @@
-[gd_scene load_steps=25 format=3 uid="uid://we6hxlxksh06"]
+[gd_scene load_steps=24 format=3 uid="uid://we6hxlxksh06"]
 
 [ext_resource type="Script" uid="uid://cvfe5b1s7wylx" path="res://ui/MenusOptionsPauseSave/player_hud.gd" id="1_kipy2"]
 [ext_resource type="PackedScene" uid="uid://dolgr51ei36y2" path="res://ui/MenusOptionsPauseSave/pause_menu.tscn" id="1_vq1rh"]
 [ext_resource type="Shader" uid="uid://btqc0ymb3v8je" path="res://resources/shaders/computer.gdshader" id="1_x8rgx"]
 [ext_resource type="PackedScene" uid="uid://fkx6b0acvw7s" path="res://ui/ui-scenes/drown_end.tscn" id="2_25usk"]
-[ext_resource type="PackedScene" uid="uid://b8dcqquuf7srh" path="res://scenes/levels/main_menu.tscn" id="2_448qu"]
 [ext_resource type="Script" uid="uid://d2kmk7ioeo0tn" path="res://scripts/final_choice.gd" id="3_tm2o8"]
 [ext_resource type="PackedScene" uid="uid://bapafvpic281r" path="res://ui/ui-scenes/escape.tscn" id="4_xjqtn"]
 [ext_resource type="FontFile" uid="uid://7oc3lr16ssuw" path="res://ui/ui-assets/font-finalchoice.ttf" id="4_ysgdi"]
@@ -223,7 +222,6 @@ grow_vertical = 2
 mouse_filter = 2
 stretch = true
 script = ExtResource("1_kipy2")
-main_menu = ExtResource("2_448qu")
 drowned_end = ExtResource("2_25usk")
 
 [node name="ColorRect" type="ColorRect" parent="."]
