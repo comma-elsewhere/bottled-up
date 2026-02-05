@@ -12,13 +12,13 @@ extends Control
 @export var controls_button: Button
 
 var current_panel: VBoxContainer
-
+	
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	if GVar.game_started:
-		saved_button.disabled = false
-	else:
-		saved_button.disabled = true
+	#if GVar.game_started:
+		#saved_button.disabled = false
+	#else:
+		#saved_button.disabled = true
 	
 	saved_button.button_up.connect(_toggle_panel.bind(saved_panel))
 	options_button.button_up.connect(_toggle_panel.bind(options_panel))

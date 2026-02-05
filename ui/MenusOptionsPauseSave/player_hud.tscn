@@ -71,7 +71,7 @@ func _get_tutorial_text() -> String:
 	elif tutorial_progress[2] < 1:
 		_progress(2)
 		return TUT2
-	elif tutorial_progress[3] < 1 and GVar.messages_collected >= 1:
+	elif tutorial_progress[3] <1 and GVar.messages_collected >= 1:
 		_progress(3)
 		return TUT3
 	else:
@@ -329,7 +329,7 @@ custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
 [node name="Timer" type="Timer" parent="SubViewport/HUD/Tutorial"]
-wait_time = 10.0
+wait_time = 12.0
 one_shot = true
 autostart = true
 

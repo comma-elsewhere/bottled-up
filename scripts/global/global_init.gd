@@ -6,3 +6,5 @@ func _ready() -> void:
 		if !GVar.rng_messages.has(ri):
 			GVar.rng_messages.push_back(ri)
 	GVar.rng_messages.push_back(20)
+
+	AudioServer.set_bus_volume_linear(0,0.75)

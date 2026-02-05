@@ -35,9 +35,9 @@ const BOB_AMP: float = 0.08
 var t_bob: float = 0.0
 
 
-func _ready() -> void:
-	#Capture mouse
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+#func _ready() -> void:
+	##Capture mouse
+	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		
 	#reset item you're holding (not working rn???)
 func _input(_event: InputEvent) -> void:
@@ -55,8 +55,11 @@ func _input(_event: InputEvent) -> void:
 		crouch()
 	
 func _unhandled_input(event: InputEvent) -> void:
+	if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
+		if event is InputEventMouseButton:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	#Handle head rotation
-	if Input.MOUSE_MODE_CAPTURED and event is InputEventMouseMotion:
+	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED and event is InputEventMouseMotion:
 		head.rotate_y(-event.relative.x * GVar.sensitivity)
 		camera.rotate_x(-event.relative.y * GVar.sensitivity)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-80), deg_to_rad(80))
